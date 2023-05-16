@@ -1,6 +1,8 @@
 # Shelf Edge Clock powered by ESP32
 
-> The Shelf Edge Clock is heavily inspired by a post on social media showing the awesome project of [DIY-Machines](https://github.com/DIY-Machines/DigitalClockSmartShelving). After some consideration i decided to build the clock with the given 3D parts but adopt the software to an ESP32. sss
+[![C/C++ CI](https://github.com/CaptSnus/Shelf-Edge-Clock/actions/workflows/c-cpp.yml/badge.svg?branch=main)](https://github.com/CaptSnus/Shelf-Edge-Clock/actions/workflows/c-cpp.yml)
+
+> The Shelf Edge Clock is heavily inspired by a post on social media showing the awesome project of [DIY-Machines](https://github.com/DIY-Machines/DigitalClockSmartShelving). After some consideration i decided to build the clock with the given 3D parts but adopt the software to an ESP32.
 
 ## Table of Contents
 
@@ -28,8 +30,6 @@
 * [License](#license)
 
 ## General Information
-
-[![C/C++ CI](https://github.com/CaptSnus/Shelf-Edge-Clock/actions/workflows/c-cpp.yml/badge.svg?branch=main)](https://github.com/CaptSnus/Shelf-Edge-Clock/actions/workflows/c-cpp.yml)
 
 The Shelf Edge Clock is powered by an ESP32 devkit and more than 250 neopixels. The clock itself is mostly 3D printed, some wood for a proper frame and minimal additional parts.
 
