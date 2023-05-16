@@ -2,7 +2,7 @@
 //  S H E L F   E D G E   C L O C K
 //
 //  Author:   CaptSnus
-//  Date:     May 15, 2023
+//  Date:     May 16, 2023
 //  License:  tbd
 //  ----------------------------------------------------------------------------------------------------
 //
@@ -39,7 +39,7 @@
 //  ----------------------------------------------------------------------------------------------------
 
 //  general
-char                version[]           = "0.2.1";                        // software version
+char                version[]           = "1.0.0";                        // software version
 int                 displayMode         = 0;                              // 0 = clock, 1 = date, 2 = temperature, 3 = humidity, 4 = scoreboard, 5 = countdown
 TaskHandle_t        taskCore0;                                            // task executed in the taskCore0code() function
 Preferences         pref;                                                 // shortcut for Preferences
@@ -50,30 +50,31 @@ struct tm           ntpTime;                                              // str
 time_t              now;                                                  // this is the epoch
 //  |- internal
 uint32_t            currMillisCore0     = millis();                       // current time in core 0
+uint32_t            currMillisCore1     = millis();                       // current time in core 1
 uint32_t            prevTimeSecCore0    = 0;                              // reference for previous time in core 0 (1 second)
+uint32_t            prevTimeSecCore1    = 0;                              // reference for previous time in core 1 (1 second)
 int                 prevTimeMinCore0    = 0;                              // reference for previous time in core 0 (1 minute)
 int                 prevTimeHourCore0   = 0;                              // reference for previous time in core 0 (1 hour)
 int                 prevTimeDayCore0    = 0;                              // reference for previous time in core 0 (1 day)
-uint32_t            currMillisCore1     = millis();                       // current time in core 1
-uint32_t            prevTimeSecCore1    = 0;                              // reference for previous time in core 1 (1 second)
 bool                randMinPassed       = true;
 bool                randHourPassed      = true;
 bool                randDayPassed       = true;
 
 //  wiFi
-String              apSSID              = "Shelf Edge Clock";             // ssid
-String              apPass              = "shelfEdgeClock";               // password
-bool                apHide              = false;                          // hidden: false = no, true = yes
+String              apSSID              = "Shelf Edge Clock";             // access point - ssid
+String              apPass              = "shelfEdgeClock";               // access point - password
+bool                apHide              = false;                          // access point - hidden: false = no, true = yes
 IPAddress           apLocalIP;                                            // access point - ip address
 int                 apIP1, apIP2, apIP3, apIP4;
 IPAddress           apGateway;                                            // access point - gateway address
 int                 apGW1, apGW2, apGW3, apGW4;
 IPAddress           apSubnet;                                             // access point - subnet mask
 int                 apSN1, apSN2, apSN3, apSN4;
+
 bool                wifiConfig          = false;                          // is the wifi client configured?
-String              wifiSSID            = "ENTER_SSID";                   // ssid
-String              wifiPass            = "ENTER_PASSWORD";               // password
-bool                wifiDHCP            = false;                          // false = DHCP, true = manual
+String              wifiSSID            = "ENTER_SSID";                   // wifi client - ssid
+String              wifiPass            = "ENTER_PASSWORD";               // wifi client - password
+bool                wifiDHCP            = false;                          // wifi client - dhcp: false = DHCP, true = manual
 IPAddress           wifiLocalIP;                                          // wifi client - ip address
 int                 wifiIP1, wifiIP2, wifiIP3, wifiIP4;
 IPAddress           wifiGateway;                                          // wifi client - gateway address
@@ -84,7 +85,7 @@ WiFiClient          wifi;                                                 // sho
 String              host                = "Shelf Edge Clock";             // define the hostname (mDNS)
 
 //  server
-AsyncWebServer      server(80);                                           // shortcut for AsyncWebServer and bind it to port 80
+AsyncWebServer      server(80);                                           // shortcut for AsyncWebServer and binding to port 80
 
 //  led
 #define             CLOCK_PIN           36
