@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="de">
+	<head>
+    <!-- META -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- TITLE -->
+		<title>Shelf Edge Clock - WiFi</title>
+    <!-- HEADER STUFF -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png">
+    <link rel="manifest" href="./img/site.webmanifest">
+    <link rel="mask-icon" href="./img/safari-pinned-tab.svg" color="#212529">
+    <link rel="shortcut icon" href="./img/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Shelf Clock">
+    <meta name="application-name" content="Shelf Clock">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="msapplication-config" content="/img/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <!-- CSS -->
+		<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <!-- JAVASCRIPT -->
+    <script src="./js/bootstrap.bundle.min.js"></script>
+		<script src="./js/jquery-3.6.3.min.js"></script>
+    <script type="text/javascript" src="./js/wifi.js"></script>
+    <script type="text/javascript">
+      window.addEventListener( 'load', startup, false );
+      window.addEventListener( 'load', init, true );
+    </script>	
+	</head>
+	
+  <body>
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand mb-0 h1" href="index.html">
+          <img src="img/shelfclock.png" alt="Shelf Clock" width="30" height="24">
+          Shelf Clock
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Dashboard</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Settings
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="settings.html">Clock</a></li>
+                <li><a class="dropdown-item active" href="wifi.html">WiFi</a></li>
+                <li><a class="dropdown-item" href="help.html">Help</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="update">Update</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- MAIN -->
+    <main class="container" style="padding-top: 56px; padding-bottom: 58px;">
+      <h1 class="my-4">WiFi</h1>
+      <p class="lead">Die Einstellungen im Bereich WiFi-Client müssen zwingend ausgefüllt werden. Andernfalls funktioniert weder die Zeitabfrage über NTP, noch ist die Anbindung an ein KNX-System (openHAB) möglich.</p>
+      <div class="row">
+        <!-- ACCESS POINT -->
+        <div class="col-12 col-lg-6">
+          <h2 class="mt-1 mb-3">Access Point</h2>
+          <!-- AP CONFIGURATION -->
+          <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" role="switch" id="apConfig">
+            <label class="form-check-label" for="apConfig">Manuelle Einstellungen aktivieren</label>
+          </div>
+          <!-- SSID -->
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="apSSID" placeholder="Traffic Trailer" disabled>
+            <label for="apSSID">Netzwerkname</label>
+          </div>
+          <!-- PASSWORD -->
+          <div class="form-floating input-group mb-3 needs-validation" novalidate>
+            <input type="password" class="form-control" id="apPass" placeholder="Enter a password" disabled>
+            <label for="apPass">Passwort</label>
+            <div class="invalid-tooltip">
+              Muss folgende Bedinungen erfüllen:<br>
+              <ul class="my-1">
+                <li>mindestens 8 Zeichen</li>
+                <li>maximal 63 Zeichen</li>
+                <li>Gross- und Kleinbuchstaben</li>
+                <li>Sonderzeichen und Zahlen</li>
+              </ul>
+            </div>
+            <button class="input-group-text" type="button" id="apPassView">@</span>
+          </div>
+          <!-- HIDDEN -->
+          <div class="form-floating mb-3">
+            <select class="form-select" id="apHide" aria-label="Netzwerk sichtbar?" disabled>
+              <option value="0">Ja</option>
+              <option value="1">Nein</option>
+            </select>
+            <label for="apHide">Netzwerk sichtbar?</label>
+          </div>
+          <!-- IP ADDRESS -->
+          <div class="d-flex justify-content-between">
+            <p class="mb-0">IP-Adresse</p>
+            <a href="https://de.wikipedia.org/wiki/Private_IP-Adresse#Private_Adressbereiche" target="_blank">Wikipedia (RFC1918)</a>
+          </div> 
+          <hr class="border border-secondary mt-1 mb-2">
+          <form class="row mb-3 needs-validation" novalidate>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="apIP1" min="0" max="255" placeholder="192" disabled>
+                <label for="apIP1">1. Block</label>
+                <div class="invalid-tooltip">
+                  RFC1918
+                </div>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="apIP2" min="0" max="255" placeholder="168" disabled>
+                <label for="apIP2">2. Block</label>
+                <div class="invalid-tooltip">
+                  RFC1918
+                </div>    
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="apIP3" min="0" max="255" placeholder="100" disabled>
+                <label for="apIP3">3. Block</label>
+                <div class="invalid-tooltip">
+                  RFC1918
+                </div>    
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="apIP4" min="1" max="254" placeholder="1" disabled>
+                <label for="apIP4">4. Block</label>
+                <div class="invalid-tooltip">
+                  RFC1918
+                </div>    
+              </div>
+            </div>
+          </form>
+          <!-- GATEWAY -->
+          <p class="mb-0">Gateway</p>
+          <hr class="border border-secondary mt-1 mb-2">
+          <div class="row mb-3 needs-validation" novalidate>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="apGW1" min="0" max="255" placeholder="192" readonly disabled>
+                <label for="apGW1">1. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="apGW2" min="0" max="255" placeholder="168" readonly disabled>
+                <label for="apGW2">2. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="apGW3" min="0" max="255" placeholder="100" readonly disabled>
+                <label for="apGW3">3. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="apGW4" min="0" max="255" placeholder="1" disabled>
+                <label for="apGW4">4. Block</label>
+              </div>
+            </div>
+          </div>
+          <!-- SUBNET -->
+          <p class="mb-0">Subnetzmaske</p>
+          <hr class="border border-secondary mt-1 mb-2">
+          <div class="row mb-3 needs-validation" novalidate>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="apSN1" min="0" max="255" placeholder="255" readonly disabled>
+                <label for="apSN1">1. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="apSN2" min="0" max="255" placeholder="255" readonly disabled>
+                <label for="apSN2">2. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="apSN3" min="0" max="255" placeholder="255" readonly disabled>
+                <label for="apSN3">3. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="apSN4" min="0" max="240" placeholder="0" disabled>
+                <label for="apSN4">4. Block</label>
+              </div>
+            </div>
+          </div>
+          <!-- RESTART AP -->
+          <div class="d-grid mb-3">
+            <button type="button" class="btn btn-outline-secondary" id="apButton" disabled>Neustarten...</button>
+          </div>
+        </div>
+        <!-- WIFI CLIENT -->
+        <div class="col-12 col-lg-6">
+          <h2 class="mt-1 mb-3">Wifi Client</h3>
+          <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" role="switch" id="wifiConfig">
+            <label class="form-check-label" for="wifiConfig">Mit bekanntem Netzwerk verbinden?</label>
+          </div>
+          <!-- SSID -->
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="wifiSSID" placeholder="Name des Netzwerks eingeben" disabled>
+            <label for="wifiSSID">Netzwerkname</label>
+          </div>
+          <!-- PASSWORD -->
+          <div class="form-floating input-group mb-3">
+            <input type="password" class="form-control" id="wifiPass" placeholder="Passwort des Netzwerks eingeben" disabled>
+            <label for="apPass">Passwort</label>
+            <button class="input-group-text" type="button" id="wifiPassView">@</span>
+          </div>
+          <!-- DHCP -->
+          <div class="form-floating mb-3">
+            <select class="form-select" id="wifiDHCP" aria-label="IP-Vergabe" disabled>
+              <option value="0">automatisch (DHCP)</option>
+              <option value="1">manuell</option>
+            </select>
+            <label for="wifiDHCP">IP-Vergabe</label>
+          </div>
+          <!-- IP ADDRESS -->
+          <p class="mb-0">IP-Adresse</p>
+          <hr class="border border-secondary mt-1 mb-2">
+          <form class="row mb-3 needs-validation" novalidate>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="wifiIP1" placeholder="192" disabled>
+                <label for="wifiIP1">1. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="wifiIP2" placeholder="168" disabled>
+                <label for="wifiIP2">2. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="wifiIP3" placeholder="1" disabled>
+                <label for="wifiIP3">3. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="wifiIP4" placeholder="121" disabled>
+                <label for="wifiIP4">4. Block</label>
+              </div>
+            </div>
+          </form>
+          <!-- GATEWAY -->
+          <p class="mb-0">Gateway</p>
+          <hr class="border border-secondary mt-1 mb-2">
+          <div class="row mb-3">
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="wifiGW1" placeholder="192" readonly disabled>
+                <label for="wifiGW1">1. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="wifiGW2" placeholder="168" readonly disabled>
+                <label for="wifiGW2">2. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="wifiGW3" placeholder="1" readonly disabled>
+                <label for="wifiGW3">3. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="wifiGW4" placeholder="1" disabled>
+                <label for="wifiGW4">4. Block</label>
+              </div>
+            </div>
+          </div>
+          <!-- SUBNET -->
+          <p class="mb-0">Subnetzmaske</p>
+          <hr class="border border-secondary mt-1 mb-2">
+          <div class="row mb-3">
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="wifiSN1" placeholder="255" readonly disabled>
+                <label for="wifiSN1">1. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="wifiSN2" placeholder="255" readonly disabled>
+                <label for="wifiSN2">2. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="wifiSN3" placeholder="255" readonly disabled>
+                <label for="wifiSN3">3. Block</label>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-floating">
+                <input type="number" class="form-control" id="wifiSN4" placeholder="0" disabled>
+                <label for="wifiSN4">4. Block</label>
+              </div>
+            </div>
+          </div>
+          <!-- RESTART WIFI -->
+          <div class="d-grid mb-3">
+            <button type="button" class="btn btn-outline-secondary" id="wifiButton" disabled>Neustarten...</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- FOOTER -->
+    <footer class="footer fixed-bottom mt-auto py-3 bg-dark">
+      <div class="container d-flex justify-content-between">
+        <div class="text-muted flex-grow-1">Created with the lovely support of my family!</div>
+        <a class="text-muted" href="https://github.com/CaptSnus/Shelf-Edge-Clock" target="_blank">
+          <img src="img/github.png" style="height: 24px;">          
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>

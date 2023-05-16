@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<!-- META -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta name="author" content="CaptSnus" />
+		<meta
+			name="description"
+			content="Tune all the aspects of the shelf edge clock."
+			data-i18n="settings.meta.description"
+			data-i18n-attr="content"
+		/>
+		<!-- TITLE -->
+		<title data-i18n="settings.meta.title">Einstellungen - Shelf Edge Clock</title>
+		<!-- HEADER STUFF -->
+		<link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png" />
+		<link rel="manifest" href="./img/site.webmanifest" />
+		<link rel="mask-icon" href="./img/safari-pinned-tab.svg" color="#212529" />
+		<link rel="shortcut icon" href="./img/favicon.ico" />
+		<meta name="apple-mobile-web-app-title" content="Shelf Clock" />
+		<meta name="application-name" content="Shelf Clock" />
+		<meta name="msapplication-TileColor" content="#00aba9" />
+		<meta name="msapplication-config" content="/img/browserconfig.xml" />
+		<meta name="theme-color" content="#ffffff" />
+		<!-- JAVASCRIPT -->
+		<script src="./js/bootstrap.bundle.min.js"></script>
+		<script src="./js/jquery-3.6.3.min.js"></script>
+		<script type="text/javascript" src="./js/settings.js"></script>
+		<script type="text/javascript">
+			window.addEventListener("load", init, true);
+			window.addEventListener("load", startup, false);
+		</script>
+		<!-- CSS -->
+		<link href="./css/bootstrap.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<!-- NAVIGATION -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<div class="container">
+				<a class="navbar-brand" href="index.html">
+					<img
+						src="img/shelfclock.png"
+						alt="Shelf Clock"
+						width="30"
+						height="24"
+						class="d-inline-block align-text-top"
+					/>
+					<span data-i18n="navigation.title">Shelf Edge Clock</span>
+				</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a data-i18n="navigation.links.1.0" class="nav-link" href="index.html">Startseite</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a
+								data-i18n="navigation.links.2.0"
+								class="nav-link dropdown-toggle active"
+								href="#"
+								role="button"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								Einstellungen
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a data-i18n="navigation.links.2.1" class="dropdown-item active" href="settings.html">Uhr</a>
+								</li>
+								<li>
+									<a data-i18n="navigation.links.2.2" class="dropdown-item" href="wifi.html">WiFi</a>
+								</li>
+								<li>
+									<a data-i18n="navigation.links.2.3" class="dropdown-item" href="help.html">Hilfe</a>
+								</li>
+								<li><hr class="dropdown-divider" /></li>
+								<li>
+									<a data-i18n="navigation.links.2.4" class="dropdown-item" href="update">Aktualisieren</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- MAIN -->
+		<main class="container" style="padding-top: 56px; padding-bottom: 58px">
+			<h1 data-i18n="settings.title" class="my-4">Einstellungen</h1>
+			<div class="accordion accordion-flush my-4" id="settings">
+				<!-- GLOBAL -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="settingsGlobal">
+						<button
+							data-i18n="settings.ai1.title"
+							class="accordion-button"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseGlobal"
+							aria-expanded="true"
+							aria-controls="collapseGlobal"
+						>
+							Globale Einstellungen
+						</button>
+					</h2>
+					<div
+						id="collapseGlobal"
+						class="accordion-collapse collapse show"
+						aria-labelledby="settingsGlobal"
+						data-bs-parent="#settings"
+					>
+						<div class="accordion-body">
+							<div class="form-floating mb-3">
+								<select class="form-select" name="gloBrightness" id="gloBrightness" aria-label="Front - Helligkeit">
+									<option data-i18n="settings.ai1.$0.0" value="0">Automatik</option>
+									<option data-i18n="settings.ai1.$0.1" value="25">10%</option>
+									<option data-i18n="settings.ai1.$0.2" value="50">20%</option>
+									<option data-i18n="settings.ai1.$0.3" value="75">30%</option>
+									<option data-i18n="settings.ai1.$0.4" value="100">40%</option>
+									<option data-i18n="settings.ai1.$0.5" value="125">50%</option>
+									<option data-i18n="settings.ai1.$0.6" value="150">60%</option>
+									<option data-i18n="settings.ai1.$0.7" value="175">70%</option>
+									<option data-i18n="settings.ai1.$0.8" value="200">80%</option>
+									<option data-i18n="settings.ai1.$0.9" value="225">90%</option>
+									<option data-i18n="settings.ai1.$0.10" value="250">100%</option>
+									<option data-i18n="settings.ai1.$0.11" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai1.$0.label" for="gloBrightness" class="form-label"
+									>Front - Helligkeit</label
+								>
+							</div>
+							<div class="form-floating mb-5">
+								<select class="form-select" name="gloColorFreq" id="gloColorFreq" aria-label="Front - Farbwechsel">
+									<option data-i18n="settings.ai1.$1.0" value="0">jede Sekunde</option>
+									<option data-i18n="settings.ai1.$1.1" value="1">jede Minute</option>
+									<option data-i18n="settings.ai1.$1.2" value="2">jede Stunde</option>
+									<option data-i18n="settings.ai1.$1.3" value="3">jeden Tag</option>
+									<option data-i18n="settings.ai1.$1.4" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai1.$1.label" for="gloColorFreq" class="form-label"
+									>Front - Farbwechsel</label
+								>
+							</div>
+							<div class="form-floating mb-3">
+								<select class="form-select" name="dowUsage" id="dowUsage" aria-label="Downlights - Schalter">
+									<option data-i18n="settings.ai1.$2.0" value="0">ausgeschaltet</option>
+									<option data-i18n="settings.ai1.$2.1" value="1">eingeschaltet</option>
+								</select>
+								<label data-i18n="settings.ai1.$2.label" for="dowUsage" class="form-label">Downlights - Schalter</label>
+							</div>
+							<div class="form-floating mb-3">
+								<select
+									class="form-select"
+									name="dowBrightness"
+									id="dowBrightness"
+									aria-label="Downlights - Helligkeit"
+								>
+									<option data-i18n="settings.ai1.$3.0" value="0">Automatik</option>
+									<option data-i18n="settings.ai1.$3.1" value="25">10%</option>
+									<option data-i18n="settings.ai1.$3.2" value="50">20%</option>
+									<option data-i18n="settings.ai1.$3.3" value="75">30%</option>
+									<option data-i18n="settings.ai1.$3.4" value="100">40%</option>
+									<option data-i18n="settings.ai1.$3.5" value="125">50%</option>
+									<option data-i18n="settings.ai1.$3.6" value="150">60%</option>
+									<option data-i18n="settings.ai1.$3.7" value="175">70%</option>
+									<option data-i18n="settings.ai1.$3.8" value="200">80%</option>
+									<option data-i18n="settings.ai1.$3.9" value="225">90%</option>
+									<option data-i18n="settings.ai1.$3.10" value="250">100%</option>
+									<option data-i18n="settings.ai1.$3.11" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai1.$3.label" for="dowBrightness" class="form-label"
+									>Downlights - Helligkeit</label
+								>
+							</div>
+							<div class="form-floating mb-3">
+								<select class="form-select" name="dowColorFreq" id="dowColorFreq" aria-label="Downlights - Farbwechsel">
+									<option data-i18n="settings.ai1.$4.0" value="0">jede Sekunde</option>
+									<option data-i18n="settings.ai1.$4.1" value="1">jede Minute</option>
+									<option data-i18n="settings.ai1.$4.2" value="2">jede Stunde</option>
+									<option data-i18n="settings.ai1.$4.3" value="3">jeden Tag</option>
+									<option data-i18n="settings.ai1.$4.4" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai1.$4.label" for="dowColorFreq" class="form-label"
+									>Downlights - Farbwechsel</label
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- KNX -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="settingsKNX">
+						<button
+							data-i18n="settings.ai2.title"
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseKNX"
+							aria-expanded="false"
+							aria-controls="collapseKNX"
+						>
+							Hausautomation
+						</button>
+					</h2>
+					<div
+						id="collapseKNX"
+						class="accordion-collapse collapse"
+						aria-labelledby="settingsKNX"
+						data-bs-parent="#settings"
+					>
+						<div class="accordion-body">
+							<p data-i18n="settings.ai2.description">Text</p>
+							<div class="form-floating mb-3">
+								<input
+									data-i18n="settings.ai2.$0.value"
+									data-i18n-attr="value"
+									type="text"
+									class="form-control"
+									id="knxAddr"
+									value="192.168.xxx.yyy"
+								/>
+								<label data-i18n="settings.ai2.$0.label" for="knxAddr" class="form-label">KNX - Adresse</label>
+							</div>
+							<div class="form-floating mb-5">
+								<input
+									data-i18n="settings.ai2.$1.value"
+									data-i18n-attr="value"
+									type="text"
+									class="form-control mb-2"
+									id="knxPort"
+									value="8080"
+								/>
+								<label data-i18n="settings.ai2.$1.label" for="knxPort" class="form-label">KNX - Port</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input
+									data-i18n="settings.ai2.$2.value"
+									data-i18n-attr="value"
+									type="text"
+									class="form-control"
+									id="briKNXPath"
+									value="/rest/items/{itemname}/state"
+								/>
+								<label data-i18n="settings.ai2.$2.label" for="briKNXPath" class="form-label"
+									>KNX - Item: Helligkeit</label
+								>
+							</div>
+							<div class="form-floating mb-3">
+								<input
+									data-i18n="settings.ai2.$3.value"
+									data-i18n-attr="value"
+									type="text"
+									class="form-control"
+									id="temKNXPath"
+									value="/rest/items/{itemname}/state"
+								/>
+								<label data-i18n="settings.ai2.$3.label" for="temKNXPath" class="form-label"
+									>KNX - Item: Temperatur</label
+								>
+							</div>
+							<div class="form-floating mb-3">
+								<input
+									data-i18n="settings.ai2.$4.value"
+									data-i18n-attr="value"
+									type="text"
+									class="form-control"
+									id="humKNXPath"
+									value="/rest/items/{itemname}/state"
+								/>
+								<label data-i18n="settings.ai2.$4.label" for="humKNXPath" class="form-label"
+									>KNX - Item: Luftfeuchtigkeit</label
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- CLOCK -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="settingsClock">
+						<button
+							data-i18n="settings.ai3.title"
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseClock"
+							aria-expanded="false"
+							aria-controls="collapseClock"
+						>
+							Modus - Uhrzeit
+						</button>
+					</h2>
+					<div
+						id="collapseClock"
+						class="settings.accordion-collapse collapse"
+						aria-labelledby="settingsClock"
+						data-bs-parent="#settings"
+					>
+						<div class="accordion-body">
+							<div class="form-floating mb-3">
+								<input
+									data-i18n="settings.ai3.$0.value"
+									data-i18n-attr="value"
+									type="text"
+									class="form-control"
+									id="clkAddr"
+									value="ch.pool.ntp.org"
+								/>
+								<label data-i18n="settings.ai3.$0.label" for="clkAddr" class="form-label">NTP - Adresse</label>
+							</div>
+							<div class="form-floating mb-5">
+								<input
+									data-i18n="settings.ai3.$1.value"
+									data-i18n-attr="value"
+									type="text"
+									class="form-control"
+									id="clkZone"
+									value="CET-1CEST,M3.5.0,M10.5.0/3"
+								/>
+								<label data-i18n="settings.ai3.$1.label" for="clkZone" class="form-label">NTP - Zeitzone</label>
+							</div>
+							<div class="form-floating mb-3">
+								<select class="form-select" name="clkFormat" id="clkFormat" aria-label="Brightness">
+									<option data-i18n="settings.ai3.$2.0" value="0">12 Stunden (AM/PM)</option>
+									<option data-i18n="settings.ai3.$2.1" value="1">24 Stunden</option>
+									<option data-i18n="settings.ai3.$2.2" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai3.$2.label" for="clkFormat" class="form-label">Format</label>
+							</div>
+							<div class="form-floating mb-3">
+								<select class="form-select" name="clkColorSet" id="clkColorSet" aria-label="Brightness">
+									<option data-i18n="settings.ai3.$3.0" value="0">benutzerdefinierte Farben</option>
+									<option data-i18n="settings.ai3.$3.1" value="1">zufällige Farben</option>
+									<option data-i18n="settings.ai3.$3.2" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai3.$3.label" for="clkColorSet" class="form-label">Farbmodus</label>
+							</div>
+
+							<div class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="clkHColor" placeholder="Username" />
+											<label data-i18n="settings.ai3.$4.0" for="clkHColor">Farbe - Stunden</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="clkMColor" placeholder="Username" />
+											<label data-i18n="settings.ai3.$4.1" for="clkMColor">Farbe - Minuten</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- DATE -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="settingsDate">
+						<button
+							data-i18n="settings.ai4.title"
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseDate"
+							aria-expanded="false"
+							aria-controls="collapseDate"
+						>
+							Modus - Datum
+						</button>
+					</h2>
+					<div
+						id="collapseDate"
+						class="accordion-collapse collapse"
+						aria-labelledby="settingsDate"
+						data-bs-parent="#settings"
+					>
+						<div class="accordion-body">
+							<div class="form-floating mb-3">
+								<select class="form-select" name="datFormat" id="datFormat" aria-label="Brightness">
+									<option data-i18n="settings.ai4.$0.0" value="0">0329 -> 29. März</option>
+									<option data-i18n="settings.ai4.$0.1" value="1">2903 -> 29. März</option>
+									<option data-i18n="settings.ai4.$0.2" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai4.$0.label" for="datFormat" class="form-label">Format</label>
+							</div>
+							<div class="form-floating mb-3">
+								<select class="form-select" name="datColorSet" id="datColorSet" aria-label="Brightness">
+									<option data-i18n="settings.ai4.$1.0" value="0">benutzerdefinierte Farben</option>
+									<option data-i18n="settings.ai4.$1.1" value="1">zufällige Farben</option>
+									<option data-i18n="settings.ai4.$1.2" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai4.$1.label" for="datColorSet" class="form-label">Farbmodus</label>
+							</div>
+
+							<div class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="datDColor" placeholder="Username" />
+											<label data-i18n="settings.ai4.$2.0" for="datDColor">Farbe - Tag</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="datMColor" placeholder="Username" />
+											<label data-i18n="settings.ai4.$2.1" for="datMColor">Farbe - Monat</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- TEMPERATURE -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="settingsTemperature">
+						<button
+							data-i18n="settings.ai5.title"
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseTemperature"
+							aria-expanded="false"
+							aria-controls="collapseTemperature"
+						>
+							Modus - Temperatur
+						</button>
+					</h2>
+					<div
+						id="collapseTemperature"
+						class="accordion-collapse collapse"
+						aria-labelledby="settingsTemperature"
+						data-bs-parent="#settings"
+					>
+						<div class="accordion-body">
+							<div class="form-floating mb-3">
+								<select class="form-select" name="temSymbol" id="temSymbol" aria-label="Brightness">
+									<option data-i18n="settings.ai5.$0.0" value="0">Fahrenheit</option>
+									<option data-i18n="settings.ai5.$0.1" value="1">Celsius</option>
+									<option data-i18n="settings.ai5.$0.2" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai5.$0.label" for="temSymbol" class="form-label">Symbol</label>
+							</div>
+							<div class="form-floating mb-3">
+								<select class="form-select" name="temColorSet" id="temColorSet" aria-label="Brightness">
+									<option data-i18n="settings.ai5.$1.0" value="0">benutzerdefinierte Farben</option>
+									<option data-i18n="settings.ai5.$1.1" value="1">zufällige Farben</option>
+									<option data-i18n="settings.ai5.$1.2" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai5.$1.label" for="temColorSet" class="form-label">Farbmodus</label>
+							</div>
+
+							<div class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="temAColor" placeholder="Username" />
+											<label data-i18n="settings.ai5.$2.0" for="temAColor">Farbe - Grad</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="temBColor" placeholder="Username" />
+											<label data-i18n="settings.ai5.$2.1" for="temBColor">Farbe - Kommastelle</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="temCColor" placeholder="Username" />
+											<label data-i18n="settings.ai5.$2.2" for="temCColor">Farbe - Symbol</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- HUMIDITY -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="settingsHumidity">
+						<button
+							data-i18n="settings.ai6.title"
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseHumidity"
+							aria-expanded="false"
+							aria-controls="collapseHumidity"
+						>
+							Modus - Luftfeuchtigkeit
+						</button>
+					</h2>
+					<div
+						id="collapseHumidity"
+						class="accordion-collapse collapse"
+						aria-labelledby="settingsHumidity"
+						data-bs-parent="#settings"
+					>
+						<div class="accordion-body">
+							<div class="form-floating mb-3">
+								<select class="form-select" name="humColorSet" id="humColorSet" aria-label="Brightness">
+									<option data-i18n="settings.ai5.$1.0" value="0">benutzerdefinierte Farben</option>
+									<option data-i18n="settings.ai5.$1.1" value="1">zufällige Farben</option>
+									<option data-i18n="settings.ai5.$1.2" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai5.$1.label" for="humColorSet" class="form-label">Farbmodus</label>
+							</div>
+
+							<div class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="humAColor" placeholder="Username" />
+											<label data-i18n="settings.ai6.$1.0" for="humAColor">Farbe - Prozent</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="humBColor" placeholder="Username" />
+											<label data-i18n="settings.ai6.$1.1" for="humBColor">Farbe - Kommastelle</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="humCColor" placeholder="Username" />
+											<label data-i18n="settings.ai6.$1.2" for="humCColor">Farbe - Symbol</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- SCOREBOARD -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="settingsScoreboard">
+						<button
+							data-i18n="settings.ai7.title"
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseScoreboard"
+							aria-expanded="false"
+							aria-controls="collapseScoreboard"
+						>
+							Modus - Anzeigetafel
+						</button>
+					</h2>
+					<div
+						id="collapseScoreboard"
+						class="accordion-collapse collapse"
+						aria-labelledby="settingsScoreboard"
+						data-bs-parent="#settings"
+					>
+						<div class="accordion-body">
+							<div class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="scoHColor" placeholder="Username" />
+											<label data-i18n="settings.ai7.$0.0" for="scoHColor">Farbe - linke Seite</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="scoAColor" placeholder="Username" />
+											<label data-i18n="settings.ai7.$0.1" for="scoAColor">Farbe - rechte Seite</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- COUNTDOWN -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="settingsTimer">
+						<button
+							data-i18n="settings.ai8.title"
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseTimer"
+							aria-expanded="false"
+							aria-controls="collapseTimer"
+						>
+							Modus - Countdown
+						</button>
+					</h2>
+					<div
+						id="collapseTimer"
+						class="accordion-collapse collapse"
+						aria-labelledby="settingsTimer"
+						data-bs-parent="#settings"
+					>
+						<div class="accordion-body">
+							<div class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="couHColor" placeholder="Username" />
+											<label data-i18n="settings.ai8.$0.0" for="couHColor">Farbe - Stunden</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="couMColor" placeholder="Username" />
+											<label data-i18n="settings.ai8.$0.1" for="couMColor">Farbe - Minuten</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="couSColor" placeholder="Username" />
+											<label data-i18n="settings.ai8.$0.2" for="couSColor">Farbe - Sekunden</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="couAColor" placeholder="Username" />
+											<label data-i18n="settings.ai8.$0.3" for="couAColor">Farbe - Alarm</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- DOWNLIGHTS -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="settingsDownlight">
+						<button
+							data-i18n="settings.ai9.title"
+							class="accordion-button collapsed"
+							type="button"
+							data-bs-toggle="collapse"
+							data-bs-target="#collapseDownlight"
+							aria-expanded="false"
+							aria-controls="collapseDownlight"
+						>
+							Downlights
+						</button>
+					</h2>
+					<div
+						id="collapseDownlight"
+						class="accordion-collapse collapse"
+						aria-labelledby="settingsDownlight"
+						data-bs-parent="#settings"
+					>
+						<div class="accordion-body">
+							<div class="form-floating mb-3">
+								<select class="form-select" name="humColorSet" id="dowColorSet" aria-label="Brightness">
+									<option data-i18n="settings.ai9.$0.0" value="0">1 benutzerdefinierte Farbe</option>
+									<option data-i18n="settings.ai9.$0.1" value="1">14 benutzerdefinierte Farben</option>
+									<option data-i18n="settings.ai9.$0.2" value="2">1 zufällige Farbe</option>
+									<option data-i18n="settings.ai9.$0.3" value="3">14 zufällige Farben</option>
+									<option data-i18n="settings.ai9.$0.4" selected>Wähle eine Option...</option>
+								</select>
+								<label data-i18n="settings.ai9.$0.label" for="dowColorSet" class="form-label">Farbmodus</label>
+							</div>
+
+							<div id="option_0" class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor" placeholder="Username" />
+											<label data-i18n="settings.ai9.$1.0" for="dowColor">Farbe - Downlights</label>
+										</div>
+										<span class="input-group-text"></span>
+									</div>
+								</div>
+							</div>
+
+							<div id="option_1upper" class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor6" placeholder="dowColor6" />
+											<label data-i18n="settings.ai9.$2.0" for="dowColor6">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor5" placeholder="dowColor5" />
+											<label data-i18n="settings.ai9.$2.1" for="dowColor5">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor4" placeholder="dowColor4" />
+											<label data-i18n="settings.ai9.$2.2" for="dowColor4">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor3" placeholder="dowColor3" />
+											<label data-i18n="settings.ai9.$2.3" for="dowColor3">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor2" placeholder="dowColor2" />
+											<label data-i18n="settings.ai9.$2.4" for="dowColor2">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor1" placeholder="dowColor1" />
+											<label data-i18n="settings.ai9.$2.5" for="dowColor1">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor0" placeholder="dowColor0" />
+											<label data-i18n="settings.ai9.$2.6" for="dowColor0">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+							</div>
+							<div id="option_1lower" class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor7" placeholder="dowColor7" />
+											<label data-i18n="settings.ai9.$2.7" for="dowColor7">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor8" placeholder="dowColor8" />
+											<label data-i18n="settings.ai9.$2.8" for="dowColor8">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor9" placeholder="dowColor9" />
+											<label data-i18n="settings.ai9.$2.9" for="dowColor9">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor10" placeholder="dowColor10" />
+											<label data-i18n="settings.ai9.$2.10" for="dowColor10">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor11" placeholder="dowColor11" />
+											<label data-i18n="settings.ai9.$2.11" for="dowColor111">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor12" placeholder="dowColor12" />
+											<label data-i18n="settings.ai9.$2.12" for="dowColor12">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="input-group">
+										<div class="form-floating">
+											<input type="text" class="form-control" id="dowColor13" placeholder="dowColor13" />
+											<label data-i18n="settings.ai9.$2.13" for="dowColor13">Farbe</label>
+										</div>
+										<span class="input-group-text">@</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- FOOTER -->
+		<footer class="footer fixed-bottom mt-auto py-3 bg-dark">
+			<div class="container d-flex justify-content-between">
+				<div class="text-muted flex-grow-1">Created with the lovely support of my family!</div>
+				<a class="text-muted" href="https://github.com/CaptSnus/Shelf-Edge-Clock" target="_blank">
+					<img src="img/github.png" style="height: 24px" />
+				</a>
+			</div>
+		</footer>
+	</body>
+</html>

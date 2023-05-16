@@ -1,0 +1,244 @@
+{
+  "navigation": {
+    "title":            "Shelf Edge Clock",
+    "links": {
+      "1": {
+        "0":            "Startseite"
+      },
+      "2": {
+        "0":            "Einstellungen",
+        "1":            "Basics",
+        "2":            "WiFi",
+        "3":            "Hilfe",
+        "4":            "Update"
+      }
+    }
+  },
+
+
+  "index": {
+    "meta": {
+      "description":    "Find the best recipes from all around the world.",
+      "title":          "Shelf Edge Clock"
+    }
+
+
+
+
+
+  },
+
+  "settings": {
+    "meta": {
+      "description":    "Find the best recipes from all around the world.",
+      "title":          "Einstellungen - Shelf Edge Clock"
+    },
+    "title":            "Einstellungen",
+    "ai1": {
+      "title":          "Globale Einstellungen",
+      "$0": {
+        "0":            "Automatik",
+        "1":            "10%",
+        "2":            "20%",
+        "3":            "30%",
+        "4":            "40%",
+        "5":            "50%",
+        "6":            "60%",
+        "7":            "70%",
+        "8":            "80%",
+        "9":            "90%",
+        "10":           "100%",
+        "11":           "Wähle ein Option",
+        "label":        "Beleuchtung Front - Helligkeit"
+      },
+      "$1": {
+        "0":            "jede Sekunde",
+        "1":            "jede Minute",
+        "2":            "jede Stunde",
+        "3":            "jeden Tag",
+        "4":            "Wähle ein Option",
+        "label":        "Beleuchtung Front - Häufigkeit der Farbwechsel"
+      },
+      "$2": {
+        "0":            "ausschalten",
+        "1":            "einschalten",
+        "label":        "Beleuchtung Fächer - Beleuchtung"
+      },
+      "$3": {
+        "0":            "Automatik",
+        "1":            "10%",
+        "2":            "20%",
+        "3":            "30%",
+        "4":            "40%",
+        "5":            "50%",
+        "6":            "60%",
+        "7":            "70%",
+        "8":            "80%",
+        "9":            "90%",
+        "10":           "100%",
+        "11":           "Wähle ein Option",
+        "label":        "Beleuchtung Fächer - Helligkeit"
+      },
+      "$4": {
+        "0":            "jede Sekunde",
+        "1":            "jede Minute",
+        "2":            "jede Stunde",
+        "3":            "jeden Tag",
+        "4":            "Wähle ein Option",
+        "label":        "Beleuchtung Fächer - Häufigkeit der Farbwechsel"
+      }
+    },
+    "ai2": {
+      "title":          "Heimautomation",
+      "description":    "Lorem ipsum dolor sit amet...",
+      "$0": {
+        "value":        "192.168.yyy.zzz",
+        "label":        "KNX - IP-Adresse"
+      },
+      "$1": {
+        "value":        "8080",
+        "label":        "KNX - Port"
+      },
+      "$2": {
+        "value":        "/rest/items/{itemname}/state",
+        "label":        "KNX - Item: Helligkeit"
+      },
+      "$3": {
+        "value":        "/rest/items/{itemname}/state",
+        "label":        "KNX - Item: Temperatur"
+      },
+      "$4": {
+        "value":        "/rest/items/{itemname}/state",
+        "label":        "KNX - Item: Luftfeuchtigkeit"
+      }
+    },
+    "ai3": {
+      "title":          "Modus - Uhr",
+      "$0": {
+        "value":        "ch.pool.ntp.org",
+        "label":        "NTP - Server"
+      },
+      "$1": {
+        "value":        "CET-1CEST,M3.5.0,M10.5.0/3",
+        "label":        "NTP - Zeitzone"
+      },
+      "$2": {
+        "0":            "12 Stunden (AM/PM)",
+        "1":            "24 Stunden",
+        "2":            "Wähle eine Option",
+        "label":        "Format"
+      },
+      "$3": {
+        "0":            "benutzerdefinierte Farben",
+        "1":            "zufällige Farben",
+        "2":            "Wähle eine Option",
+        "label":        "Farbmodus"
+      },
+      "$4": {
+        "0":            "Farbe - Stunden",
+        "1":            "Farbe - Minuten"
+      }
+    },
+    "ai4": {
+      "title":          "Modus - Datum",
+      "$0": {
+        "0":            "2903 -> 29. März",
+        "1":            "0329 -> 29. März",
+        "2":            "Wähle eine Option",
+        "label":        "Format"
+      },
+      "$1": {
+        "0":            "benutzerdefinierte Farben",
+        "1":            "zufällige Farben",
+        "2":            "Wähle eine Option",
+        "label":        "Farbmodus"
+      },
+      "$2": {
+        "0":            "Farbe - Tag",
+        "1":            "Farbe - Monat"
+      }
+    },
+    "ai5": {
+      "title":          "Modus - Temperatur",
+      "$0": {
+        "0":            "Celsius",
+        "1":            "Fahrenheit",
+        "2":            "Wähle eine Option",
+        "label":        "Format"
+      },
+      "$1": {
+        "0":            "benutzerdefinierte Farben",
+        "1":            "zufällige Farben",
+        "2":            "Wähle eine Option",
+        "label":        "Farbmodus"
+      },
+      "$2": {
+        "0":            "Farbe - Grad",
+        "1":            "Farbe - Kommastelle",
+        "2":            "Farbe - Symbol"
+      }
+    },
+    "ai6": {
+      "title":          "Modus - Luftfeuchtigkeit",
+      "$0": {
+        "0":            "benutzerdefinierte Farben",
+        "1":            "zufällige Farben",
+        "2":            "Wähle eine Option",
+        "label":        "Farbmodus"
+      },
+      "$1": {
+        "0":            "Farbe - Prozent",
+        "1":            "Farbe - Kommastelle",
+        "2":            "Farbe - Symbol"
+      }
+    },
+    "ai7": {
+      "title":          "Modus - Spielstand",
+      "$0": {
+        "0":            "Farbe - linke Seite",
+        "1":            "Farbe - rechte Seite"
+      }
+    },
+    "ai8": {
+      "title":          "Modus - Countdown",
+      "$0": {
+        "0":            "Farbe - Stunden",
+        "1":            "Farbe - Minuten",
+        "2":            "Farbe - Sekunden",
+        "3":            "Farbe - Alarm"
+      }
+    },
+    "ai9": {
+      "title":          "Downlights",
+      "$0": {
+        "0":            "1 benutzerdefinierte Farbe",
+        "1":            "14 benutzerdefinierte Farben",
+        "2":            "1 zufällige Farbe",
+        "3":            "14 zufällige Farben",
+        "4":            "Wähle eine Option",
+        "label":        "Farbmodus"
+      },
+      "$1": {
+        "0":            "Farbe - Downlights"
+      },
+      "$2": {
+        "0":            "Farbe - Downlight 1",
+        "1":            "Farbe - Downlight 2",
+        "2":            "Farbe - Downlight 3",
+        "3":            "Farbe - Downlight 4",
+        "4":            "Farbe - Downlight 5",
+        "5":            "Farbe - Downlight 6",
+        "6":            "Farbe - Downlight 7",
+        "7":            "Farbe - Downlight 8",
+        "8":            "Farbe - Downlight 9",
+        "9":            "Farbe - Downlight 10",
+        "10":           "Farbe - Downlight 11",
+        "11":           "Farbe - Downlight 12",
+        "12":           "Farbe - Downlight 13",
+        "13":           "Farbe - Downlight 14"
+      }
+    }
+  }
+}
+
+

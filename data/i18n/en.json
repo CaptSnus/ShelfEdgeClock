@@ -1,0 +1,69 @@
+{
+
+
+
+
+
+
+
+
+  
+  "index": {
+
+  },
+
+  "settings": {
+    "meta": {
+      "description": "Find the best recipes from all around the world.",
+      "title": "Einstellungen - Shelf Edge Clock"
+    },
+    "title": "Einstellungen",
+    "nav": {
+      "link": {
+        "1":    "Dashboard",
+        "2":    "Einstellungen",
+        "2_0":  "Uhr",
+        "2_1":  "WiFi",
+        "2_2":  "Hilfe",
+        "2_3":  "Aktualisieren"
+      }
+    },
+    "accordion": {
+      "title": {
+        "0":    "Globale Einstellungen",
+        "1":		"Heimautomation",	
+        "2":    "Modus - Uhr",
+        "3":    "Modus - Datum",
+        "4":    "Modus - Temperatur",
+        "5":    "Modus - Luftfeuchtigkeit",
+        "6":    "Modus - Spielstand",
+        "7":    "Modus - Countdown",
+        "8":    "Downlights"
+      },
+      "global": {
+  
+      },
+      "clock": {
+  
+      },
+      "date": {
+  
+      },
+      "temperature": {
+  
+      },
+      "humidity": {
+  
+      },
+      "scoreboard": {
+  
+      },
+      "countdown": {
+  
+      },
+      "downlights": {
+        
+      }
+    }
+  }
+}

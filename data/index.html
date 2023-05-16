@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<!-- META -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<!-- TITLE -->
+		<title>Shelf Edge Clock</title>
+		<!-- HEADER STUFF -->
+		<link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png" />
+		<link rel="manifest" href="./img/site.webmanifest" />
+		<link rel="mask-icon" href="./img/safari-pinned-tab.svg" color="#212529" />
+		<link rel="shortcut icon" href="./img/favicon.ico" />
+		<meta name="apple-mobile-web-app-title" content="Shelf Clock" />
+		<meta name="application-name" content="Shelf Clock" />
+		<meta name="msapplication-TileColor" content="#00aba9" />
+		<meta name="msapplication-config" content="/img/browserconfig.xml" />
+		<meta name="theme-color" content="#ffffff" />
+		<!-- CSS -->
+		<link href="./css/bootstrap.min.css" rel="stylesheet" />
+		<!-- JAVASCRIPT -->
+		<script src="./js/bootstrap.bundle.min.js"></script>
+		<script src="./js/jquery-3.6.3.min.js"></script>
+		<script type="text/javascript" src="./js/index.js"></script>
+		<script type="text/javascript">
+			window.addEventListener("load", startup, false);
+		</script>
+	</head>
+
+	<body>
+		<!-- NAVIGATION -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<div class="container">
+				<a class="navbar-brand" href="index.html">
+					<img
+						src="img/shelfclock.png"
+						alt="Shelf Clock"
+						width="30"
+						height="24"
+						class="d-inline-block align-text-top"
+					/>
+					<span data-i18n="navigation.title">Shelf Edge Clock</span>
+				</a>
+				<button
+					class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+				>
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a data-i18n="navigation.links.1.0" class="nav-link active" href="index.html">Startseite</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a
+								data-i18n="navigation.links.2.0"
+								class="nav-link dropdown-toggle"
+								href="#"
+								role="button"
+								data-bs-toggle="dropdown"
+								aria-expanded="false"
+							>
+								Einstellungen
+							</a>
+							<ul class="dropdown-menu">
+								<li><a data-i18n="navigation.links.2.1" class="dropdown-item" href="settings.html">Uhr</a></li>
+								<li><a data-i18n="navigation.links.2.2" class="dropdown-item" href="wifi.html">WiFi</a></li>
+								<li><a data-i18n="navigation.links.2.3" class="dropdown-item" href="help.html">Hilfe</a></li>
+								<li><hr class="dropdown-divider" /></li>
+								<li><a data-i18n="navigation.links.2.4" class="dropdown-item" href="update">Aktualisieren</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<!-- MAIN -->
+		<main class="container" style="padding-top: 56px; padding-bottom: 58px">
+			<h1 class="my-4">Dashboard</h1>
+			<div class="row">
+				<!-- DISPLAY MODE -->
+				<div class="col-sm-6 col-lg-4 my-3">
+					<div class="card border-dark h-100">
+						<div class="card-header bg-dark text-light">Anzeige</div>
+						<div class="card-body">
+							<p class="lead">Nothing to see here...</p>
+							<div class="d-grid gap-2">
+								<input
+									class="btn btn-secondary text-start"
+									type="button"
+									onclick="goClk()"
+									value="Uhrzeit"
+									id="showClock"
+								/>
+								<input
+									class="btn btn-secondary text-start"
+									type="button"
+									onclick="goDat()"
+									value="Datum"
+									id="showDate"
+								/>
+								<input
+									class="btn btn-secondary text-start"
+									type="button"
+									onclick="goTem()"
+									value="Temperatur"
+									id="showTemperature"
+								/>
+								<input
+									class="btn btn-secondary text-start"
+									type="button"
+									onclick="goHum()"
+									value="Luftfeuchtigkeit"
+									id="showHumidity"
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- DOWNLIGHTS -->
+				<div class="col-sm-6 col-lg-4 offset-lg-4 my-3">
+					<div class="card border-dark h-100">
+						<div class="card-header bg-dark text-light">Downlights</div>
+						<div class="card-body">
+							<p class="lead">No hidden features available...</p>
+							<div class="d-grid gap-2">
+								<input
+									class="btn btn-secondary text-start"
+									type="button"
+									value="Einfarbig"
+									id="downlightMode0"
+									onclick="goDow( 1, 0 )"
+								/>
+								<input
+									class="btn btn-secondary text-start"
+									type="button"
+									value="Einzelne Farben"
+									id="downlightMode1"
+									onclick="goDow( 1, 1 )"
+								/>
+								<input
+									class="btn btn-secondary text-start"
+									type="button"
+									value="Random 1"
+									id="downlightMode2"
+									onclick="goDow( 1, 2 )"
+								/>
+								<input
+									class="btn btn-secondary text-start"
+									type="button"
+									value="Random all"
+									id="downlightMode3"
+									onclick="goDow( 1, 3 )"
+								/>
+								<input
+									class="btn btn-outline-secondary text-start"
+									type="button"
+									value="Ausschalten"
+									id="downlightOff"
+									onclick="goDow( 0, 0 )"
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- SCOREBOARD -->
+				<div class="col-sm-6 col-lg-4 my-3">
+					<div class="card border-dark h-100">
+						<div class="card-header bg-dark text-light">Scoreboard</div>
+						<div class="card-body">
+							<p class="lead">Let's play a game...</p>
+							<div class="row">
+								<div class="col-6">
+									<div class="d-grid gap-2">
+										<input class="btn btn-secondary" type="button" onclick="scoHUp()" value="+" id="scoHUp" />
+										<input class="form-control text-center" type="number" value="0" id="scoHome" />
+										<input class="btn btn-secondary" type="button" onclick="scoHDown()" value="-" id="scoHDown" />
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="d-grid gap-2">
+										<input class="btn btn-secondary" type="button" onclick="scoAUp()" value="+" id="scoAUp" />
+										<input class="form-control text-center" type="number" value="0" id="scoAway" />
+										<input class="btn btn-secondary" type="button" onclick="scoADown()" value="-" id="scoADown" />
+									</div>
+								</div>
+							</div>
+							<div class="d-grid gap-2 mt-2">
+								<input
+									class="btn btn-secondary text-start"
+									type="button"
+									onclick="scoShow()"
+									value="Anzeigen"
+									id="scoShow"
+								/>
+								<input
+									class="btn btn-outline-secondary text-start"
+									type="button"
+									onclick="scoReset()"
+									value="Zurücksetzen"
+									id="scoReset"
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- COUNTDOWN -->
+				<div class="col-sm-6 col-lg-4 my-3">
+					<div class="card border-dark h-100">
+						<div class="card-header bg-dark text-light">Countdown</div>
+						<div class="card-body">
+							<p class="lead">Let's get ready...</p>
+							<div class="row">
+								<div class="col-4">
+									<div class="d-grid gap-2">
+										<input class="btn btn-secondary" type="button" onclick="couHUp()" value="+" id="couHUp" />
+										<input class="form-control text-center" type="number" value="0" id="couH" />
+										<input class="btn btn-secondary" type="button" onclick="couHDown()" value="-" id="couHDown" />
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="d-grid gap-2">
+										<input class="btn btn-secondary" type="button" onclick="couMUp()" value="+" id="couMUp" />
+										<input class="form-control text-center" type="number" value="0" id="couM" />
+										<input class="btn btn-secondary" type="button" onclick="couMDown()" value="-" id="couMDown" />
+									</div>
+								</div>
+								<div class="col-4">
+									<div class="d-grid gap-2">
+										<input class="btn btn-secondary" type="button" onclick="couSUp()" value="+" id="couSUp" />
+										<input class="form-control text-center" type="number" value="0" id="couS" />
+										<input class="btn btn-secondary" type="button" onclick="couSDown()" value="-" id="couSDown" />
+									</div>
+								</div>
+							</div>
+							<div class="d-grid gap-2 mt-2">
+								<input
+									class="btn btn-secondary text-start"
+									type="button"
+									value="Countdown starten"
+									id="scoreboard"
+									onclick="couStart()"
+								/>
+								<input
+									class="btn btn-outline-secondary text-start"
+									type="button"
+									value="Zurücksetzen"
+									id="scoreboard"
+									onclick="couReset()"
+								/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- CREDITS -->
+				<div class="col-sm-6 col-lg-4 my-3">
+					<div class="card border-secondary h-100">
+						<div class="card-header bg-light">Credits</div>
+						<div class="card-body">
+							<p class="lead">... where I got the ideas from</p>
+							<div class="d-grid gap-2">
+								<a
+									href="https://github.com/DIY-Machines/DigitalClockSmartShelving"
+									target="_blank"
+									class="btn btn-light text-start"
+									role="button"
+									>DIY-Machines</a
+								>
+								<a
+									href="https://github.com/MacGyverr/ShelfClock"
+									target="_blank"
+									class="btn btn-light text-start"
+									role="button"
+									>MacGyverr</a
+								>
+								<a href="https://randomnerdtutorials.com" target="_blank" class="btn btn-light text-start" role="button"
+									>Random Nerd Tutorials</a
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- FOOTER -->
+		<footer class="footer fixed-bottom mt-auto py-3 bg-dark">
+			<div class="container d-flex justify-content-between">
+				<div class="text-muted flex-grow-1">Created with the lovely support of my family!</div>
+				<a class="text-muted" href="https://github.com/CaptSnus/Shelf-Edge-Clock" target="_blank">
+					<img src="./img/github.png" style="height: 24px" />
+				</a>
+			</div>
+		</footer>
+	</body>
+</html>
