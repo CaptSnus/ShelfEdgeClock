@@ -39,7 +39,7 @@
 //  ----------------------------------------------------------------------------------------------------
 
 //  general
-char                version[]           = "1.0.0";                        // software version
+char                version[]           = "1.1.0";                        // software version
 int                 displayMode         = 0;                              // 0 = clock, 1 = date, 2 = temperature, 3 = humidity, 4 = scoreboard, 5 = countdown
 TaskHandle_t        taskCore0;                                            // task executed in the taskCore0code() function
 Preferences         pref;                                                 // shortcut for Preferences
@@ -56,33 +56,36 @@ uint32_t            prevTimeSecCore1    = 0;                              // ref
 int                 prevTimeMinCore0    = 0;                              // reference for previous time in core 0 (1 minute)
 int                 prevTimeHourCore0   = 0;                              // reference for previous time in core 0 (1 hour)
 int                 prevTimeDayCore0    = 0;                              // reference for previous time in core 0 (1 day)
-bool                randMinPassed       = true;
-bool                randHourPassed      = true;
-bool                randDayPassed       = true;
+bool                clockMinPassed      = true;                           // flag for the color change of the clock face (1 minute)
+bool                clockHourPassed     = true;                           // flag for the color change of the clock face (1 hour)
+bool                clockDayPassed      = true;                           // flag for the color change of the clock face (1 day)
+bool                downMinPassed       = true;                           // flag for the color change of the downlights (1 minute)
+bool                downHourPassed      = true;                           // flag for the color change of the downlights (1 hour)
+bool                downDayPassed       = true;                           // flag for the color change of the downlights (1 day)
 
 //  wiFi
 String              apSSID              = "Shelf Edge Clock";             // access point - ssid
 String              apPass              = "shelfEdgeClock";               // access point - password
 bool                apHide              = false;                          // access point - hidden: false = no, true = yes
 IPAddress           apLocalIP;                                            // access point - ip address
-int                 apIP1, apIP2, apIP3, apIP4;
+int                 apIP1, apIP2, apIP3, apIP4;                           // access point - ip address in blocks
 IPAddress           apGateway;                                            // access point - gateway address
-int                 apGW1, apGW2, apGW3, apGW4;
+int                 apGW1, apGW2, apGW3, apGW4;                           // access point - gateway address in blocks
 IPAddress           apSubnet;                                             // access point - subnet mask
-int                 apSN1, apSN2, apSN3, apSN4;
+int                 apSN1, apSN2, apSN3, apSN4;                           // access point - subnet mask in blocks
 
 bool                wifiConfig          = false;                          // is the wifi client configured?
 String              wifiSSID            = "ENTER_SSID";                   // wifi client - ssid
 String              wifiPass            = "ENTER_PASSWORD";               // wifi client - password
 bool                wifiDHCP            = false;                          // wifi client - dhcp: false = DHCP, true = manual
 IPAddress           wifiLocalIP;                                          // wifi client - ip address
-int                 wifiIP1, wifiIP2, wifiIP3, wifiIP4;
+int                 wifiIP1, wifiIP2, wifiIP3, wifiIP4;                   // wifi client - ip address in blocks
 IPAddress           wifiGateway;                                          // wifi client - gateway address
-int                 wifiGW1, wifiGW2, wifiGW3, wifiGW4;
+int                 wifiGW1, wifiGW2, wifiGW3, wifiGW4;                   // wifi client - gateway address in blocks
 IPAddress           wifiSubnet;                                           // wifi client - subnet mask
-int                 wifiSN1, wifiSN2, wifiSN3, wifiSN4;
+int                 wifiSN1, wifiSN2, wifiSN3, wifiSN4;                   // wifi client - subnet mask in blocks
 WiFiClient          wifi;                                                 // shortcut for WifiClient
-String              host                = "Shelf Edge Clock";             // define the hostname (mDNS)
+String              host                = "ShelfEdgeClock";               // define the hostname (mDNS)
 
 //  server
 AsyncWebServer      server(80);                                           // shortcut for AsyncWebServer and binding to port 80
@@ -103,12 +106,15 @@ int                 dowUsage            = 0;                              // 0 =
 int                 dowBrightness       = 0;                              // setting of the brightness -> 0 = automatic, > 0 = manual
 int                 dowColorFreq        = 0;                              // 0 = every second, 1 = every minute, 2 = every hour, 3 = every day
 int                 briClock, briDown;
+int                 briClockMin, briClockMax;
+int                 briDownMin, briDownMax;
 //  |- knx
 String              knxAddr             = "";                             // ip address of your knx server
 int                 knxPort             = 8080;                           // port number of your knx server
-String              briKNXPath          = "";                             //
-String              temKNXPath          = "";                             //
-String              humKNXPath          = "";                             //
+String              briKNXPath          = "";                             // path to the brightness item in the home automation system
+int                 briKNXmin, briKNXmax;                                 // minimum and maximum values provided by the home automation
+String              temKNXPath          = "";                             // path to the temperature item in the home automation system
+String              humKNXPath          = "";                             // path to the humidity item in the home automation system
 HttpClient          client              = HttpClient( wifi, knxAddr.c_str(), knxPort );
 //  |- downlights
 int                 dowColorSet         = 0;                              // 0 = 1 defined color, 1 = 14 defined colors , 2 = 1 random color, 3 = 14 random colors
@@ -208,7 +214,7 @@ void initMessage() {
   Serial.println( "Shelf Edge Clock for ESP32" );
   Serial.println( "Author         CaptSnus" );
   Serial.println( "Licence        tbd" );
-  Serial.println( "Info           https://github.com/CaptSnus/Shelf-Edge-Clock" );
+  Serial.println( "Info           https://github.com/CaptSnus/ShelfEdgeClock" );
   Serial.printf ( "Version        %s\n", version );
   Serial.println( "====================================================================================================" );
 }
@@ -255,14 +261,20 @@ void initFlash() {
   //  content
   //  |- global settings
   gloBrightness     = pref.getInt( "gloBrightness", gloBrightness );
+  briClockMin       = pref.getInt( "briClockMin", 2 );
+  briClockMax       = pref.getInt( "briClockMax", 125 );
   gloColorFreq      = pref.getInt( "gloColorFreq", gloColorFreq );
   dowUsage          = pref.getInt( "dowUsage", dowUsage );
   dowBrightness     = pref.getInt( "dowBrightness", dowBrightness );
+  briDownMin        = pref.getInt( "briDownMin ", 10 );
+  briDownMax        = pref.getInt( "briDownMax", 250 );
   dowColorFreq      = pref.getInt( "dowColorFreq", dowColorFreq );
   //  |- knx connection
   knxAddr           = pref.getString( "knxAddr" );
   knxPort           = pref.getInt( "knxPort" );
   briKNXPath        = pref.getString( "briKNXPath" );
+  briKNXmin         = pref.getInt( "briKNXmin", 0 );
+  briKNXmax         = pref.getInt( "briKNXmax", 150000 );
   temKNXPath        = pref.getString( "temKNXPath" );
   humKNXPath        = pref.getString( "humKNXPath" );
   //  |- downlights
@@ -425,10 +437,8 @@ void initWifi() {
 }
 
 void reconnectWifi() {
-  if ( WiFi.status() != WL_CONNECTED ) {                                  // if wifi is ON and connection DOWN
-    WiFi.disconnect();                                                    // close current connection
-    WiFi.reconnect();                                                     // reconnect with previous settings
-  }
+  WiFi.disconnect();                                                    // close current connection
+  WiFi.reconnect();                                                     // reconnect with previous settings
 }
 
 //  mdns
@@ -457,6 +467,8 @@ void initSPIFFS() {
 
 //  ntp
 void initNTP() {
+  if ( WiFi.status() != WL_CONNECTED ) { return; }                        // NO wifi -> no call
+
   Serial.println( "\nNTP" );
   Serial.println( "--------------------------------------------------" );
   Serial.println( "[*] Connecting to NTP server ..." );
@@ -471,6 +483,8 @@ void initNTP() {
 }
 
 void getNTP() {
+  if ( WiFi.status() != WL_CONNECTED ) { return; }                        // NO wifi -> no call
+
   if ( getLocalTime( &ntpTime ) ) {
     Serial.println( "[+] NTP fetch complete." );
   } else {
@@ -483,18 +497,18 @@ void initServer() {
   Serial.println( "\nWebserver" );
   Serial.println( "--------------------------------------------------" );
   Serial.println( "[*] Starting webserver ..." );
-  server.serveStatic("/", SPIFFS, "/" );                                        // set path
-  AsyncElegantOTA.begin(&server);                                               // start ElegantOTA
-  server.begin();                                                               // start webserver
+  server.serveStatic("/", SPIFFS, "/" );                                  // set path
+  AsyncElegantOTA.begin(&server);                                         // start ElegantOTA
+  server.begin();                                                         // start webserver
   Serial.println("[+] Web ready to surf");
 }
 
 //  led
 void initLED() {
-  ledClock.begin();                                                             // start ledstrip for the clock
-  ledClock.show();                                                              // ..show() is mandatory
-  ledDownlight.begin();                                                         // start ledstrip for the downlights
-  ledDownlight.show();                                                          // ..show() is mandatory
+  ledClock.begin();                                                       // start ledstrip for the clock ...
+  ledClock.show();                                                        // ... show() is mandatory
+  ledDownlight.begin();                                                   // start ledstrip for the downlights ...
+  ledDownlight.show();                                                    // ... show() is mandatory
 }
 
 void displayDownlights() {
@@ -535,124 +549,129 @@ void displayDownlights() {
     }
     if ( dowColorSet == 2 && (
       ( dowColorFreq == 0 ) ||
-      ( dowColorFreq == 1 && randMinPassed == 1 ) ||
-      ( dowColorFreq == 2 && randHourPassed == 1 ) ||
-      ( dowColorFreq == 3 && randDayPassed == 1 ) ) ) {
+      ( dowColorFreq == 1 && downMinPassed ) ||
+      ( dowColorFreq == 2 && downHourPassed ) ||
+      ( dowColorFreq == 3 && downDayPassed ) ) ) {
       dowColor = ledDownlight.ColorHSV( random( 0, 65535 ), 255, 255 );
       ledDownlight.fill( dowColor, 0, DOWNLIGHT_COUNT );
     }
     if ( dowColorSet == 3 && (
       ( dowColorFreq == 0 ) ||
-      ( dowColorFreq == 1 && randMinPassed == 1 ) ||
-      ( dowColorFreq == 2 && randHourPassed == 1 ) ||
-      ( dowColorFreq == 3 && randDayPassed == 1 ) ) ) {
+      ( dowColorFreq == 1 && downMinPassed ) ||
+      ( dowColorFreq == 2 && downHourPassed ) ||
+      ( dowColorFreq == 3 && downDayPassed ) ) ) {
       for ( int i = 0; i < DOWNLIGHT_COUNT; i++ ) {
         dowColor = ledDownlight.ColorHSV( random( 0, 65535 ), 255, 255 );
         ledDownlight.fill( dowColor, i, 1 );
       }
     }
   } else {
-    ledDownlight.clear();                                                       //or turn them all off
+    ledDownlight.clear();                                                 // or turn them all off
   }
-  ledDownlight.show();                                                          // show the downlights
+
+  downMinPassed = false;                                                  // reset the color change flag (1 minute)
+  downHourPassed = false;                                                 // reset the color change flag (1 hour)
+  downDayPassed = false;                                                  // reset the color change flag (1 day)
+
+  ledDownlight.show();                                                    // show the downlights
 }
 
 void numberDisplay( int digitToDisplay, int offset, uint32_t color ) {
   switch ( digitToDisplay ) {
-    case 0:   ledClock.fill( color, (  0 + offset ), 27 );                      // 0
+    case 0:   ledClock.fill( color, (  0 + offset ), 27 );                // 0
               ledClock.fill( color, ( 36 + offset ), 27 );
               break;
-    case 1:   ledClock.fill( color, (  0 + offset ),  9 );                      // 1
+    case 1:   ledClock.fill( color, (  0 + offset ),  9 );                // 1
               ledClock.fill( color, ( 36 + offset ),  9 );
               break;
-    case 2:   ledClock.fill( color, (  0 + offset ), 18 );                      // 2
+    case 2:   ledClock.fill( color, (  0 + offset ), 18 );                // 2
               ledClock.fill( color, ( 27 + offset ),  9 );
               ledClock.fill( color, ( 45 + offset ), 18 );
               break;
-    case 3:   ledClock.fill( color, (  0 + offset ), 18 );                      // 3
+    case 3:   ledClock.fill( color, (  0 + offset ), 18 );                // 3
               ledClock.fill( color, ( 27 + offset ), 27 );
               break;
-    case 4:   ledClock.fill( color, (  0 + offset ),  9 );                      // 4
+    case 4:   ledClock.fill( color, (  0 + offset ),  9 );                // 4
               ledClock.fill( color, ( 18 + offset ), 27 );
               break;
-    case 5:   ledClock.fill( color, (  9 + offset ), 45 );                      // 5
+    case 5:   ledClock.fill( color, (  9 + offset ), 45 );                // 5
               break;
-    case 6:   ledClock.fill( color, (  9 + offset ), 54 );                      // 6
+    case 6:   ledClock.fill( color, (  9 + offset ), 54 );                // 6
               break;
-    case 7:   ledClock.fill( color, (  0 + offset ), 18 );                      // 7
+    case 7:   ledClock.fill( color, (  0 + offset ), 18 );                // 7
               ledClock.fill( color, ( 36 + offset ),  9 );
               break;
-    case 8:   ledClock.fill( color, (  0 + offset ), 63 );                      // 8
+    case 8:   ledClock.fill( color, (  0 + offset ), 63 );                // 8
               break;
-    case 9:   ledClock.fill( color, (  0 + offset ), 54 );                      // 9
+    case 9:   ledClock.fill( color, (  0 + offset ), 54 );                // 9
               break;
-    case 10:  ledClock.fill( color, (  0 + offset ), 45 );                      // A
+    case 10:  ledClock.fill( color, (  0 + offset ), 45 );                // A
               ledClock.fill( color, ( 54 + offset ),  9 );
               break;
-    case 11:  ledClock.fill( color, ( 18 + offset ), 45 );                      // b
+    case 11:  ledClock.fill( color, ( 18 + offset ), 45 );                // b
               break;
-    case 12:  ledClock.fill( color, (  9 + offset ), 18 );                      // C
+    case 12:  ledClock.fill( color, (  9 + offset ), 18 );                // C
               ledClock.fill( color, ( 45 + offset ), 18 );
               break;
-    case 13:  ledClock.fill( color, (  0 + offset ),  9 );                      // d
+    case 13:  ledClock.fill( color, (  0 + offset ),  9 );                // d
               ledClock.fill( color, ( 27 + offset ), 36 );
               break;
-    case 14:  ledClock.fill( color, (  9 + offset ), 27 );                      // E
+    case 14:  ledClock.fill( color, (  9 + offset ), 27 );                // E
               ledClock.fill( color, ( 45 + offset ), 18 );
               break;
-    case 15:  ledClock.fill( color, (  9 + offset ), 27 );                      // F
+    case 15:  ledClock.fill( color, (  9 + offset ), 27 );                // F
               ledClock.fill( color, ( 54 + offset ),  9 );
               break;
-    case 16:  ledClock.fill( color, (  0 + offset ),  9 );                      // G
+    case 16:  ledClock.fill( color, (  0 + offset ),  9 );                // G
               ledClock.fill( color, ( 27 + offset ), 36 );
               break;
-    case 17:  ledClock.fill( color, (  0 + offset ),  9 );                      // H
+    case 17:  ledClock.fill( color, (  0 + offset ),  9 );                // H
               ledClock.fill( color, ( 18 + offset ), 27 );
               ledClock.fill( color, ( 54 + offset ),  9 );
               break;
-    case 18:  ledClock.fill( color, (  0 + offset ),  9 );                      // I
+    case 18:  ledClock.fill( color, (  0 + offset ),  9 );                // I
               ledClock.fill( color, ( 36 + offset ),  9 );
               break;
-    case 19:  ledClock.fill( color, (  0 + offset ),  0 );                      // J
+    case 19:  ledClock.fill( color, (  0 + offset ),  0 );                // J
               ledClock.fill( color, ( 36 + offset ), 18 );
               break;
-    case 20:  break;                                                            // K
-    case 21:  ledClock.fill( color, ( 18 + offset ),  9 );                      // L
+    case 20:  break;                                                      // K
+    case 21:  ledClock.fill( color, ( 18 + offset ),  9 );                // L
               ledClock.fill( color, ( 45 + offset ), 18 );
               break;
-    case 22:  break;                                                            // M
-    case 23:  ledClock.fill( color, ( 27 + offset ), 18 );                      // n
+    case 22:  break;                                                      // M
+    case 23:  ledClock.fill( color, ( 27 + offset ), 18 );                // n
               ledClock.fill( color, ( 54 + offset ),  9 );
               break;
-    case 24:  ledClock.fill( color, ( 27 + offset ), 36 );                      // o
+    case 24:  ledClock.fill( color, ( 27 + offset ), 36 );                // o
               break;
-    case 25:  ledClock.fill( color, (  0 + offset ), 36 );                      // P
+    case 25:  ledClock.fill( color, (  0 + offset ), 36 );                // P
               ledClock.fill( color, ( 45 + offset ),  9 );
               break;
-    case 26:  break;                                                            // Q
-    case 27:  ledClock.fill( color, ( 27 + offset ),  9 );                      // r
+    case 26:  break;                                                      // Q
+    case 27:  ledClock.fill( color, ( 27 + offset ),  9 );                // r
               ledClock.fill( color, ( 54 + offset ),  9 );
               break;
-    case 28:  ledClock.fill( color, (  9 + offset ), 45 );                      // S
+    case 28:  ledClock.fill( color, (  9 + offset ), 45 );                // S
               break;
-    case 29:  ledClock.fill( color, ( 18 + offset ), 18 );                      // t
+    case 29:  ledClock.fill( color, ( 18 + offset ), 18 );                // t
               ledClock.fill( color, ( 45 + offset ), 18 );
               break;
-    case 30:  ledClock.fill( color, (  0 + offset ),  9 );                      // U
+    case 30:  ledClock.fill( color, (  0 + offset ),  9 );                // U
               ledClock.fill( color, ( 18 + offset ),  9 );
               ledClock.fill( color, ( 36 + offset ), 27 );
               break;
-    case 31:  break;                                                            // V
-    case 32:  break;                                                            // W
-    case 33:  break;                                                            // X
-    case 34:  ledClock.fill( color, (  0 + offset ),  9 );                      // Y
+    case 31:  break;                                                      // V
+    case 32:  break;                                                      // W
+    case 33:  break;                                                      // X
+    case 34:  ledClock.fill( color, (  0 + offset ),  9 );                // Y
               ledClock.fill( color, ( 18 + offset ), 36 );
               break;
-    case 35:  ledClock.fill( color, (  0 + offset ), 18 );                      // Z
+    case 35:  ledClock.fill( color, (  0 + offset ), 18 );                // Z
               ledClock.fill( color, ( 27 + offset ),  9 );
               ledClock.fill( color, ( 45 + offset ), 18 );
               break;
-    case 36:  ledClock.fill( color, (  0 + offset ), 36 );                      // °
+    case 36:  ledClock.fill( color, (  0 + offset ), 36 );                // °
               break;
     default:  break;
   }
@@ -677,7 +696,7 @@ void countdownEnd() {
   ledClock.clear();
   ledClock.show();
   delay( 5000 );
-  if ( gloBrightness == 0 ) {                                                   // value = 0 -> automatic mode
+  if ( gloBrightness == 0 ) {                                             // value = 0 -> automatic mode
     ledClock.setBrightness( briClock );
   } else {
     ledClock.setBrightness( gloBrightness / 2 );
@@ -688,18 +707,20 @@ void countdownEnd() {
 
 //  content
 void getBrightness() {
-  if ( gloBrightness == 0 ) {                                                   // value = 0 -> automatic mode
-    client.get( briKNXPath );                                                   // call knx for value
-    int brightnessKNX = client.responseBody().toInt();                          // write answer to value
-    briClock = map( brightnessKNX, 0, 150000, 2, 125 );
+  if ( WiFi.status() != WL_CONNECTED ) { return; }                        // NO wifi -> no call
+
+  if ( gloBrightness == 0 ) {                                             // value = 0 -> automatic mode
+    client.get( briKNXPath );                                             // call knx for value
+    int brightnessKNX = client.responseBody().toInt();                    // write answer to value
+    briClock = map( brightnessKNX, briKNXmin, briKNXmax, briClockMin, briClockMax );
     ledClock.setBrightness( briClock );
-  } else {                                                                      // value > 0 -> manual mode
+  } else {                                                                // value > 0 -> manual mode
     ledClock.setBrightness( gloBrightness / 2 );
   }
   if ( dowBrightness == 0 ) {
-    client.get( briKNXPath );                                                   // call knx for value
-    int brightnessKNX = client.responseBody().toInt();                          // write answer to value
-    briDown = map( brightnessKNX, 0, 100000, 10, 250 );
+    client.get( briKNXPath );                                             // call knx for value
+    int brightnessKNX = client.responseBody().toInt();                    // write answer to value
+    briDown = map( brightnessKNX, briKNXmin, briKNXmax, briDownMin, briDownMax );
     ledDownlight.setBrightness( briDown );
   } else {
     ledDownlight.setBrightness( dowBrightness );
@@ -707,12 +728,15 @@ void getBrightness() {
 }
 
 void getHumidity() {
-  HttpClient client = HttpClient( wifi, knxAddr, knxPort );
+  if ( WiFi.status() != WL_CONNECTED ) { return; }                        // NO wifi -> no call
+
   client.get( humKNXPath );
   humKNXValue = int( ( client.responseBody().toDouble() ) * 10 );
 }
 
 void getTemperature() {
+  if ( WiFi.status() != WL_CONNECTED ) { return; }                        // NO wifi -> no call
+
   client.get(temKNXPath);
   temKNXValue = int( ( client.responseBody().toDouble() ) * 10 );
 }
@@ -736,12 +760,20 @@ void initHandlers() {
   //  |- global
   server.on( "/getGloBrightness",             []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( gloBrightness ) ); } );
   server.on( "/updGloBrightness", HTTP_POST,  []( AsyncWebServerRequest *request ) { gloBrightness = request->arg( "gloBrightness" ).toInt(); pref.putInt( "gloBrightness", gloBrightness ); getBrightness(); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
+  server.on( "/getBriClockMin",               []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( briClockMin ) ); } );
+  server.on( "/updBriClockMin",   HTTP_POST,  []( AsyncWebServerRequest *request ) { briClockMin = request->arg( "briClockMin" ).toInt(); pref.putInt( "briClockMin", briClockMin ); getBrightness(); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
+  server.on( "/getBriClockMax",               []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( briClockMax ) ); } );
+  server.on( "/updBriClockMax",   HTTP_POST,  []( AsyncWebServerRequest *request ) { briClockMax = request->arg( "briClockMax" ).toInt(); pref.putInt( "briClockMax", briClockMax ); getBrightness(); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
   server.on( "/getGloColorFreq",              []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( gloColorFreq ) ); } );
   server.on( "/updGloColorFreq",  HTTP_POST,  []( AsyncWebServerRequest *request ) { gloColorFreq = request->arg( "gloColorFreq" ).toInt(); pref.putInt( "gloColorFreq", gloColorFreq ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
   server.on( "/getDowUsage",                  []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( dowUsage ) ); } );
   server.on( "/updDowUsage",      HTTP_POST,  []( AsyncWebServerRequest *request ) { dowUsage = request->arg( "dowUsage" ).toInt(); pref.putInt( "dowUsage", dowUsage ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
   server.on( "/getDowBrightness",             []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( dowBrightness ) ); } );
   server.on( "/updDowBrightness", HTTP_POST,  []( AsyncWebServerRequest *request ) { dowBrightness = request->arg( "dowBrightness" ).toInt(); pref.putInt( "dowBrightness", dowBrightness ); getBrightness(); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
+  server.on( "/getBriDownMin",                []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( briDownMin ) ); } );
+  server.on( "/updBriDownMin",    HTTP_POST,  []( AsyncWebServerRequest *request ) { briDownMin = request->arg( "briDownMin" ).toInt(); pref.putInt( "briDownMin", briDownMin ); getBrightness(); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
+  server.on( "/getBriDownMax",                []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( briDownMax ) ); } );
+  server.on( "/updBriDownMax",    HTTP_POST,  []( AsyncWebServerRequest *request ) { briDownMax = request->arg( "briDownMax" ).toInt(); pref.putInt( "briDownMax", briDownMax ); getBrightness(); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
   server.on( "/getDowColorFreq",              []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( dowColorFreq ) ); } );
   server.on( "/updDowColorFreq",  HTTP_POST,  []( AsyncWebServerRequest *request ) { dowColorFreq = request->arg( "dowColorFreq" ).toInt(); pref.putInt( "dowColorFreq", dowColorFreq ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); });
   //  |- knx
@@ -751,6 +783,10 @@ void initHandlers() {
   server.on( "/updKNXPort",       HTTP_POST,  []( AsyncWebServerRequest *request ) { knxPort = request->arg( "knxPort" ).toInt(); pref.putInt( "knxPort", knxPort ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
   server.on( "/getBriKNXPath",                []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( briKNXPath ) ); } );
   server.on( "/updBriKNXPath",    HTTP_POST,  []( AsyncWebServerRequest *request ) { briKNXPath = request->arg( "briKNXPath" ); pref.putString( "briKNXPath", briKNXPath ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
+  server.on( "/getBriKNXmin",                 []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( briKNXmin ) ); } );
+  server.on( "/updBriKNXmin",     HTTP_POST,  []( AsyncWebServerRequest *request ) { briKNXmin = request->arg( "briKNXmin" ).toInt(); pref.putInt( "briKNXmin", briKNXmin ); getBrightness(); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
+  server.on( "/getBriKNXmax",                 []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( briKNXmax ) ); } );
+  server.on( "/updBriKNXmax",     HTTP_POST,  []( AsyncWebServerRequest *request ) { briKNXmax = request->arg( "briKNXmax" ).toInt(); pref.putInt( "briKNXmax", briKNXmax ); getBrightness(); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
   server.on( "/getTemKNXPath",                []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( temKNXPath ) ); } );
   server.on( "/updTemKNXPath",    HTTP_POST,  []( AsyncWebServerRequest *request ) { temKNXPath = request->arg( "temKNXPath" ); pref.putString( "temKNXPath", temKNXPath ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
   server.on( "/getHumKNXPath",                []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( humKNXPath ) ); } );
@@ -920,7 +956,7 @@ void initHandlers() {
 
 //  task1 on core0
 void taskCore0code( void * pvParameters ){
-  for(;;) {                                                                     // required to keep the task running
+  for(;;) {                                                               // required to keep the task running
 
     // Setup time-passage trackers
     int currentTimeSec = ntpTime.tm_sec;
@@ -930,51 +966,53 @@ void taskCore0code( void * pvParameters ){
     int m1 = currentTimeMin / 10;
     int m2 = currentTimeMin % 10;
 
-    currMillisCore0 = millis();                                                 // update current time reference
+    currMillisCore0 = millis();                                           // update current time reference
 
-    if ( ( currMillisCore0 - prevTimeSecCore0 ) >= 1000) {                      // run every 1 second
-      prevTimeSecCore0 = currMillisCore0;                                       // update previous time reference
-      displayDownlights();                                                      // control the downlights
-      reconnectWifi();                                                          // call function to execute
+    if ( ( currMillisCore0 - prevTimeSecCore0 ) >= 1000) {                // run every 1 second
+      prevTimeSecCore0 = currMillisCore0;                                 // update previous time reference
+      displayDownlights();                                                // control the downlights
+      if ( WiFi.status() != WL_CONNECTED ) { reconnectWifi(); }           // NO wifi -> reconnect
     }
 
-    if( abs( currentTimeMin - prevTimeMinCore0 ) >= 1 ) {                       // run every 1 minute
+    if( abs( currentTimeMin - prevTimeMinCore0 ) >= 1 ) {                 // run every 1 minute
       prevTimeMinCore0 = currentTimeMin;
-      randMinPassed = 1;
+      clockMinPassed = true;                                              // set the flag for the clock leds
+      downMinPassed = true;                                               // set the flag for the downlight leds
       getBrightness();
     }
 
-    if( ( m2 == 0 || m2 == 5 ) && ( currentTimeSec == 0 ) ) {                   // run every 5 minutes
+    if( ( m2 == 0 || m2 == 5 ) && ( currentTimeSec == 0 ) ) {             // run every 5 minutes
       getHumidity();
       getTemperature();
     }
 
-    if( ( m2 == 0 ) && ( currentTimeSec == 0) ) {                               // run every 10 minutes
+    if( ( m2 == 0 ) && ( currentTimeSec == 0) ) {                         // run every 10 minutes
       /* code goes here */
     }
 
-    if( ( ( m1 == 0 && m2 == 0 ) || ( m1 == 1 && m2 == 5 ) ||                   // run every 15 minutes
+    if( ( ( m1 == 0 && m2 == 0 ) || ( m1 == 1 && m2 == 5 ) ||             // run every 15 minutes
       ( m1 == 3 && m2 == 0 ) || ( m1 == 4 && m2 == 5 ) ) &&
       ( currentTimeSec == 0 ) ) {
       /* code goes here */
     }
 
-    if( ( ( m1 == 0 && m2 == 0 ) ||                                             // run every 30 minutes
+    if( ( ( m1 == 0 && m2 == 0 ) ||                                       // run every 30 minutes
           ( m1 == 3 && m2 == 0 ) ) &&
           ( currentTimeSec == 0 ) ) {
       /* code goes here */
     }
 
-    if( abs( currentTimeHour - prevTimeHourCore0 ) >= 1 ) {                     // run every hour
+    if( abs( currentTimeHour - prevTimeHourCore0 ) >= 1 ) {               // run every hour
       prevTimeHourCore0 = currentTimeHour;
-      randHourPassed = 1;
+      clockHourPassed = true;                                             // set the flag for the clock leds
+      downHourPassed = true;                                              // set the flag for the downlight leds
       getNTP();
     }
 
-    if( abs( currentTimeDay - prevTimeDayCore0 ) >= 1 ) {                       // run every day
+    if( abs( currentTimeDay - prevTimeDayCore0 ) >= 1 ) {                 // run every day
       prevTimeDayCore0 = currentTimeDay;
-      randDayPassed = 1;
-      /* code goes here */
+      clockDayPassed = true;                                              // set the flag for the clock leds
+      downDayPassed = true;                                               // set the flag for the downlight leds
     }
   }
 }
@@ -994,187 +1032,203 @@ void taskCore0code( void * pvParameters ){
 
 
 //  ----- CLOCK -----
-void modeClk() {                                                                // display the current time
-  ledClock.clear();                                                             // clear all edge led's
+void modeClk() {                                                          // display the current time
+  ledClock.clear();                                                       // clear all edge led's
 
   // get current time
-  int hour = ntpTime.tm_hour;                                                   // hours
-  int mins = ntpTime.tm_min;                                                    // minutes
-  int secs = ntpTime.tm_sec;                                                    // seconds
+  int hour = ntpTime.tm_hour;                                             // hours
+  int mins = ntpTime.tm_min;                                              // minutes
+  int secs = ntpTime.tm_sec;                                              // seconds
 
   // adjust hours for 12 hour (AM/PM)
   if ( !clkFormat ) {
-    if ( hour > 12 ) { hour = hour - 12; }                                      // if hours is above 12, turn it from 13:mm into 01:mm PM
-    if ( hour < 1 ) { hour = hour + 12; }                                       // if hours is 00:mm, turn it from 00:mm into 12:mm AM
+    if ( hour > 12 ) { hour = hour - 12; }                                // if hours is above 12, turn it from 13:mm into 01:mm PM
+    if ( hour < 1 ) { hour = hour + 12; }                                 // if hours is 00:mm, turn it from 00:mm into 12:mm AM
   }
 
   // build the digits
-  int h1 = floor( hour / 10 );                                                  // build h1
-  int h2 = hour % 10;                                                           // build h2
-  int m1 = floor( mins / 10 );                                                  // build m1
-  int m2 = mins % 10;                                                           // build m2
-  int s1 = floor( secs / 10 );                                                  // build s1
-  int s2 = secs % 10;                                                           // build s2
+  int h1 = floor( hour / 10 );                                            // build h1
+  int h2 = hour % 10;                                                     // build h2
+  int m1 = floor( mins / 10 );                                            // build m1
+  int m2 = mins % 10;                                                     // build m2
+  int s1 = floor( secs / 10 );                                            // build s1
+  int s2 = secs % 10;                                                     // build s2
 
   // set the colors
-  if ( clkColorSet == 0 ) {                                                     // two defined colors: one for hours, one for minutes
+  if ( clkColorSet == 0 ) {                                               // two defined colors: one for hours, one for minutes
     clkHColor = ledClock.Color( clkHColorR, clkHColorG, clkHColorB );
     clkMColor = ledClock.Color( clkMColorR, clkMColorG, clkMColorB );
   }
-  if ( clkColorSet == 1 && (                                                    // two random colors: one for hours, one for minutes
-    ( gloColorFreq == 0 ) ||                                                    // change color every second
-    ( gloColorFreq == 1 && randMinPassed == 1 ) ||                              // change color every minute and 1 minute passed
-    ( gloColorFreq == 2 && randHourPassed == 1 ) ||                             // change color every hour and 1 hour passed
-    ( gloColorFreq == 3 && randDayPassed == 1 ) ) ) {                           // change color every day and 1 day passed
+  if ( clkColorSet == 1 && (                                              // two random colors: one for hours, one for minutes
+    ( gloColorFreq == 0 ) ||                                              // change color every second
+    ( gloColorFreq == 1 && clockMinPassed ) ||                            // change color every minute and 1 minute passed
+    ( gloColorFreq == 2 && clockHourPassed ) ||                           // change color every hour and 1 hour passed
+    ( gloColorFreq == 3 && clockDayPassed ) ) ) {                         // change color every day and 1 day passed
     clkHColor = ledClock.ColorHSV( random( 0, 65535 ), 255, 255 );
     clkMColor = ledClock.ColorHSV( random( 0, 65535 ), 255, 255 );
   }
 
   // display the time
-  numberDisplay( h1, 189, clkHColor );                                          // show first digit
-  numberDisplay( h2, 126, clkHColor );                                          // show second digit
-  numberDisplay( m1,  63, clkMColor );                                          // show third digit
-  numberDisplay( m2,   0, clkMColor );                                          // show fourth digit
+  numberDisplay( h1, 189, clkHColor );                                    // show first digit
+  numberDisplay( h2, 126, clkHColor );                                    // show second digit
+  numberDisplay( m1,  63, clkMColor );                                    // show third digit
+  numberDisplay( m2,   0, clkMColor );                                    // show fourth digit
+
+  clockMinPassed = false;                                                 // reset the color change flag (1 minute)
+  clockHourPassed = false;                                                // reset the color change flag (1 hour)
+  clockDayPassed = false;                                                 // reset the color change flag (1 day)
 }
 
 
 //  ----- DATE -----
-void modeDat() {                                                                // display the current date
-  ledClock.clear();                                                             // clear all edge led's
+void modeDat() {                                                          // display the current date
+  ledClock.clear();                                                       // clear all edge led's
 
   // build the digits
-  int d1 = floor( ntpTime.tm_mday / 10 );                                       // build d1
-  int d2 = ntpTime.tm_mday % 10;                                                // build d2
-  int m1 = floor( ( ntpTime.tm_mon + 1 ) / 10 );                                // build m1
-  int m2 = ( ntpTime.tm_mon + 1 ) % 10;                                         // build m2
+  int d1 = floor( ntpTime.tm_mday / 10 );                                 // build d1
+  int d2 = ntpTime.tm_mday % 10;                                          // build d2
+  int m1 = floor( ( ntpTime.tm_mon + 1 ) / 10 );                          // build m1
+  int m2 = ( ntpTime.tm_mon + 1 ) % 10;                                   // build m2
 
   // set the colors
-  if ( datColorSet == 0 ) {                                                     // two defined colors: one for days, one for months
+  if ( datColorSet == 0 ) {                                               // two defined colors: one for days, one for months
     datDColor = ledClock.Color( datDColorR, datDColorG, datDColorB );
     datMColor = ledClock.Color( datMColorR, datMColorG, datMColorB );
   }
-  if ( datColorSet == 1 && (                                                    // two random colors: one for hours, one for minutes
-    ( gloColorFreq == 0 ) ||                                                    // change color every second
-    ( gloColorFreq == 1 && randMinPassed == 1 ) ||                              // change color every minute and 1 minute passed
-    ( gloColorFreq == 2 && randHourPassed == 1 ) ||                             // change color every hour and 1 hour passed
-    ( gloColorFreq == 3 && randDayPassed == 1 ) ) ) {                           // change color every day and 1 day passed
+  if ( datColorSet == 1 && (                                              // two random colors: one for hours, one for minutes
+    ( gloColorFreq == 0 ) ||                                              // change color every second
+    ( gloColorFreq == 1 && clockMinPassed ) ||                            // change color every minute and 1 minute passed
+    ( gloColorFreq == 2 && clockHourPassed ) ||                           // change color every hour and 1 hour passed
+    ( gloColorFreq == 3 && clockDayPassed ) ) ) {                         // change color every day and 1 day passed
     datDColor = ledClock.ColorHSV( random( 0, 65535 ), 255, 255 );
     datMColor = ledClock.ColorHSV( random( 0, 65535 ), 255, 255 );
   }
 
   // display the digits
   if ( datFormat ) {
-    numberDisplay( d1, 189, datDColor );                                        // show first digit
-    numberDisplay( d2, 126, datDColor );                                        // show second digit
-    numberDisplay( m1,  63, datMColor );                                        // show third digit
-    numberDisplay( m2,   0, datMColor );                                        // show fourth digit
+    numberDisplay( d1, 189, datDColor );                                  // show first digit
+    numberDisplay( d2, 126, datDColor );                                  // show second digit
+    numberDisplay( m1,  63, datMColor );                                  // show third digit
+    numberDisplay( m2,   0, datMColor );                                  // show fourth digit
   } else {
-    numberDisplay( m1, 189, datMColor );                                        // show first digit
-    numberDisplay( m2, 126, datMColor );                                        // show second digit
-    numberDisplay( d1,  63, datDColor );                                        // show third digit
-    numberDisplay( d2,   0, datDColor );                                        // show fourth digit
+    numberDisplay( m1, 189, datMColor );                                  // show first digit
+    numberDisplay( m2, 126, datMColor );                                  // show second digit
+    numberDisplay( d1,  63, datDColor );                                  // show third digit
+    numberDisplay( d2,   0, datDColor );                                  // show fourth digit
   }
+
+  clockMinPassed = false;                                                 // reset the color change flag (1 minute)
+  clockHourPassed = false;                                                // reset the color change flag (1 hour)
+  clockDayPassed = false;                                                 // reset the color change flag (1 day)
 }
 
 
 //  ----- TEMPERATURE -----
-void modeTem() {                                                                // display the temperature
-  ledClock.clear();                                                             // clear the display
+void modeTem() {                                                          // display the temperature
+  ledClock.clear();                                                       // clear the display
 
   // build the digits
-  int t1 = floor( temKNXValue / 100 );                                          // build t1
-  int t2 = ( temKNXValue / 10 ) % 10;                                           // build t2
-  int t3 = temKNXValue % 10;                                                    // build t3
+  int t1 = floor( temKNXValue / 100 );                                    // build t1
+  int t2 = ( temKNXValue / 10 ) % 10;                                     // build t2
+  int t3 = temKNXValue % 10;                                              // build t3
 
   // set the colors
-  if ( temColorSet == 0) {                                                      // three defined colors: one for degrees, one for decimal and one for symbol
+  if ( temColorSet == 0) {                                                // three defined colors: one for degrees, one for decimal and one for symbol
     temAColor = ledClock.Color(temAColorR, temAColorG, temAColorB);
     temBColor = ledClock.Color(temBColorR, temBColorG, temBColorB);
     temCColor = ledClock.Color(temCColorR, temCColorG, temCColorB);
   }
-  if ( temColorSet == 1 && (                                                    // three random colors: one for degrees, one for decimal and one for symbol
-    ( gloColorFreq == 0 ) ||                                                    // change color every second
-    ( gloColorFreq == 1 && randMinPassed == 1 ) ||                              // change color every minute and 1 minute passed
-    ( gloColorFreq == 2 && randHourPassed == 1 ) ||                             // change color every hour and 1 hour passed
-    ( gloColorFreq == 3 && randDayPassed == 1 ) ) ) {                           // change color every day and 1 day passed
+  if ( temColorSet == 1 && (                                              // three random colors: one for degrees, one for decimal and one for symbol
+    ( gloColorFreq == 0 ) ||                                              // change color every second
+    ( gloColorFreq == 1 && clockMinPassed ) ||                            // change color every minute and 1 minute passed
+    ( gloColorFreq == 2 && clockHourPassed ) ||                           // change color every hour and 1 hour passed
+    ( gloColorFreq == 3 && clockDayPassed ) ) ) {                         // change color every day and 1 day passed
     temAColor = ledClock.ColorHSV( random( 0, 65535 ), 255, 255 );
     temBColor = ledClock.ColorHSV( random( 0, 65535 ), 255, 255 );
     temCColor = ledClock.ColorHSV( random( 0, 65535 ), 255, 255 );
   }
 
   // display the digits
-  numberDisplay( t1, 189, temAColor );                                          // show first digit
-  numberDisplay( t2, 126, temAColor );                                          // show second digit
-  numberDisplay( t3,  63, temBColor );                                          // show third digit
+  numberDisplay( t1, 189, temAColor );                                    // show first digit
+  numberDisplay( t2, 126, temAColor );                                    // show second digit
+  numberDisplay( t3,  63, temBColor );                                    // show third digit
   if ( temSymbol == 0 ) {
-    numberDisplay( 15,   0, temCColor );                                        // show F
+    numberDisplay( 15,   0, temCColor );                                  // show F
   } else {
-    numberDisplay( 12,   0, temCColor );                                        // show C
+    numberDisplay( 12,   0, temCColor );                                  // show C
   }
+
+  clockMinPassed = false;                                                 // reset the color change flag (1 minute)
+  clockHourPassed = false;                                                // reset the color change flag (1 hour)
+  clockDayPassed = false;                                                 // reset the color change flag (1 day)
 }
 
 
 //  ----- HUMIDITY -----
-void modeHum() {                                                                // display the humidity
-  ledClock.clear();                                                             // clear the display
+void modeHum() {                                                          // display the humidity
+  ledClock.clear();                                                       // clear the display
 
   // build the digits
-  int h1 = floor( humKNXValue / 100 );                                          // build h1
-  int h2 = ( humKNXValue / 10 ) % 10;                                           // build h2
-  int h3 = humKNXValue % 10;                                                    // build h3
+  int h1 = floor( humKNXValue / 100 );                                    // build h1
+  int h2 = ( humKNXValue / 10 ) % 10;                                     // build h2
+  int h3 = humKNXValue % 10;                                              // build h3
 
   // set the colors
-  if ( humColorSet == 0 ) {                                                     // three defined colors: one for percents, one for decimal and one for symbol
+  if ( humColorSet == 0 ) {                                               // three defined colors: one for percents, one for decimal and one for symbol
     humAColor = ledClock.Color( humAColorR, humAColorG, humAColorB );
     humBColor = ledClock.Color( humBColorR, humBColorG, humBColorB );
     humCColor = ledClock.Color( humCColorR, humCColorG, humCColorB );
   }
-  if ( humColorSet == 1 && (                                                    // three random colors: one for percents, one for decimal and one for symbol
-    ( gloColorFreq == 0 ) ||                                                    // change color every second
-    ( gloColorFreq == 1 && randMinPassed == 1 ) ||                              // change color every minute and 1 minute passed
-    ( gloColorFreq == 2 && randHourPassed == 1 ) ||                             // change color every hour and 1 hour passed
-    ( gloColorFreq == 3 && randDayPassed == 1 ) ) ) {                           // change color every day and 1 day passed
+  if ( humColorSet == 1 && (                                              // three random colors: one for percents, one for decimal and one for symbol
+    ( gloColorFreq == 0 ) ||                                              // change color every second
+    ( gloColorFreq == 1 && clockMinPassed ) ||                            // change color every minute and 1 minute passed
+    ( gloColorFreq == 2 && clockHourPassed ) ||                           // change color every hour and 1 hour passed
+    ( gloColorFreq == 3 && clockDayPassed ) ) ) {                         // change color every day and 1 day passed
     humAColor = ledClock.ColorHSV( random( 0, 65535 ), 255, 255 );
     humBColor = ledClock.ColorHSV(random( 0, 65535 ), 255, 255 );
     humCColor = ledClock.ColorHSV(random( 0, 65535 ), 255, 255 );
   }
 
   // display the digits
-  numberDisplay( h1, 189, humAColor );                                          // show first digit
-  numberDisplay( h2, 126, humAColor );                                          // show second digit
-  numberDisplay( h3,  63, humBColor );                                          // show third digit
-  numberDisplay( 17,   0, humCColor );                                          // show icon
+  numberDisplay( h1, 189, humAColor );                                    // show first digit
+  numberDisplay( h2, 126, humAColor );                                    // show second digit
+  numberDisplay( h3,  63, humBColor );                                    // show third digit
+  numberDisplay( 17,   0, humCColor );                                    // show icon
+
+  clockMinPassed = false;                                                 // reset the color change flag (1 minute)
+  clockHourPassed = false;                                                // reset the color change flag (1 hour)
+  clockDayPassed = false;                                                 // reset the color change flag (1 day)
 }
 
 
 //  ----- SCOREBOARD -----
-void modeSco() {                                                                // display the scoreboard
-  ledClock.clear();                                                             // clear the display
+void modeSco() {                                                          // display the scoreboard
+  ledClock.clear();                                                       // clear the display
 
   // build the digits
-  int s1 = floor( scoHValue / 10 );                                             // build s1
-  int s2 = scoHValue % 10;                                                      // build s2
-  int s3 = floor( scoAValue / 10 );                                             // build s3
-  int s4 = scoAValue % 10;                                                      // build s4
+  int s1 = floor( scoHValue / 10 );                                       // build s1
+  int s2 = scoHValue % 10;                                                // build s2
+  int s3 = floor( scoAValue / 10 );                                       // build s3
+  int s4 = scoAValue % 10;                                                // build s4
 
   // set the colors
-  scoHColor = ledClock.Color( scoHColorR, scoHColorG, scoHColorB );             // color for home team
-  scoAColor = ledClock.Color( scoAColorR, scoAColorG, scoAColorB );             // color for away team
+  scoHColor = ledClock.Color( scoHColorR, scoHColorG, scoHColorB );       // color for home team
+  scoAColor = ledClock.Color( scoAColorR, scoAColorG, scoAColorB );       // color for away team
 
   // display the digits
-  numberDisplay( s1, 189, scoHColor );                                          // show first digit
-  numberDisplay( s2, 126, scoHColor );                                          // show second digit
-  numberDisplay( s3,  63, scoAColor );                                          // show third digit
-  numberDisplay( s4,   0, scoAColor );                                          // show fourth digit
+  numberDisplay( s1, 189, scoHColor );                                    // show first digit
+  numberDisplay( s2, 126, scoHColor );                                    // show second digit
+  numberDisplay( s3,  63, scoAColor );                                    // show third digit
+  numberDisplay( s4,   0, scoAColor );                                    // show fourth digit
 }
 
 
 //  ----- COUNTDOWN -----
-void modeCou() {                                                                // display the countdown
-  ledClock.clear();                                                             // clear the display
+void modeCou() {                                                          // display the countdown
+  ledClock.clear();                                                       // clear the display
 
-  if ( couMillis == 0 ) {                                                       // abort empty countdown
-    if ( gloBrightness == 0 ) {                                                 // value = 0 -> automatic mode
+  if ( couMillis == 0 ) {                                                 // abort empty countdown
+    if ( gloBrightness == 0 ) {                                           // value = 0 -> automatic mode
       ledClock.setBrightness( briClock );
     } else {
       ledClock.setBrightness( gloBrightness / 2 );
@@ -1185,38 +1239,38 @@ void modeCou() {                                                                
   }
 
   // build the digits
-  uint32_t restMillis = couMillisEnd - millis();                                // continously build the remaining milliseconds and ...
-  uint32_t hours   = ( ( restMillis / 1000 ) / 60 ) / 60;                       // ... create the countdown in hours
-  uint32_t minutes = ( restMillis / 1000 ) / 60;                                // ... create the countdown in minutes
-  uint32_t seconds = restMillis / 1000;                                         // ... create the countdown in seconds
-  int remM = minutes - ( hours * 60 );                                          // build the minutes between 0 and 59
-  int remS = seconds - ( minutes * 60 );                                        // build the seconds between 0 and 59
+  uint32_t restMillis = couMillisEnd - millis();                          // continously build the remaining milliseconds and ...
+  uint32_t hours   = ( ( restMillis / 1000 ) / 60 ) / 60;                 // ... create the countdown in hours
+  uint32_t minutes = ( restMillis / 1000 ) / 60;                          // ... create the countdown in minutes
+  uint32_t seconds = restMillis / 1000;                                   // ... create the countdown in seconds
+  int remM = minutes - ( hours * 60 );                                    // build the minutes between 0 and 59
+  int remS = seconds - ( minutes * 60 );                                  // build the seconds between 0 and 59
 
-  int h1 = hours / 10;                                                          // build h1
-  int h2 = hours % 10;                                                          // build h2
-  int m1 = remM / 10;                                                           // build m1
-  int m2 = remM % 10;                                                           // build m2
-  int s1 = remS / 10;                                                           // build s1
-  int s2 = remS % 10;                                                           // build s2
+  int h1 = hours / 10;                                                    // build h1
+  int h2 = hours % 10;                                                    // build h2
+  int m1 = remM / 10;                                                     // build m1
+  int m2 = remM % 10;                                                     // build m2
+  int s1 = remS / 10;                                                     // build s1
+  int s2 = remS % 10;                                                     // build s2
 
   // set the colors
-  if ( restMillis > 10000 ) {                                                   // three defined colors
+  if ( restMillis > 10000 ) {                                             // three defined colors
     couHColor = ledClock.Color( couHColorR, couHColorG, couHColorB );
     couMColor = ledClock.Color( couMColorR, couMColorG, couMColorB );
     couSColor = ledClock.Color( couSColorR, couSColorG, couSColorB );
-  } else {                                                                      // change color for the last 10 seconds
+  } else {                                                                // change color for the last 10 seconds
     couMColor = ledClock.Color( couAColorR, couAColorG, couAColorB );
     couSColor = ledClock.Color( couAColorR, couAColorG, couAColorB );
   }
 
   // display the digits
-  if ( hours > 0 ) {                                                            // if more than 60 minutes remaining on the countdown
-    numberDisplay( h1, 189, couHColor);                                         // show hours and minutes
+  if ( hours > 0 ) {                                                      // if more than 60 minutes remaining on the countdown
+    numberDisplay( h1, 189, couHColor);                                   // show hours and minutes
     numberDisplay( h2, 126, couHColor);
     numberDisplay( m1,  63, couMColor);
     numberDisplay( m2,   0, couMColor);  
-  } else {                                                                      // if less than 60 minutes remaining on the countdown
-    numberDisplay( m1, 189, couMColor);                                         // show minutes and seconds
+  } else {                                                                // if less than 60 minutes remaining on the countdown
+    numberDisplay( m1, 189, couMColor);                                   // show minutes and seconds
     numberDisplay( m2, 126, couMColor);
     numberDisplay( s1,  63, couSColor);
     numberDisplay( s2,   0, couSColor);  
@@ -1238,30 +1292,32 @@ void modeCou() {                                                                
 //  ----------------------------------------------------------------------------------------------------
 
 void setup() {
-  Serial.begin(115200);                                                         // initialize serial connection
-  delay(1000);                                                                  // wait a second for the serial to properly start
-  initMessage();                                                                // display initial message with some basic information
-  initFlash();                                                                  // load all saved settings
-  initWifi();                                                                   // configure wifi
-  initmDNS();                                                                   // configure mdns
-  initSPIFFS();                                                                 // initialize spiffs
-  initNTP();                                                                    // get the time from ntp
-  initHandlers();                                                               // load all web handlers
-  initServer();                                                                 // configure webserver
-  initLED();                                                                    // init neopixels
+  Serial.begin(115200);                                                   // initialize serial connection
+  delay(1000);                                                            // wait a second for the serial to properly start
+  initMessage();                                                          // display initial message with some basic information
+  initFlash();                                                            // load all saved settings
+  initWifi();                                                             // configure wifi
+  initmDNS();                                                             // configure mdns
+  initSPIFFS();                                                           // initialize spiffs
+  initNTP();                                                              // get the time from ntp
+  initHandlers();                                                         // load all web handlers
+  initServer();                                                           // configure webserver
+  initLED();                                                              // init neopixels
 
   getBrightness();
   getTemperature();
   getHumidity();
 
-  xTaskCreatePinnedToCore(                                                      // task 1 (running on core 0)
-    taskCore0code,                                                              // function to implement the task
-    "taskCore0",                                                                // name of the task
-    10000,                                                                      // stack size in words
-    NULL,                                                                       // task input parameter
-    0,                                                                          // priority of the task
-    &taskCore0,                                                                 // task handle
-    0);                                                                         // core where the task should run
+  xTaskCreatePinnedToCore(                                                // task 1 (running on core 0)
+    taskCore0code,                                                        // function to implement the task
+    "taskCore0",                                                          // name of the task
+    10000,                                                                // stack size in words
+    NULL,                                                                 // task input parameter
+    0,                                                                    // priority of the task
+    &taskCore0,                                                           // task handle
+    0);                                                                   // core where the task should run
+
+  randomSeed(analogRead(1));                                              // initializes the pseudo-random number generator
 }
 
 
@@ -1271,25 +1327,21 @@ void setup() {
 //  ----------------------------------------------------------------------------------------------------
 
 void loop() {
-  currMillisCore1 = millis();                                                   // update current reference time
+  currMillisCore1 = millis();                                             // update current reference time
 
-  if ( ( currMillisCore1 - prevTimeSecCore1 ) >= 1000 ) {                       // run everything inside here every second
-    prevTimeSecCore1 = currMillisCore1;                                         // update previous reference time
+  if ( ( currMillisCore1 - prevTimeSecCore1 ) >= 1000 ) {                 // run everything inside here every second
+    prevTimeSecCore1 = currMillisCore1;                                   // update previous reference time
 
-    time( &now );                                                               // read the current time
-    localtime_r( &now, &ntpTime );                                              // update ntpTime with the current time
+    time( &now );                                                         // read the current time
+    localtime_r( &now, &ntpTime );                                        // update ntpTime with the current time
 
-    if ( displayMode == 0 ) { modeClk(); }                                      // call clock mode
-    if ( displayMode == 1 ) { modeDat(); }                                      // call date mode
-    if ( displayMode == 2 ) { modeTem(); }                                      // call temperature mode
-    if ( displayMode == 3 ) { modeHum(); }                                      // call humidity mode
-    if ( displayMode == 4 ) { modeSco(); }                                      // call scoreboard mode
-    if ( displayMode == 5 ) { modeCou(); }                                      // call countdown mode
+    if ( displayMode == 0 ) { modeClk(); }                                // call clock mode
+    if ( displayMode == 1 ) { modeDat(); }                                // call date mode
+    if ( displayMode == 2 ) { modeTem(); }                                // call temperature mode
+    if ( displayMode == 3 ) { modeHum(); }                                // call humidity mode
+    if ( displayMode == 4 ) { modeSco(); }                                // call scoreboard mode
+    if ( displayMode == 5 ) { modeCou(); }                                // call countdown mode
 
-    ledClock.show();                                                            // show the content of the mode
-
-    randMinPassed   = 0;                                                        // reset the trigger to 0
-    randHourPassed  = 0;                                                        // reset the trigger to 0
-    randDayPassed   = 0;                                                        // reset the trigger to 0
+    ledClock.show();                                                      // show the content of the mode
   }
 }

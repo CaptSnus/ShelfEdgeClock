@@ -1,8 +1,8 @@
 # Shelf Edge Clock powered by ESP32
 
-[![C/C++ CI](https://github.com/CaptSnus/ShelfEdgeClock/actions/workflows/c-cpp.yml/badge.svg?branch=main)](https://github.com/CaptSnus/ShelfEdgeClock/actions/workflows/c-cpp.yml)
+[![Version](https://img.shields.io/github/v/release/CaptSnus/ShelfEdgeClock?logo=github&style=flat-square)](https://github.com/CaptSnus/ShelfEdgeClock/releases) [![Size](https://img.shields.io/github/languages/code-size/CaptSnus/ShelfEdgeClock?logo=github&style=flat-square)](https://github.com/CaptSnus/ShelfEdgeClock) [![C/C++ CI](https://img.shields.io/github/actions/workflow/status/CaptSnus/ShelfEdgeClock/c-cpp.yml?branch=main&logo=github&style=flat-square)](https://github.com/CaptSnus/ShelfEdgeClock/actions/workflows/c-cpp.yml) [![Issues](https://img.shields.io/github/issues/CaptSnus/ShelfEdgeClock?logo=github&style=flat-square)](https://github.com/CaptSnus/ShelfEdgeClock/issues)
 
-> The Shelf Edge Clock is heavily inspired by a post on social media showing the awesome project of [DIY-Machines](https://github.com/DIY-Machines/DigitalClockSmartShelving). After some consideration i decided to build the clock with the given 3D parts but adopt the software to an ESP32.
+The Shelf Edge Clock is heavily inspired by a post on social media showing the awesome project of [DIY-Machines](https://github.com/DIY-Machines/DigitalClockSmartShelving). After some consideration i decided to build the clock with the given 3D parts but adopt the software to an ESP32.
 
 ## Table of Contents
 
@@ -10,20 +10,23 @@
 * [Features](#features)
 * [Screenshots](#screenshots)
 * [Setup](#setup)
-  * [Hardware](#hardware)
-  * [Software](#software)
+  * [Hardware build](#hardware-build)
+  * [Software installation](#software-installation)
+  * [Configuration](#configuration)
 * [Usage](#usage)
-  * [Clock](#clock)
-  * [Date](#date)
-  * [Temperature](#temperature)
-  * [Humidity](#humidity)
-  * [Scoreboard](#scoreboard)
-  * [Countdown](#countdown)
+  * [Mode - Clock](#mode---clock)
+  * [Mode - Date](#mode---date)
+  * [Mode - Temperature](#mode---temperature)
+  * [Mode - Humidity](#mode---humidity)
+  * [Mode - Scoreboard](#mode---scoreboard)
+  * [Mode - Countdown](#mode---countdown)
   * [Downlights](#downlights)
   * [there is more](#there-is-more)
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
-* [Technologies and Software used](#technologies-and-software-used)
+* [Technologies and Software](#technologies-and-software)
+  * [Hardware](#hardware)
+  * [Software](#software)
   * [Libraries](#libraries)
 * [Acknowledgements](#acknowledgements)
 * [Contact](#contact)
@@ -34,77 +37,82 @@
 The Shelf Edge Clock is powered by an ESP32 devkit and more than 250 neopixels. The clock itself is mostly 3D printed, some wood for a proper frame and minimal additional parts.
 
 * folder `data` contains the files stored on the ESP32
-* folder `docs`contains the documentation
 
 ## Features
 
 * Powered by an ESP32 devkit out of the box.
 * More than 250 neopixels across two strands.
 * Webserver providing a GUI to control the clock.
-* Webclient making GET request with your home automation (e.g. openHAB)
+* Webclient making requests to your home automation system (e.g. openHAB)
 
 ## Screenshots
 
-![Example screenshot](./docs/images/shelfEdgeClock.png)
+![Preview of the shelf edge clock](./docs/images/shelf.jpeg)
 
 ## Setup
 
 Setup instructions will be completed after all stuff is completed.
 
-### Hardware
+### Hardware build
 
 1. Build a frame/background for your clock
 2. Print all the required parts
 3. Wire all the electronics and get the leds installed
 
-### Software
+### Software installation
 
 1. Load the software to your ESP32
 2. Setup all the functions
 3. Get your self a drink and do nothing in the afternoon
 
+### Configuration
+
+<img src="./docs/images/settings.jpeg" alt="Preview of the GUI - Settings" width="50%">
+
 ## Usage
 
-This shelf edge clock must be connected to your wifi network, otherwise it won't work. All functions rely on data acquired from the internet (e.g. NTP) or your local network (e.g. home automation/sensors)
+The shelf edge clock must be connected to your wifi network, otherwise it won't work. All functions rely on data acquired from the internet (e.g. NTP) or your local network (e.g. home automation/sensors)
 
-### Clock
+### Mode - Clock
 
-Display the current time whichs is updated and verified by calling an external NTP server.
+Displays the current time whichs is updated and verified by calling an external NTP server.
 
+* preferred NTP server is configurable
+* timezone can be set in settings [(how-to)](https://github.com/nayarsystems/posix_tz_db/blob/master/zones.csv)
 * two clock formats
-  * 24 hours: 00:00 to 23:59
+  * 24 hours: 00:00 to 23:59 (default)
   * 12 hours: 12:00 to 11:59 AM/PM
 * two color options: user defined colors or random colors
 * both color options use two colors: one for hours and one for minutes
 
-### Date
+### Mode - Date
 
-Display the current date which is updated and verified by calling an external NTP server.
+Displays the current date which is updated and verified by calling the external NTP server defined for the clock.
 
 * two date formats
-  * european style: 2903 -> march 29th
+  * european style: 2903 -> march 29th (default)
   * american style: 0329 -> march 29th
 * two color options: defined colors or random colors
 * both color options use two colors: one for days and one for months
 
-### Temperature
+### Mode - Temperature
 
-Display the current outside temperature and regularly fetch the value from openHAB.
+Displays the current outside temperature and regularly fetch the value from your home automation system or weather station.
 
 * requires a home automation system (e.g. openHAB or similar with a rest api)
 * settings provide a field to enter a string for the get call
 * display type is fixed to XXYS
   * XX -> degree figure
   * Y -> decimal figure
-  * S - symbol
+  * S -> symbol
     * C -> abbreviation for celsius
     * F -> abbreviation for fahrenheit
 * two color options: defined colors or random colors
 * both color options use three colors: one for XX, one for Y and one for S
 
-### Humidity
+### Mode - Humidity
 
-Display the current outside humidity and regularly fetch the value from openHAB.
+Display the current outside humidity and regularly fetch the value from your home automation system or weather station.
 
 * requires a home automation system (e.g. openHAB or similar with a rest api)
 * settings provide a field to enter a string for the get call
@@ -115,7 +123,7 @@ Display the current outside humidity and regularly fetch the value from openHAB.
 * two color options: defined colors or random colors
 * both color options use three colors: one for XX, one for Y and one for H
 
-### Scoreboard
+### Mode - Scoreboard
 
 Display a scoreboard for table soccer or whatever game you're playing that requires a scoreboard. You can also show the latest score of your favorite team.
 
@@ -123,7 +131,7 @@ Display a scoreboard for table soccer or whatever game you're playing that requi
 * one color option: user defined colors
 * the color option uses two colors: one for HH and one for AA
 
-### Countdown
+### Mode - Countdown
 
 Display a countdown and flash the word "EndE" at the end
 
@@ -148,29 +156,37 @@ The 14 boxes created by the design of the clock are an ideal storage for small t
 * the brightness of the leds is either in auto mode, controlled by the brightness outside, or manual mode configured in the settings
 * first connection to clock for configuration of the required wifi via access point generated by the ESP32 (see Setup above)
 * the necessary data is stored in SPIFFS and therefore reducing the required parts
-* integrated update mechanism for future updates and bugfixes
+* integrated update mechanism for updates and bugfixes
 
 ## Project Status
 
-Project is: _in progress_! The new release is currently on our our prototype running 24/7 and all issues will be remediated before completion.
+Project is: **_in progress_**! Every new release was  on our our prototype running 24/7 and all known issues will be remediated before completion.
 
-This README will receive continuous updates throughout the development.
+This README will receive continuous updates throughout the development. Please also check the [changelog](CHANGELOG.md) for more information.
 
 ## Room for Improvement
 
 Planned improvements:
 
-* add additional scroll mode: show clock, date, temperature in a perpetual cycle
-* add buzzer for the countdown (it's very silent at the moment)
-* maybe design a pcb as plug'n'play solution
-* make website translation ready
-
-To Do:
-
-* update `index.html` in order to reduce the need to use the menu
 * add check for an established wifi connection at certain functions
+* update `index.html` in order to reduce the need to use the settings
+* add additional scroll mode: show clock -> date -> temperature in a cycle
+* add buzzer for the countdown (it's very quite at the moment)
+* make GUI translation ready
 
-## Technologies and Software used
+## Technologies and Software
+
+### Hardware
+
+All hardware was bought from Adafruit and all links below direct you to Adafruit's online shop. Adafruit doesn't provide an affiliate programm, therefore I won't benefit in any form.
+
+* [ESP32-S3-DevKitC-1-N8](https://www.adafru.it/5312)
+* [NeoPixel RGB LED Strip (60 led/m)](https://www.adafru.it/1138)
+* [Switching Power Supply (5V 4000mA)](https://www.adafru.it/1466)
+* [Wire Spool Set (22AWG stranded-core)](https://www.adafru.it/3175)
+* [Buzzer](https://www.adafru.it/1536)
+
+### Software
 
 * Visual Studio Code (VSCode)
 * PlatformIO - version 6.1.7
@@ -194,11 +210,11 @@ To Do:
 
 * This project was inspired by the [Hidden Digital Clock Smart Shelving](https://github.com/DIY-Machines/DigitalClockSmartShelving) from [DIY-Machines](https://www.diymachines.co.uk).
 * The code is created based on the excellent examples of [Random Nerd Tutorials](https://randomnerdtutorials.com).
-* Many thanks to my family for the ongoing lovely support and encouragement, their wonderful ideas and help in creating this shelf edge clock.
+* Many thanks to my family for the ongoing lovely support and encouragement, their creative ideas and wonderful help in creating this shelf edge clock.
 
 ## Contact
 
-Created by [@CaptSnus](https://github.com/CaptSnus/) - feel free to contact me! Please report bugs, enhancements or feature request directly on github.
+Created by [@CaptSnus](https://github.com/CaptSnus/) - feel free to contact me! Please report bugs, enhancements or feature request directly on [Github Issues](https://github.com/CaptSnus/ShelfEdgeClock/issues).
 
 ## License
 
