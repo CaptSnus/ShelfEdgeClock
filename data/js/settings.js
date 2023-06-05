@@ -24,6 +24,26 @@ translator.fetch(['de', 'en']).then(() => {
 })
 */
 
+
+
+//  ****************************************************************************************************
+//  Color preview
+//  ****************************************************************************************************
+
+const closest = (to, selector) => {
+	let currentElement = document.querySelector(to)
+	let returnElement
+
+	while (currentElement.parentNode && !returnElement) {
+			currentElement = currentElement.parentNode
+			returnElement = currentElement.querySelector(selector)
+	}
+
+	return returnElement
+}
+
+
+
 //  ****************************************************************************************************
 //  FUNCTIONS - get
 //  ****************************************************************************************************
@@ -275,9 +295,11 @@ function getClkColorSet() {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
 				document.getElementById("clkColorSet").selectedIndex = 0;
+				document.getElementById("clkFields").hidden = false;
 			}
 			if (this.responseText === "1") {
 				document.getElementById("clkColorSet").selectedIndex = 1;
+				document.getElementById("clkFields").hidden = true;
 			}
 		}
 	};
@@ -290,6 +312,7 @@ function getClkHColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("clkHColor").value = this.responseText;
+			closest( '#clkHColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getClkHColor", true);
@@ -301,6 +324,7 @@ function getClkMColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("clkMColor").value = this.responseText;
+			closest( '#clkMColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getClkMColor", true);
@@ -330,9 +354,11 @@ function getDatColorSet() {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
 				document.getElementById("datColorSet").selectedIndex = 0;
+				document.getElementById("datFields").hidden = false;
 			}
 			if (this.responseText === "1") {
 				document.getElementById("datColorSet").selectedIndex = 1;
+				document.getElementById("datFields").hidden = true;
 			}
 		}
 	};
@@ -345,6 +371,7 @@ function getDatDColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("datDColor").value = this.responseText;
+			closest( '#datDColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDatDColor", true);
@@ -356,6 +383,7 @@ function getDatMColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("datMColor").value = this.responseText;
+			closest( '#datMColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDatMColor", true);
@@ -385,9 +413,11 @@ function getTemColorSet() {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
 				document.getElementById("temColorSet").selectedIndex = 0;
+				document.getElementById("temFields").hidden = false;
 			}
 			if (this.responseText === "1") {
 				document.getElementById("temColorSet").selectedIndex = 1;
+				document.getElementById("temFields").hidden = true;
 			}
 		}
 	};
@@ -400,6 +430,7 @@ function getTemAColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("temAColor").value = this.responseText;
+			closest( '#temAColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getTemAColor", true);
@@ -411,6 +442,7 @@ function getTemBColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("temBColor").value = this.responseText;
+			closest( '#temBColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getTemBColor", true);
@@ -422,6 +454,7 @@ function getTemCColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("temCColor").value = this.responseText;
+			closest( '#temCColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getTemCColor", true);
@@ -435,9 +468,11 @@ function getHumColorSet() {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
 				document.getElementById("humColorSet").selectedIndex = 0;
+				document.getElementById("humFields").hidden = false;
 			}
 			if (this.responseText === "1") {
 				document.getElementById("humColorSet").selectedIndex = 1;
+				document.getElementById("humFields").hidden = true;
 			}
 		}
 	};
@@ -450,6 +485,7 @@ function getHumAColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("humAColor").value = this.responseText;
+			closest( '#humAColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getHumAColor", true);
@@ -461,6 +497,7 @@ function getHumBColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("humBColor").value = this.responseText;
+			closest( '#humBColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getHumBColor", true);
@@ -472,6 +509,7 @@ function getHumCColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("humCColor").value = this.responseText;
+			closest( '#humCColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getHumCColor", true);
@@ -484,6 +522,7 @@ function getScoHColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("scoHColor").value = this.responseText;
+			closest( '#scoHColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getScoHColor", true);
@@ -495,6 +534,7 @@ function getScoAColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("scoAColor").value = this.responseText;
+			closest( '#scoAColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getScoAColor", true);
@@ -507,6 +547,7 @@ function getCouHColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("couHColor").value = this.responseText;
+			closest( '#couHColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getCouHColor", true);
@@ -518,6 +559,7 @@ function getCouMColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("couMColor").value = this.responseText;
+			closest( '#couMColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getCouMColor", true);
@@ -529,6 +571,7 @@ function getCouSColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("couSColor").value = this.responseText;
+			closest( '#couSColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getCouSColor", true);
@@ -540,6 +583,7 @@ function getCouAColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("couAColor").value = this.responseText;
+			closest( '#couAColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getCouAColor", true);
@@ -553,12 +597,27 @@ function getDowColorSet() {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
 				document.getElementById("dowColorSet").selectedIndex = 0;
+				document.getElementById("dowFields0").hidden = false;
+				document.getElementById("dowFields1upper").hidden = true;
+				document.getElementById("dowFields1lower").hidden = true;
 			}
 			if (this.responseText === "1") {
 				document.getElementById("dowColorSet").selectedIndex = 1;
+				document.getElementById("dowFields0").hidden = true;
+				document.getElementById("dowFields1upper").hidden = false;
+				document.getElementById("dowFields1lower").hidden = false;
 			}
 			if (this.responseText === "2") {
 				document.getElementById("dowColorSet").selectedIndex = 2;
+				document.getElementById("dowFields0").hidden = true;
+				document.getElementById("dowFields1upper").hidden = true;
+				document.getElementById("dowFields1lower").hidden = true;
+			}
+			if (this.responseText === "3") {
+				document.getElementById("dowColorSet").selectedIndex = 3;
+				document.getElementById("dowFields0").hidden = true;
+				document.getElementById("dowFields1upper").hidden = true;
+				document.getElementById("dowFields1lower").hidden = true;
 			}
 		}
 	};
@@ -571,6 +630,7 @@ function getDowColor() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor").value = this.responseText;
+			closest( '#dowColor', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor", true);
@@ -582,6 +642,7 @@ function getDowColor0() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor0").value = this.responseText;
+			closest( '#dowColor0', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor0", true);
@@ -593,6 +654,7 @@ function getDowColor1() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor1").value = this.responseText;
+			closest( '#dowColor1', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor1", true);
@@ -604,6 +666,7 @@ function getDowColor2() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor2").value = this.responseText;
+			closest( '#dowColor2', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor2", true);
@@ -615,6 +678,7 @@ function getDowColor3() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor3").value = this.responseText;
+			closest( '#dowColor3', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor3", true);
@@ -626,6 +690,7 @@ function getDowColor4() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor4").value = this.responseText;
+			closest( '#dowColor4', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor4", true);
@@ -637,6 +702,7 @@ function getDowColor5() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor5").value = this.responseText;
+			closest( '#dowColor5', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor5", true);
@@ -648,6 +714,7 @@ function getDowColor6() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor6").value = this.responseText;
+			closest( '#dowColor6', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor6", true);
@@ -659,6 +726,7 @@ function getDowColor7() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor7").value = this.responseText;
+			closest( '#dowColor7', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor7", true);
@@ -670,6 +738,7 @@ function getDowColor8() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor8").value = this.responseText;
+			closest( '#dowColor8', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor8", true);
@@ -681,6 +750,7 @@ function getDowColor9() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor9").value = this.responseText;
+			closest( '#dowColor9', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor9", true);
@@ -692,6 +762,7 @@ function getDowColor10() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor10").value = this.responseText;
+			closest( '#dowColor10', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor10", true);
@@ -703,6 +774,7 @@ function getDowColor11() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor11").value = this.responseText;
+			closest( '#dowColor11', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor11", true);
@@ -714,6 +786,7 @@ function getDowColor12() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor12").value = this.responseText;
+			closest( '#dowColor12', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor12", true);
@@ -725,6 +798,7 @@ function getDowColor13() {
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("dowColor13").value = this.responseText;
+			closest( '#dowColor13', '.input-group-text' ).style.backgroundColor = this.responseText;
 		}
 	};
 	xhttp.open("GET", "getDowColor13", true);
@@ -1046,6 +1120,12 @@ function updClkFormat(event) {
 
 function updClkColorSet(event) {
 	const value = event.target.value;
+	if (value === "0") {
+		document.getElementById("clkFields").hidden = false;
+	}
+	if (value === "1") {
+		document.getElementById("clkFields").hidden = true;
+	}
 	$.post("/updClkColorSet", { clkColorSet: value });
 	console.log(value);
 }
@@ -1053,12 +1133,14 @@ function updClkColorSet(event) {
 function updClkHColor(event) {
 	const value = event.target.value;
 	$.post("/updClkHColor", hexToRgb(value));
+	closest( '#clkHColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
 
 function updClkMColor(event) {
 	const value = event.target.value;
 	$.post("/updClkMColor", hexToRgb(value));
+	closest( '#clkMColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
 
@@ -1068,178 +1150,280 @@ function updDatFormat(event) {
 	$.post("/updDatFormat", { datFormat: value });
 	console.log(value);
 }
+
 function updDatColorSet(event) {
 	const value = event.target.value;
+	if (value === "0") {
+		document.getElementById("datFields").hidden = false;
+	}
+	if (value === "1") {
+		document.getElementById("datFields").hidden = true;
+	}
+
 	$.post("/updDatColorSet", { datColorSet: value });
 	console.log(value);
 }
+
 function updDatDColor(event) {
 	const value = event.target.value;
 	$.post("/updDatDColor", hexToRgb(value));
+	closest( '#datDColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDatMColor(event) {
 	const value = event.target.value;
 	$.post("/updDatMColor", hexToRgb(value));
+	closest( '#datMColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 //  Temperature
 function updTemSymbol(event) {
 	const value = event.target.value;
 	$.post("/updTemSymbol", { temSymbol: value });
 	console.log(value);
 }
+
 function updTemColorSet(event) {
 	const value = event.target.value;
+	if (value === "0") {
+		document.getElementById("temFields").hidden = false;
+	}
+	if (value === "1") {
+		document.getElementById("temFields").hidden = true;
+	}
 	$.post("/updTemColorSet", { temColorSet: value });
 	console.log(value);
 }
+
 function updTemAColor(event) {
 	const value = event.target.value;
 	$.post("/updTemAColor", hexToRgb(value));
+	closest( '#temAColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updTemBColor(event) {
 	const value = event.target.value;
 	$.post("/updTemBColor", hexToRgb(value));
+	closest( '#temBColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updTemCColor(event) {
 	const value = event.target.value;
 	$.post("/updTemCColor", hexToRgb(value));
+	closest( '#temCColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 //  Humidity
 function updHumColorSet(event) {
 	const value = event.target.value;
+	if (value === "0") {
+		document.getElementById("humFields").hidden = false;
+	}
+	if (value === "1") {
+		document.getElementById("humFields").hidden = true;
+	}
 	$.post("/updHumColorSet", { humColorSet: value });
 	console.log(value);
 }
+
 function updHumAColor(event) {
 	const value = event.target.value;
 	$.post("/updHumAColor", hexToRgb(value));
+	closest( '#humAColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updHumBColor(event) {
 	const value = event.target.value;
 	$.post("/updHumBColor", hexToRgb(value));
+	closest( '#humBColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updHumCColor(event) {
 	const value = event.target.value;
 	$.post("/updHumCColor", hexToRgb(value));
+	closest( '#humCColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 //  Scoreboard
 function updScoHColor(event) {
 	const value = event.target.value;
 	$.post("/updScoHColor", hexToRgb(value));
+	closest( '#scoHColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updScoAColor(event) {
 	const value = event.target.value;
 	$.post("/updScoAColor", hexToRgb(value));
+	closest( '#scoAColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 //  Countdown
 function updCouHColor(event) {
 	const value = event.target.value;
 	$.post("/updCouHColor", hexToRgb(value));
+	closest( '#couHColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updCouMColor(event) {
 	const value = event.target.value;
 	$.post("/updCouMColor", hexToRgb(value));
+	closest( '#couMColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updCouSColor(event) {
 	const value = event.target.value;
 	$.post("/updCouSColor", hexToRgb(value));
+	closest( '#couSColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updCouAColor(event) {
 	const value = event.target.value;
 	$.post("/updCouAColor", hexToRgb(value));
+	closest( '#couAColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 //  Downlights
 function updDowColorSet(event) {
 	const value = event.target.value;
+	if (value === "0") {
+		document.getElementById("dowFields0").hidden = false;
+		document.getElementById("dowFields1upper").hidden = true;
+		document.getElementById("dowFields1lower").hidden = true;
+	}
+	if (value === "1") {
+		document.getElementById("dowFields0").hidden = true;
+		document.getElementById("dowFields1upper").hidden = false;
+		document.getElementById("dowFields1lower").hidden = false;
+	}
+	if (value === "2") {
+		document.getElementById("dowFields0").hidden = true;
+		document.getElementById("dowFields1upper").hidden = true;
+		document.getElementById("dowFields1lower").hidden = true;
+	}
+	if (value === "3") {
+		document.getElementById("dowFields0").hidden = true;
+		document.getElementById("dowFields1upper").hidden = true;
+		document.getElementById("dowFields1lower").hidden = true;
+	}
 	$.post("/updDowColorSet", { dowColorSet: value });
 	console.log(value);
 }
+
 function updDowColor(event) {
 	const value = event.target.value;
 	$.post("/updDowColor", hexToRgb(value));
+	closest( '#dowColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor0(event) {
 	const value = event.target.value;
 	$.post("/updDowColor0", hexToRgb(value));
+	closest( '#dowColor0', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor1(event) {
 	const value = event.target.value;
 	$.post("/updDowColor1", hexToRgb(value));
+	closest( '#dowColor1', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor2(event) {
 	const value = event.target.value;
 	$.post("/updDowColor2", hexToRgb(value));
+	closest( '#dowColor2', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor3(event) {
 	const value = event.target.value;
 	$.post("/updDowColor3", hexToRgb(value));
+	closest( '#dowColor3', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor4(event) {
 	const value = event.target.value;
 	$.post("/updDowColor4", hexToRgb(value));
+	closest( '#dowColor4', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor5(event) {
 	const value = event.target.value;
 	$.post("/updDowColor5", hexToRgb(value));
+	closest( '#dowColor5', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor6(event) {
 	const value = event.target.value;
 	$.post("/updDowColor6", hexToRgb(value));
+	closest( '#dowColor6', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor7(event) {
 	const value = event.target.value;
 	$.post("/updDowColor7", hexToRgb(value));
+	closest( '#dowColor7', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor8(event) {
 	const value = event.target.value;
 	$.post("/updDowColor8", hexToRgb(value));
+	closest( '#dowColor8', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor9(event) {
 	const value = event.target.value;
 	$.post("/updDowColor9", hexToRgb(value));
+	closest( '#dowColor9', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor10(event) {
 	const value = event.target.value;
 	$.post("/updDowColor10", hexToRgb(value));
+	closest( '#dowColor10', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor11(event) {
 	const value = event.target.value;
 	$.post("/updDowColor11", hexToRgb(value));
+	closest( '#dowColor11', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor12(event) {
 	const value = event.target.value;
 	$.post("/updDowColor12", hexToRgb(value));
+	closest( '#dowColor12', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
+
 function updDowColor13(event) {
 	const value = event.target.value;
 	$.post("/updDowColor13", hexToRgb(value));
+	closest( '#dowColor13', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
