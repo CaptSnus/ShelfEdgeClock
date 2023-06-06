@@ -91,6 +91,28 @@ function getGloBrightness() {
 	xhttp.send();
 }
 
+function getBriClockMin() {
+	const xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			document.getElementById("briClockMin").value = this.responseText;
+		}
+	};
+	xhttp.open("GET", "getBriClockMin", true);
+	xhttp.send();
+}
+
+function getBriClockMax() {
+	const xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			document.getElementById("briClockMax").value = this.responseText;
+		}
+	};
+	xhttp.open("GET", "getBriClockMax", true);
+	xhttp.send();
+}
+
 function getGloColorFreq() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -172,6 +194,28 @@ function getDowBrightness() {
 	xhttp.send();
 }
 
+function getBriDownMin() {
+	const xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			document.getElementById("briDownMin").value = this.responseText;
+		}
+	};
+	xhttp.open("GET", "getBriDownMin", true);
+	xhttp.send();
+}
+
+function getBriDownMax() {
+	const xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			document.getElementById("briDownMax").value = this.responseText;
+		}
+	};
+	xhttp.open("GET", "getBriDownMax", true);
+	xhttp.send();
+}
+
 function getDowColorFreq() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -225,6 +269,28 @@ function getBriKNXPath() {
 		}
 	};
 	xhttp.open("GET", "getBriKNXPath", true);
+	xhttp.send();
+}
+
+function getBriKNXmin() {
+	const xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			document.getElementById("briKNXmin").value = this.responseText;
+		}
+	};
+	xhttp.open("GET", "getBriKNXmin", true);
+	xhttp.send();
+}
+
+function getBriKNXmax() {
+	const xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			document.getElementById("briKNXmax").value = this.responseText;
+		}
+	};
+	xhttp.open("GET", "getBriKNXmax", true);
 	xhttp.send();
 }
 
@@ -811,14 +877,20 @@ function getDowColor13() {
 function init() {
 	//  Global
 	getGloBrightness();
+	getBriClockMin();
+	getBriClockMax();
 	getGloColorFreq();
 	getDowUsage();
 	getDowBrightness();
+	getBriDownMin();
+	getBriDownMax();
 	getDowColorFreq();
 	//  KNX
 	getKNXAddr();
 	getKNXPort();
 	getBriKNXPath();
+	getBriKNXmin();
+	getBriKNXmax();
 	getTemKNXPath();
 	getHumKNXPath();
 	//  Clock
@@ -878,12 +950,20 @@ function startup() {
 	// GLOBAL
 	const gloBrightness = document.querySelector("#gloBrightness");
 	gloBrightness.addEventListener("input", updGloBrightness, false);
+	const briClockMin = document.querySelector("#briClockMin");
+	briClockMin.addEventListener("input", updBriClockMin, false);
+	const briClockMax = document.querySelector("#briClockMax");
+	briClockMax.addEventListener("input", updBriClockMax, false);
 	const gloColorFreq = document.querySelector("#gloColorFreq");
 	gloColorFreq.addEventListener("input", updGloColorFreq, false);
 	const dowUsage = document.querySelector("#dowUsage");
 	dowUsage.addEventListener("input", updDowUsage, false);
 	const dowBrightness = document.querySelector("#dowBrightness");
 	dowBrightness.addEventListener("input", updDowBrightness, false);
+	const briDownMin = document.querySelector("#briDownMin");
+	briDownMin.addEventListener("input", updBriDownMin, false);
+	const briDownMax = document.querySelector("#briDownMax");
+	briDownMax.addEventListener("input", updBriDownMax, false);
 	const dowColorFreq = document.querySelector("#dowColorFreq");
 	dowColorFreq.addEventListener("input", updDowColorFreq, false);
 	// KNX
@@ -893,6 +973,10 @@ function startup() {
 	knxPort.addEventListener("input", updKNXPort, false);
 	const briKNXPath = document.querySelector("#briKNXPath");
 	briKNXPath.addEventListener("input", updBriKNXPath, false);
+	const briKNXmin = document.querySelector("#briKNXmin");
+	briKNXmin.addEventListener("input", updBriKNXmin, false);
+	const briKNXmax = document.querySelector("#briKNXmax");
+	briKNXmax.addEventListener("input", updBriKNXmax, false);
 	const temKNXPath = document.querySelector("#temKNXPath");
 	temKNXPath.addEventListener("input", updTemKNXPath, false);
 	const humKNXPath = document.querySelector("#humKNXPath");
@@ -1044,6 +1128,18 @@ function updGloBrightness(event) {
 	console.log(value);
 }
 
+function updBriClockMin(event) {
+	const value = event.target.value;
+	$.post("/updBriClockMin", { briClockMin: value });
+	console.log(value);
+}
+
+function updBriClockMax(event) {
+	const value = event.target.value;
+	$.post("/updBriClockMax", { briClockMax: value });
+	console.log(value);
+}
+
 function updGloColorFreq(event) {
 	const value = event.target.value;
 	$.post("/updGloColorFreq", { gloColorFreq: value });
@@ -1059,6 +1155,18 @@ function updDowUsage(event) {
 function updDowBrightness(event) {
 	const value = event.target.value;
 	$.post("/updDowBrightness", { dowBrightness: value });
+	console.log(value);
+}
+
+function updBriDownMin(event) {
+	const value = event.target.value;
+	$.post("/updBriDownMin", { briDownMin: value });
+	console.log(value);
+}
+
+function updBriDownMax(event) {
+	const value = event.target.value;
+	$.post("/updBriDownMax", { briDownMax: value });
 	console.log(value);
 }
 
@@ -1084,6 +1192,18 @@ function updKNXPort(event) {
 function updBriKNXPath(event) {
 	const value = event.target.value;
 	$.post("/updBriKNXPath", { briKNXPath: value });
+	console.log(value);
+}
+
+function updBriKNXmin(event) {
+	const value = event.target.value;
+	$.post("/updBriKNXmin", { briKNXmin: value });
+	console.log(value);
+}
+
+function updBriKNXmax(event) {
+	const value = event.target.value;
+	$.post("/updBriKNXmax", { briKNXmax: value });
 	console.log(value);
 }
 

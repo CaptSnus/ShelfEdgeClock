@@ -1,5 +1,15 @@
 # Change Log
 
+## V1.1.1
+
+### Enhancements
+
+* Brightness mapping editable (issue [#7](https://github.com/CaptSnus/ShelfEdgeClock/issues/7)): you can now change the _knx - min value_, _knx - max value_, _clock - min value_, _clock - max value_, _downlight - min value_ and _downlight - max value_.
+
+### Bugfixes
+
+* Small tweaks here and there to make the experience more enjoyable.
+
 ## V1.1.0
 
 ### Enhancements
