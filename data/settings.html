@@ -105,98 +105,101 @@
 				<!-- GLOBAL -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsGlobal">
-						<button
-							data-i18n="settings.ai1.title"
-							class="accordion-button"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#collapseGlobal"
-							aria-expanded="true"
-							aria-controls="collapseGlobal"
-						>
+						<button data-i18n="settings.ai0.title" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGlobal" aria-expanded="true" aria-controls="collapseGlobal">
 							Globale Einstellungen
 						</button>
 					</h2>
-					<div
-						id="collapseGlobal"
-						class="accordion-collapse collapse show"
-						aria-labelledby="settingsGlobal"
-						data-bs-parent="#settings"
-					>
+					<div id="collapseGlobal" class="accordion-collapse collapse show" aria-labelledby="settingsGlobal" data-bs-parent="#settings">
 						<div class="accordion-body">
+							<p data-i18n="settings.ai0.description">Text</p>
 							<div class="form-floating mb-3">
 								<select class="form-select" name="gloBrightness" id="gloBrightness" aria-label="Front - Helligkeit">
-									<option data-i18n="settings.ai1.$0.0" value="0">Automatik</option>
-									<option data-i18n="settings.ai1.$0.1" value="25">10%</option>
-									<option data-i18n="settings.ai1.$0.2" value="50">20%</option>
-									<option data-i18n="settings.ai1.$0.3" value="75">30%</option>
-									<option data-i18n="settings.ai1.$0.4" value="100">40%</option>
-									<option data-i18n="settings.ai1.$0.5" value="125">50%</option>
-									<option data-i18n="settings.ai1.$0.6" value="150">60%</option>
-									<option data-i18n="settings.ai1.$0.7" value="175">70%</option>
-									<option data-i18n="settings.ai1.$0.8" value="200">80%</option>
-									<option data-i18n="settings.ai1.$0.9" value="225">90%</option>
-									<option data-i18n="settings.ai1.$0.10" value="250">100%</option>
-									<option data-i18n="settings.ai1.$0.11" selected>Wähle eine Option...</option>
+									<option data-i18n="settings.ai0.$0.0" value="0">Automatik</option>
+									<option data-i18n="settings.ai0.$0.1" value="25">10%</option>
+									<option data-i18n="settings.ai0.$0.2" value="50">20%</option>
+									<option data-i18n="settings.ai0.$0.3" value="75">30%</option>
+									<option data-i18n="settings.ai0.$0.4" value="100">40%</option>
+									<option data-i18n="settings.ai0.$0.5" value="125">50%</option>
+									<option data-i18n="settings.ai0.$0.6" value="150">60%</option>
+									<option data-i18n="settings.ai0.$0.7" value="175">70%</option>
+									<option data-i18n="settings.ai0.$0.8" value="200">80%</option>
+									<option data-i18n="settings.ai0.$0.9" value="225">90%</option>
+									<option data-i18n="settings.ai0.$0.10" value="250">100%</option>
+									<option data-i18n="settings.ai0.$0.11" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai1.$0.label" for="gloBrightness" class="form-label"
-									>Front - Helligkeit</label
-								>
+								<label data-i18n="settings.ai0.$0.label" for="gloBrightness" class="form-label">Front - Helligkeit</label>
+							</div>
+							<div class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="form-floating">
+										<input data-i18n="settings.ai0.$1.value" data-i18n-attr="value" type="number" class="form-control" id="briClockMin" min="0" max="255" value="0"/>
+										<label data-i18n="settings.ai0.$1.label" for="briClockMin" class="form-label">Front - min. Helligkeit</label>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="form-floating">
+										<input data-i18n="settings.ai0.$2.value" data-i18n-attr="value" type="number" class="form-control" id="briClockMax" min="0" max="255" value="255"/>
+										<label data-i18n="settings.ai0.$2.label" for="briClockMax" class="form-label">Front - max. Helligkeit</label>
+									</div>
+								</div>
 							</div>
 							<div class="form-floating mb-5">
 								<select class="form-select" name="gloColorFreq" id="gloColorFreq" aria-label="Front - Farbwechsel">
-									<option data-i18n="settings.ai1.$1.0" value="0">jede Sekunde</option>
-									<option data-i18n="settings.ai1.$1.1" value="1">jede Minute</option>
-									<option data-i18n="settings.ai1.$1.2" value="2">jede Stunde</option>
-									<option data-i18n="settings.ai1.$1.3" value="3">jeden Tag</option>
-									<option data-i18n="settings.ai1.$1.4" selected>Wähle eine Option...</option>
+									<option data-i18n="settings.ai0.$3.0" value="0">jede Sekunde</option>
+									<option data-i18n="settings.ai0.$3.1" value="1">jede Minute</option>
+									<option data-i18n="settings.ai0.$3.2" value="2">jede Stunde</option>
+									<option data-i18n="settings.ai0.$3.3" value="3">jeden Tag</option>
+									<option data-i18n="settings.ai0.$3.4" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai1.$1.label" for="gloColorFreq" class="form-label"
-									>Front - Farbwechsel</label
-								>
+								<label data-i18n="settings.ai0.$3.label" for="gloColorFreq" class="form-label">Front - Farbwechsel</label>
 							</div>
 							<div class="form-floating mb-3">
 								<select class="form-select" name="dowUsage" id="dowUsage" aria-label="Downlights - Schalter">
-									<option data-i18n="settings.ai1.$2.0" value="0">ausgeschaltet</option>
-									<option data-i18n="settings.ai1.$2.1" value="1">eingeschaltet</option>
+									<option data-i18n="settings.ai0.$4.0" value="0">ausgeschaltet</option>
+									<option data-i18n="settings.ai0.$4.1" value="1">eingeschaltet</option>
 								</select>
-								<label data-i18n="settings.ai1.$2.label" for="dowUsage" class="form-label">Downlights - Schalter</label>
+								<label data-i18n="settings.ai0.$4.label" for="dowUsage" class="form-label">Downlights - Schalter</label>
 							</div>
 							<div class="form-floating mb-3">
-								<select
-									class="form-select"
-									name="dowBrightness"
-									id="dowBrightness"
-									aria-label="Downlights - Helligkeit"
-								>
-									<option data-i18n="settings.ai1.$3.0" value="0">Automatik</option>
-									<option data-i18n="settings.ai1.$3.1" value="25">10%</option>
-									<option data-i18n="settings.ai1.$3.2" value="50">20%</option>
-									<option data-i18n="settings.ai1.$3.3" value="75">30%</option>
-									<option data-i18n="settings.ai1.$3.4" value="100">40%</option>
-									<option data-i18n="settings.ai1.$3.5" value="125">50%</option>
-									<option data-i18n="settings.ai1.$3.6" value="150">60%</option>
-									<option data-i18n="settings.ai1.$3.7" value="175">70%</option>
-									<option data-i18n="settings.ai1.$3.8" value="200">80%</option>
-									<option data-i18n="settings.ai1.$3.9" value="225">90%</option>
-									<option data-i18n="settings.ai1.$3.10" value="250">100%</option>
-									<option data-i18n="settings.ai1.$3.11" selected>Wähle eine Option...</option>
+								<select class="form-select" name="dowBrightness" id="dowBrightness" aria-label="Downlights - Helligkeit">
+									<option data-i18n="settings.ai0.$5.0" value="0">Automatik</option>
+									<option data-i18n="settings.ai0.$5.1" value="25">10%</option>
+									<option data-i18n="settings.ai0.$5.2" value="50">20%</option>
+									<option data-i18n="settings.ai0.$5.3" value="75">30%</option>
+									<option data-i18n="settings.ai0.$5.4" value="100">40%</option>
+									<option data-i18n="settings.ai0.$5.5" value="125">50%</option>
+									<option data-i18n="settings.ai0.$5.6" value="150">60%</option>
+									<option data-i18n="settings.ai0.$5.7" value="175">70%</option>
+									<option data-i18n="settings.ai0.$5.8" value="200">80%</option>
+									<option data-i18n="settings.ai0.$5.9" value="225">90%</option>
+									<option data-i18n="settings.ai0.$5.10" value="250">100%</option>
+									<option data-i18n="settings.ai0.$5.11" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai1.$3.label" for="dowBrightness" class="form-label"
-									>Downlights - Helligkeit</label
-								>
+								<label data-i18n="settings.ai0.$5.label" for="dowBrightness" class="form-label">Downlights - Helligkeit</label>
+							</div>
+							<div class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="form-floating">
+										<input data-i18n="settings.ai0.$5.value" data-i18n-attr="value" type="number" class="form-control" id="briDownMin" min="0" max="255" value="0" />
+										<label data-i18n="settings.ai0.$5.label" for="briDownMin" class="form-label">Downlights - min. Helligkeit</label>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="form-floating">
+										<input data-i18n="settings.ai0.$6.value" data-i18n-attr="value" type="number" class="form-control" id="briDownMax" min="0" max="255" value="255"/>
+										<label data-i18n="settings.ai0.$6.label" for="briDownMax" class="form-label">Downlights - max. Helligkeit</label>
+									</div>
+								</div>
 							</div>
 							<div class="form-floating mb-3">
 								<select class="form-select" name="dowColorFreq" id="dowColorFreq" aria-label="Downlights - Farbwechsel">
-									<option data-i18n="settings.ai1.$4.0" value="0">jede Sekunde</option>
-									<option data-i18n="settings.ai1.$4.1" value="1">jede Minute</option>
-									<option data-i18n="settings.ai1.$4.2" value="2">jede Stunde</option>
-									<option data-i18n="settings.ai1.$4.3" value="3">jeden Tag</option>
-									<option data-i18n="settings.ai1.$4.4" selected>Wähle eine Option...</option>
+									<option data-i18n="settings.ai0.$7.0" value="0">jede Sekunde</option>
+									<option data-i18n="settings.ai0.$7.1" value="1">jede Minute</option>
+									<option data-i18n="settings.ai0.$7.2" value="2">jede Stunde</option>
+									<option data-i18n="settings.ai0.$7.3" value="3">jeden Tag</option>
+									<option data-i18n="settings.ai0.$7.4" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai1.$4.label" for="dowColorFreq" class="form-label"
-									>Downlights - Farbwechsel</label
-								>
+								<label data-i18n="settings.ai0.$7.label" for="dowColorFreq" class="form-label">Downlights - Farbwechsel</label>
 							</div>
 						</div>
 					</div>
@@ -204,86 +207,46 @@
 				<!-- KNX -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsKNX">
-						<button
-							data-i18n="settings.ai2.title"
-							class="accordion-button collapsed"
-							type="button"
-							data-bs-toggle="collapse"
-							data-bs-target="#collapseKNX"
-							aria-expanded="false"
-							aria-controls="collapseKNX"
-						>
+						<button data-i18n="settings.ai1.title" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKNX" aria-expanded="false" aria-controls="collapseKNX">
 							Hausautomation
 						</button>
 					</h2>
-					<div
-						id="collapseKNX"
-						class="accordion-collapse collapse"
-						aria-labelledby="settingsKNX"
-						data-bs-parent="#settings"
-					>
+					<div id="collapseKNX" class="accordion-collapse collapse" aria-labelledby="settingsKNX" data-bs-parent="#settings">
 						<div class="accordion-body">
-							<p data-i18n="settings.ai2.description">Text</p>
+							<p data-i18n="settings.ai1.description">Text</p>
 							<div class="form-floating mb-3">
-								<input
-									data-i18n="settings.ai2.$0.value"
-									data-i18n-attr="value"
-									type="text"
-									class="form-control"
-									id="knxAddr"
-									value="192.168.xxx.yyy"
-								/>
-								<label data-i18n="settings.ai2.$0.label" for="knxAddr" class="form-label">KNX - Adresse</label>
+								<input data-i18n="settings.ai1.$0.value" data-i18n-attr="value" type="text" class="form-control" id="knxAddr" value="192.168.xxx.yyy" />
+								<label data-i18n="settings.ai1.$0.label" for="knxAddr" class="form-label">KNX - Adresse</label>
 							</div>
 							<div class="form-floating mb-5">
-								<input
-									data-i18n="settings.ai2.$1.value"
-									data-i18n-attr="value"
-									type="text"
-									class="form-control mb-2"
-									id="knxPort"
-									value="8080"
-								/>
-								<label data-i18n="settings.ai2.$1.label" for="knxPort" class="form-label">KNX - Port</label>
+								<input data-i18n="settings.ai1.$1.value" data-i18n-attr="value" type="text" class="form-control mb-2" id="knxPort" value="8080" />
+								<label data-i18n="settings.ai1.$1.label" for="knxPort" class="form-label">KNX - Port</label>
 							</div>
 							<div class="form-floating mb-3">
-								<input
-									data-i18n="settings.ai2.$2.value"
-									data-i18n-attr="value"
-									type="text"
-									class="form-control"
-									id="briKNXPath"
-									value="/rest/items/{itemname}/state"
-								/>
-								<label data-i18n="settings.ai2.$2.label" for="briKNXPath" class="form-label"
-									>KNX - Item: Helligkeit</label
-								>
+								<input data-i18n="settings.ai1.$2.value" data-i18n-attr="value" type="text" class="form-control" id="briKNXPath" value="/rest/items/{itemname}/state" />
+								<label data-i18n="settings.ai1.$2.label" for="briKNXPath" class="form-label">KNX - Item: Helligkeit</label>
+							</div>
+							<div class="row g-3 mb-3">
+								<div class="col-md">
+									<div class="form-floating">
+										<input data-i18n="settings.ai1.$3.value" data-i18n-attr="value" type="number" class="form-control" id="briKNXmin" min="0" value="0" />
+										<label data-i18n="settings.ai1.$3.label" for="briKNXmin" class="form-label">Helligkeit: Min-Wert</label>
+									</div>
+								</div>
+								<div class="col-md">
+									<div class="form-floating">
+										<input data-i18n="settings.ai1.$4.value" data-i18n-attr="value" type="number" class="form-control" id="briKNXmax" min="0" value="150000"/>
+										<label data-i18n="settings.ai1.$4.label" for="briKNXmax" class="form-label">Helligkeit: Max-Wert</label>
+									</div>
+								</div>
 							</div>
 							<div class="form-floating mb-3">
-								<input
-									data-i18n="settings.ai2.$3.value"
-									data-i18n-attr="value"
-									type="text"
-									class="form-control"
-									id="temKNXPath"
-									value="/rest/items/{itemname}/state"
-								/>
-								<label data-i18n="settings.ai2.$3.label" for="temKNXPath" class="form-label"
-									>KNX - Item: Temperatur</label
-								>
+								<input data-i18n="settings.ai1.$5.value" data-i18n-attr="value" type="text" class="form-control" id="temKNXPath" value="/rest/items/{itemname}/state" />
+								<label data-i18n="settings.ai1.$5.label" for="temKNXPath" class="form-label">KNX - Item: Temperatur</label>
 							</div>
 							<div class="form-floating mb-3">
-								<input
-									data-i18n="settings.ai2.$4.value"
-									data-i18n-attr="value"
-									type="text"
-									class="form-control"
-									id="humKNXPath"
-									value="/rest/items/{itemname}/state"
-								/>
-								<label data-i18n="settings.ai2.$4.label" for="humKNXPath" class="form-label"
-									>KNX - Item: Luftfeuchtigkeit</label
-								>
+								<input data-i18n="settings.ai1.$6.value" data-i18n-attr="value" type="text" class="form-control" id="humKNXPath" value="/rest/items/{itemname}/state" />
+								<label data-i18n="settings.ai1.$6.label" for="humKNXPath" class="form-label">KNX - Item: Luftfeuchtigkeit</label>
 							</div>
 						</div>
 					</div>
