@@ -39,7 +39,7 @@
 //  ----------------------------------------------------------------------------------------------------
 
 //  general
-char                version[]           = "1.1.1";                        // software version
+char                version[]           = "1.1.2";                        // software version
 int                 displayMode         = 0;                              // 0 = clock, 1 = date, 2 = temperature, 3 = humidity, 4 = scoreboard, 5 = countdown
 TaskHandle_t        taskCore0;                                            // task executed in the taskCore0code() function
 Preferences         pref;                                                 // shortcut for Preferences
