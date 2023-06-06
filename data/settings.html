@@ -105,11 +105,11 @@
 				<!-- GLOBAL -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsGlobal">
-						<button data-i18n="settings.ai0.title" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGlobal" aria-expanded="true" aria-controls="collapseGlobal">
+						<button data-i18n="settings.ai0.title" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGlobal" aria-expanded="false" aria-controls="collapseGlobal">
 							Globale Einstellungen
 						</button>
 					</h2>
-					<div id="collapseGlobal" class="accordion-collapse collapse show" aria-labelledby="settingsGlobal" data-bs-parent="#settings">
+					<div id="collapseGlobal" class="accordion-collapse collapse" aria-labelledby="settingsGlobal" data-bs-parent="#settings">
 						<div class="accordion-body">
 							<p data-i18n="settings.ai0.description">Text</p>
 							<div class="form-floating mb-3">
@@ -635,6 +635,23 @@
 										<span class="input-group-text col-1"></span>
 									</div>
 								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- SCROLL -->
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="settingsScroll">
+						<button data-i18n="settings.ai8.title" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseScroll" aria-expanded="false" aria-controls="collapseScroll">
+							Modus - Wechselanzeige
+						</button>
+					</h2>
+					<div id="collapseScroll" class="accordion-collapse collapse" aria-labelledby="settingsScroll" data-bs-parent="#settings">
+						<div class="accordion-body">
+							<p data-i18n="settings.ai0.description">Text</p>
+							<div class="form-floating mb-3">
+								<input type="text" class="form-control" id="scrTime" placeholder="5" />
+								<label data-i18n="settings.ai8.$0.0" for="scrTime">Zeit bis zum Wechsel (in Sekunden)</label>
 							</div>
 						</div>
 					</div>
