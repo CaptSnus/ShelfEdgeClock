@@ -1,0 +1,41 @@
+name: Feature Request
+description: Request a new feature or an addition to an existing feature
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+assignees:
+  - CaptSnus
+
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for taking the time to fill out this feature request!"
+
+  - type: textarea
+    id: problem-related
+    attributes:
+      label: Is your feature request related to a problem?
+      description: Please describe as clear and concise as possible of what the problem is.
+      placeholder: I'm always frustrated when [...]
+      value: "A new feature based on a bug is requested..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like!
+      description: Please describe as clear and concise as possible of what you want to happen.
+      placeholder: I'm always frustrated when [...]
+      value: "A new feature is requested..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternative
+    attributes:
+      label: Describe alternatives you've considered!
+      description: Please describe as clear and concise as possible any alternative solutions or features you've considered.
+      placeholder: I'm always frustrated when [...]
+      value: "An alternative feature is considerable..."
+    validations:
+      required: false
