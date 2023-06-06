@@ -23,6 +23,7 @@ The Shelf Edge Clock is heavily inspired by a post on social media showing the a
   * [Mode - Humidity](#mode---humidity)
   * [Mode - Scoreboard](#mode---scoreboard)
   * [Mode - Countdown](#mode---countdown)
+  * [Mode - Scrolling](#mode---scrolling)
   * [Downlights](#downlights)
   * [there is more](#there-is-more)
 * [Project Status](#project-status)
@@ -159,13 +160,21 @@ Display a scoreboard for table soccer or whatever game you're playing that requi
 
 ### Mode - Countdown
 
-Display a countdown and flash the word "EndE" at the end
+Display a countdown and flash the word "EndE" at the end.
 
 * display type is fixed
   * hhmm, if there is more than 60 minutes to countdown,
   * and switches to mmss, if the countdown is less than 60 minutes
 * one color option: user defined colors
 * the color option uses four colors: one for hours, one for minutes, one for seconds and one for the final 10 seconds
+
+### Mode - Scrolling
+
+Display certain values in a continuous loop and change every five seconds (customizable).
+
+1. Clock
+2. Date
+3. Temperature
 
 ### Downlights
 
@@ -201,7 +210,6 @@ This README will receive continuous updates throughout the development. Please a
 
 Planned improvements:
 
-* add additional scroll mode: show clock -> date -> temperature in a cycle
 * add buzzer for the countdown (it's very quite at the moment)
 * make GUI translation ready
 

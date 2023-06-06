@@ -39,7 +39,7 @@
 //  ----------------------------------------------------------------------------------------------------
 
 //  general
-char                version[]           = "1.1.1";                        // software version
+char                version[]           = "1.1.2";                        // software version
 int                 displayMode         = 0;                              // 0 = clock, 1 = date, 2 = temperature, 3 = humidity, 4 = scoreboard, 5 = countdown
 TaskHandle_t        taskCore0;                                            // task executed in the taskCore0code() function
 Preferences         pref;                                                 // shortcut for Preferences
@@ -201,6 +201,11 @@ uint32_t            couSColor;
 int                 couSColorR, couSColorG, couSColorB;
 uint32_t            couAColor;
 int                 couAColorR, couAColorG, couAColorB;
+//  |- mode scroll
+uint32_t            scrMillis           = 0;
+uint32_t            scrMillisPrev       = 0;
+int                 scrTime;
+int                 scrDisplayMode      = 0;
 
 
 
@@ -387,6 +392,9 @@ void initFlash() {
   couAColorR        = pref.getInt( "couAColorR", 255 );
   couAColorG        = pref.getInt( "couAColorG", 0 );
   couAColorB        = pref.getInt( "couAColorB", 0 );
+  //  |- mode scroll
+  scrTime           = pref.getInt( "scrTime", 5 );
+  
   Serial.println( "[+] All values loaded");
 }
 
@@ -754,6 +762,7 @@ void initHandlers() {
   server.on( "/goModeHum",        HTTP_POST,  []( AsyncWebServerRequest *request ) { displayMode = 3; pref.putInt( "displayMode", displayMode ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
   server.on( "/goModeSco",        HTTP_POST,  []( AsyncWebServerRequest *request ) { displayMode = 4; pref.putInt( "displayMode", displayMode ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); scoHValue = request->arg( "scoHome" ).toInt(); if ( scoHValue < 0 ) { scoHValue = 0; } if ( scoHValue > 99 ) {scoHValue = 99; } scoAValue = request->arg( "scoAway" ).toInt(); if ( scoAValue < 0 ) { scoAValue = 0; } if ( scoAValue > 99 ) { scoAValue = 99; } } );
   server.on( "/goModeCou",        HTTP_POST,  []( AsyncWebServerRequest *request ) { displayMode = 5; pref.putInt( "displayMode", displayMode ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); couMillis = request->arg( "millis" ).toInt(); if ( couMillis > 86400000 ) { couMillis = 86400000; } couMillisEnd = millis() + couMillis; } );
+  server.on( "/goModeScr",        HTTP_POST,  []( AsyncWebServerRequest *request ) { displayMode = 6; pref.putInt( "displayMode", displayMode ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
   server.on( "/goDow",            HTTP_POST,  []( AsyncWebServerRequest *request ) { request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); dowUsage = request->arg( "dowUsage" ).toInt(); pref.putInt( "dowUsage", dowUsage ); dowColorSet = request->arg( "dowColorSet" ).toInt(); pref.putInt( "dowColorSet", dowColorSet ); } );
 
   //  settings.html
@@ -847,6 +856,9 @@ void initHandlers() {
   server.on( "/updCouSColor",     HTTP_POST,  []( AsyncWebServerRequest *request ) { couSColorR = request->arg( "r" ).toInt(); couSColorG = request->arg( "g" ).toInt(); couSColorB = request->arg( "b" ).toInt(); pref.putInt( "couSColorR", couSColorR ); pref.putInt( "couSColorG", couSColorG ); pref.putInt( "couSColorB", couSColorB ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
   server.on( "/getCouAColor",                 []( AsyncWebServerRequest *request ) { char tempcolor[8]; sprintf( tempcolor, "#%02X%02X%02X", couAColorR, couAColorG, couAColorB ); request->send( 200, "text/plain", tempcolor ); } );
   server.on( "/updCouAColor",     HTTP_POST,  []( AsyncWebServerRequest *request ) { couAColorR = request->arg( "r" ).toInt(); couAColorG = request->arg( "g" ).toInt(); couAColorB = request->arg( "b" ).toInt(); pref.putInt( "couAColorR", couAColorR ); pref.putInt( "couAColorG", couAColorG ); pref.putInt( "couAColorB", couAColorB ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
+  //  |- scroll
+  server.on( "/getScrTime",                   []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( scrTime ) ); } );
+  server.on( "/updScrTime",       HTTP_POST,  []( AsyncWebServerRequest *request ) { scrTime = request->arg( "scrTime" ).toInt(); pref.putInt( "scrTime", scrTime ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
   //  |- downlights
   server.on( "/getDowColorSet",               []( AsyncWebServerRequest *request ) { request->send( 200, "text/plain", String( dowColorSet ) ); } );
   server.on( "/updDowColorSet",   HTTP_POST,  []( AsyncWebServerRequest *request ) { dowColorSet = request->arg( "dowColorSet" ).toInt(); pref.putInt( "dowColorSet", dowColorSet ); request->send( 200, "text/json", "{ \"result\":\"ok\" }" ); } );
@@ -1029,6 +1041,7 @@ void taskCore0code( void * pvParameters ){
 //  modeHum:  current humidity obtained from your smarthome system (REST API)
 //  modeSco:  scoreboard
 //  modeCou:  countdown
+//  modeScr:  scroll mode
 
 
 //  ----- CLOCK -----
@@ -1286,6 +1299,28 @@ void modeCou() {                                                          // dis
 }
 
 
+//  ----- SCROLLING -----
+void modeScr() {                                                          // display different modes continously
+  ledClock.clear();                                                       // clear the display
+
+  scrMillis = millis();                                                   // update current reference time
+
+  if ( ( scrMillis - scrMillisPrev ) >= ( scrTime * 1000 ) ) {            // run everything inside here every x seconds
+    scrMillisPrev = scrMillis;                                            // update previous reference time
+
+    if ( scrDisplayMode < 2 ) {                                           // if scrDisplayMode is smaller than 2 ...
+      scrDisplayMode = scrDisplayMode + 1;                                // ... increase scrDisplayMode by 1
+    } else {                                                              // ... else ...
+      scrDisplayMode = 0;                                                 // ... restart with the first content
+    }
+  }
+
+  if ( scrDisplayMode == 0 ) { modeClk(); }                               // call clock mode
+  if ( scrDisplayMode == 1 ) { modeDat(); }                               // call date mode
+  if ( scrDisplayMode == 2 ) { modeTem(); }                               // call temperature mode
+}
+
+
 
 //  ----------------------------------------------------------------------------------------------------
 //  SETUP
@@ -1341,7 +1376,8 @@ void loop() {
     if ( displayMode == 3 ) { modeHum(); }                                // call humidity mode
     if ( displayMode == 4 ) { modeSco(); }                                // call scoreboard mode
     if ( displayMode == 5 ) { modeCou(); }                                // call countdown mode
-
+    if ( displayMode == 6 ) { modeScr(); }                                // call scroll mode
+    
     ledClock.show();                                                      // show the content of the mode
   }
 }

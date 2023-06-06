@@ -656,6 +656,19 @@ function getCouAColor() {
 	xhttp.send();
 }
 
+//	Scroll
+function getScrTime() {
+	const xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			document.getElementById("scrTime").value = this.responseText;
+		}
+	};
+	xhttp.open("GET", "getScrTime", true);
+	xhttp.send();
+}
+
+
 //  Downlights
 function getDowColorSet() {
 	const xhttp = new XMLHttpRequest();
@@ -924,6 +937,8 @@ function init() {
 	getCouMColor();
 	getCouSColor();
 	getCouAColor();
+	//	Scroll
+	getScrTime();
 	//  Downlights
 	getDowColorSet();
 	getDowColor();
@@ -1053,6 +1068,9 @@ function startup() {
 	const couAColor = document.querySelector("#couAColor");
 	couAColor.addEventListener("input", updCouAColor, false);
 	couAColor.addEventListener("change", updCouAColor, false);
+	//	Scroll
+	const scrTime = document.querySelector("#scrTime");
+	scrTime.addEventListener("input", updScrTime, false);
 	//  Downlights
 	const dowColorSet = document.querySelector("#dowColorSet");
 	dowColorSet.addEventListener("input", updDowColorSet, false);
@@ -1414,6 +1432,13 @@ function updCouAColor(event) {
 	$.post("/updCouAColor", hexToRgb(value));
 	closest( '#couAColor', '.input-group-text' ).style.backgroundColor = value;
 	console.log(hexToRgb(value));
+}
+
+// 	Scroll
+function updScrTime(event) {
+	const value = event.target.value;
+	$.post("/updScrTime", { scrTime: value });
+	console.log(value);
 }
 
 //  Downlights
