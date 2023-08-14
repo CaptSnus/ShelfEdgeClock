@@ -3,7 +3,7 @@
 //
 //  Author:   CaptSnus
 //  Date:     May 16, 2023
-//  License:  tbd
+//  License:  MIT License
 //  ----------------------------------------------------------------------------------------------------
 //
 //  TABLE OF CONTENTS
@@ -40,7 +40,7 @@
 
 //  general
 char                version[]           = "1.1.2";                        // software version
-int                 displayMode         = 0;                              // 0 = clock, 1 = date, 2 = temperature, 3 = humidity, 4 = scoreboard, 5 = countdown
+int                 displayMode         = 0;                              // 0 = clock, 1 = date, 2 = temperature, 3 = humidity, 4 = scoreboard, 5 = countdown, 6 = scroll
 TaskHandle_t        taskCore0;                                            // task executed in the taskCore0code() function
 Preferences         pref;                                                 // shortcut for Preferences
 
@@ -218,7 +218,7 @@ void initMessage() {
   Serial.println( "====================================================================================================" );
   Serial.println( "Shelf Edge Clock for ESP32" );
   Serial.println( "Author         CaptSnus" );
-  Serial.println( "Licence        tbd" );
+  Serial.println( "Licence        MIT" );
   Serial.println( "Info           https://github.com/CaptSnus/ShelfEdgeClock" );
   Serial.printf ( "Version        %s\n", version );
   Serial.println( "====================================================================================================" );
@@ -520,11 +520,14 @@ void initLED() {
 }
 
 void displayDownlights() {
+  // if downlights turned ON ...
   if ( dowUsage == 1 ) {
+    // ... and 1 fixed color to display
     if ( dowColorSet == 0 ) {
       dowColor = ledDownlight.Color( dowColorR, dowColorG, dowColorB );
       ledDownlight.fill( dowColor, 0, DOWNLIGHT_COUNT );
     }
+    // ... and 14 fixed colors to display
     if ( dowColorSet == 1 ) {
       dowColor0 = ledDownlight.Color( dowColor0R, dowColor0G, dowColor0B );
       ledDownlight.fill( dowColor0, 0, 1 );
@@ -555,6 +558,7 @@ void displayDownlights() {
       dowColor13 = ledDownlight.Color( dowColor13R, dowColor13G, dowColor13B );
       ledDownlight.fill( dowColor13, 13, 1 );
     }
+    // ... and 1 random color to display
     if ( dowColorSet == 2 && (
       ( dowColorFreq == 0 ) ||
       ( dowColorFreq == 1 && downMinPassed ) ||
@@ -563,6 +567,7 @@ void displayDownlights() {
       dowColor = ledDownlight.ColorHSV( random( 0, 65535 ), 255, 255 );
       ledDownlight.fill( dowColor, 0, DOWNLIGHT_COUNT );
     }
+    // ... and 14 random colors to display
     if ( dowColorSet == 3 && (
       ( dowColorFreq == 0 ) ||
       ( dowColorFreq == 1 && downMinPassed ) ||
@@ -573,6 +578,7 @@ void displayDownlights() {
         ledDownlight.fill( dowColor, i, 1 );
       }
     }
+  // if downlights turned OFF
   } else {
     ledDownlight.clear();                                                 // or turn them all off
   }
@@ -1328,8 +1334,8 @@ void modeScr() {                                                          // dis
 
 void setup() {
   Serial.begin(115200);                                                   // initialize serial connection
-  delay(1000);                                                            // wait a second for the serial to properly start
-  initMessage();                                                          // display initial message with some basic information
+  delay(3000);                                                            // wait three seconds for the serial to properly start
+  initMessage();                                                          // display initial message
   initFlash();                                                            // load all saved settings
   initWifi();                                                             // configure wifi
   initmDNS();                                                             // configure mdns
@@ -1337,7 +1343,7 @@ void setup() {
   initNTP();                                                              // get the time from ntp
   initHandlers();                                                         // load all web handlers
   initServer();                                                           // configure webserver
-  initLED();                                                              // init neopixels
+  initLED();                                                              // init leds
 
   getBrightness();
   getTemperature();
