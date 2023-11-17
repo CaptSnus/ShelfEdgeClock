@@ -1,9 +1,24 @@
 # Change Log
 
+* [V1.1.3](#v113)
 * [V1.1.2](#v112)
 * [V1.1.1](#v111)
 * [V1.1.0](#v110)
 * [V1.0.0](#v100)
+
+## V1.1.3
+
+### Enhancements<!-- omit from toc -->
+
+* Updated some libraries
+  * Adafruit Neopixel: 1.11.0 -> 1.12.0
+  * Arduino HttpClient: 0.4.0 -> 0.5.0
+* Replaced one library
+  * AsyncElegantOTA -> ElegantOTA
+
+### Bugfixes<!-- omit from toc -->
+
+* Display mode will be reloaded after reboot or reset. The value was saved before but not updated on reload of the settings.
 
 ## V1.1.2
 
@@ -14,7 +29,6 @@
 ### Bugfixes<!-- omit from toc -->
 
 * Small tweaks here and there to make the experience more enjoyable.
-
 
 ## V1.1.1
 
