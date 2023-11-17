@@ -13,6 +13,9 @@ The Shelf Edge Clock is heavily inspired by a post on social media showing the a
   * [Hardware build](#hardware-build)
   * [Software installation](#software-installation)
   * [Configuration](#configuration)
+    * [First time connection](#first-time-connection)
+    * [Configure WiFi connection](#configure-wifi-connection)
+    * [Future connection](#future-connection)
 * [Usage](#usage)
   * [Mode - Clock](#mode---clock)
   * [Mode - Date](#mode---date)
@@ -77,17 +80,17 @@ The shelf edge clock has its own wifi access point upon first launch and your're
 
 After connecting to the shelf edge clock, please open a web browser and enter the **ip address 192.168.100.1**. If successful, you'll see the following page:
 
-![Screenshot of the HOME screen](docs/images/home.jpeg)
+<img src="./docs/images/home.jpeg" alt="Preview of the GUI - Settings" width="50%">
 
 #### Configure WiFi connection
 
 Navigate to Einstellungen -> WiFi (see screenshot below for guidance)
 
-![Screenshot of the NAVIGATION](docs/images/navigate.jpeg)
+<img src="./docs/images/navigate.jpeg" alt="Preview of the GUI - Settings" width="50%">
 
 Change the WiFi Client settings on this page. A working connection to your private network (getting data from your home automation system) and connection to the internet (setting the current time via NTP) is mandatory.
 
-![Screenshot of the WIFI settings](docs/images/wifi.jpeg)
+<img src="./docs/images/wifi.jpeg" alt="Preview of the GUI - Settings" width="50%">
 
 #### Future connection
 
@@ -231,12 +234,12 @@ All hardware was bought from [Adafruit](https://www.adafruit.com) and all links 
 
 ### Libraries
 
-* Adafruit_NeoPixel Library by adafruit - version 1.12.0
-* ArduinoHttpClient by Arduino - version 0.5.0
+* Adafruit_NeoPixel Library by adafruit - version 1.11.0
+* ArduinoHttpClient by Arduino - version 0.4.0
+* AsyncElegantOTA by ayushsharma82 - version 2.2.7
 * AsyncTCP by me-no-dev - version 1.1.1
 * ESPAsyncWebServer by me-no-dev - version 1.2.3
 * ESPmDNS by Hristo Gochkov - version 2.0.0
-* ElegantOTA by ayushsharma82 - version 3.1.0
 * NonBlockingRTTTL by Antoine Beauchamp - version 1.3.0
 * Preferences by Hristo Gochkov - version 2.0.0
 * SPIFFS by Hristo Gochkov - version 2.0.0
