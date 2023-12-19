@@ -24,13 +24,10 @@
 		<script src="./js/bootstrap.bundle.min.js"></script>
 		<script src="./js/jquery-3.6.3.min.js"></script>
 		<script type="text/javascript" src="./js/index.js"></script>
-		<script type="text/javascript">
-			window.addEventListener("load", startup, false);
-		</script>
 	</head>
 
 	<body>
-		<!-- NAVIGATION -->
+		<!-- navigation -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 			<div class="container">
 				<a class="navbar-brand" href="index.html">
@@ -82,49 +79,49 @@
 				</div>
 			</div>
 		</nav>
-		<!-- MAIN -->
-		<main class="container" style="padding-top: 56px; padding-bottom: 58px">
-			<h1 class="my-4">Dashboard</h1>
+
+		<!-- main container -->
+		<main class="container" style="padding-top: 58px; padding-bottom: 58px">
+			<h1 class="my-3">Dashboard</h1>
 			<div class="row">
 				<!-- DISPLAY MODE -->
-				<div class="col-sm-6 col-lg-4 my-3">
+				<div class="col-md-6 my-3">
 					<div class="card border-dark h-100">
 						<div class="card-header bg-dark text-light">Anzeige</div>
 						<div class="card-body">
-							<p class="lead">Nothing to see here...</p>
 							<div class="d-grid gap-2">
 								<input
 									class="btn btn-secondary text-start"
 									type="button"
-									onclick="goClk()"
+									onclick="updateDisplayMode( 0 )"
 									value="Uhrzeit"
 									id="showClock"
 								/>
 								<input
 									class="btn btn-secondary text-start"
 									type="button"
-									onclick="goDat()"
+									onclick="updateDisplayMode( 1 )"
 									value="Datum"
 									id="showDate"
 								/>
 								<input
 									class="btn btn-secondary text-start"
 									type="button"
-									onclick="goTem()"
+									onclick="updateDisplayMode( 2 )"
 									value="Temperatur"
 									id="showTemperature"
 								/>
 								<input
 									class="btn btn-secondary text-start"
 									type="button"
-									onclick="goHum()"
+									onclick="updateDisplayMode( 3 )"
 									value="Luftfeuchtigkeit"
 									id="showHumidity"
 								/>
 								<input
 									class="btn btn-secondary text-start"
 									type="button"
-									onclick="goScr()"
+									onclick="updateDisplayMode( 6 )"
 									value="Wechselanzeige"
 									id="showScroll"
 								/>
@@ -132,119 +129,74 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- DOWNLIGHTS -->
-				<div class="col-sm-6 col-lg-4 offset-lg-4 my-3">
+				<div class="col-md-6 my-3">
 					<div class="card border-dark h-100">
 						<div class="card-header bg-dark text-light">Downlights</div>
 						<div class="card-body">
-							<p class="lead">No hidden features available...</p>
 							<div class="d-grid gap-2">
 								<input
 									class="btn btn-secondary text-start"
 									type="button"
-									value="Einfarbig"
-									id="downlightMode0"
-									onclick="goDow( 1, 0 )"
-								/>
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									value="Einzelne Farben"
+									value="definierte Farben"
 									id="downlightMode1"
-									onclick="goDow( 1, 1 )"
+									onclick="updateDownlight( 1, 0 )"
 								/>
 								<input
 									class="btn btn-secondary text-start"
 									type="button"
-									value="Random 1"
+									value="zufällige Farbe"
 									id="downlightMode2"
-									onclick="goDow( 1, 2 )"
+									onclick="updateDownlight( 1, 1 )"
 								/>
 								<input
 									class="btn btn-secondary text-start"
 									type="button"
-									value="Random all"
+									value="zufällige Farben überall"
 									id="downlightMode3"
-									onclick="goDow( 1, 3 )"
+									onclick="updateDownlight( 1, 2 )"
 								/>
 								<input
 									class="btn btn-outline-secondary text-start"
 									type="button"
 									value="Ausschalten"
 									id="downlightOff"
-									onclick="goDow( 0, 0 )"
+									onclick="updateDownlight( 0, 0 )"
 								/>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- SCOREBOARD -->
-				<div class="col-sm-6 col-lg-4 my-3">
-					<div class="card border-dark h-100">
-						<div class="card-header bg-dark text-light">Scoreboard</div>
-						<div class="card-body">
-							<p class="lead">Let's play a game...</p>
-							<div class="row">
-								<div class="col-6">
-									<div class="d-grid gap-2">
-										<input class="btn btn-secondary" type="button" onclick="scoHUp()" value="+" id="scoHUp" />
-										<input class="form-control text-center" type="number" value="0" id="scoHome" />
-										<input class="btn btn-secondary" type="button" onclick="scoHDown()" value="-" id="scoHDown" />
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="d-grid gap-2">
-										<input class="btn btn-secondary" type="button" onclick="scoAUp()" value="+" id="scoAUp" />
-										<input class="form-control text-center" type="number" value="0" id="scoAway" />
-										<input class="btn btn-secondary" type="button" onclick="scoADown()" value="-" id="scoADown" />
-									</div>
-								</div>
-							</div>
-							<div class="d-grid gap-2 mt-2">
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									onclick="scoShow()"
-									value="Anzeigen"
-									id="scoShow"
-								/>
-								<input
-									class="btn btn-outline-secondary text-start"
-									type="button"
-									onclick="scoReset()"
-									value="Zurücksetzen"
-									id="scoReset"
-								/>
-							</div>
-						</div>
-					</div>
-				</div>
+
 				<!-- COUNTDOWN -->
-				<div class="col-sm-6 col-lg-4 my-3">
+				<div class="col-md-6 my-3">
 					<div class="card border-dark h-100">
 						<div class="card-header bg-dark text-light">Countdown</div>
 						<div class="card-body">
-							<p class="lead">Let's get ready...</p>
 							<div class="row">
 								<div class="col-4">
 									<div class="d-grid gap-2">
-										<input class="btn btn-secondary" type="button" onclick="couHUp()" value="+" id="couHUp" />
-										<input class="form-control text-center" type="number" value="0" id="couH" />
-										<input class="btn btn-secondary" type="button" onclick="couHDown()" value="-" id="couHDown" />
+										<input class="btn btn-secondary" type="button" onclick="countHup()" value="+" id="couHUp" />
+										<input class="form-control text-center" type="text" value="0" id="countH" readonly />
+										<input class="btn btn-secondary" type="button" onclick="countHdown()" value="-" id="couHdown" />
+										<p class="text-center mb-0"><small>Stunden</small></p>
 									</div>
 								</div>
 								<div class="col-4">
 									<div class="d-grid gap-2">
-										<input class="btn btn-secondary" type="button" onclick="couMUp()" value="+" id="couMUp" />
-										<input class="form-control text-center" type="number" value="0" id="couM" />
-										<input class="btn btn-secondary" type="button" onclick="couMDown()" value="-" id="couMDown" />
+										<input class="btn btn-secondary" type="button" onclick="countMup()" value="+" id="countMup" />
+										<input class="form-control text-center" type="text" value="0" id="countM" readonly />
+										<input class="btn btn-secondary" type="button" onclick="countMdown()" value="-" id="countMdown" />
+										<p class="text-center mb-0"><small>Minuten</small></p>
 									</div>
 								</div>
 								<div class="col-4">
 									<div class="d-grid gap-2">
-										<input class="btn btn-secondary" type="button" onclick="couSUp()" value="+" id="couSUp" />
-										<input class="form-control text-center" type="number" value="0" id="couS" />
-										<input class="btn btn-secondary" type="button" onclick="couSDown()" value="-" id="couSDown" />
+										<input class="btn btn-secondary" type="button" onclick="countSup()" value="+" id="countSup" />
+										<input class="form-control text-center" type="text" value="0" id="countS" readonly />
+										<input class="btn btn-secondary" type="button" onclick="countSdown()" value="-" id="countSdown" />
+										<p class="text-center mb-0"><small>Sekunden</small></p>
 									</div>
 								</div>
 							</div>
@@ -254,43 +206,58 @@
 									type="button"
 									value="Countdown starten"
 									id="scoreboard"
-									onclick="couStart()"
+									onclick="countStart()"
 								/>
 								<input
 									class="btn btn-outline-secondary text-start"
 									type="button"
 									value="Zurücksetzen"
 									id="scoreboard"
-									onclick="couReset()"
+									onclick="countReset()"
 								/>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- CREDITS -->
-				<div class="col-sm-6 col-lg-4 my-3">
-					<div class="card border-secondary h-100">
-						<div class="card-header bg-light">Credits</div>
+
+				<!-- SCOREBOARD -->
+				<div class="col-md-6 my-3">
+					<div class="card border-dark h-100">
+						<div class="card-header bg-dark text-light">Scoreboard</div>
 						<div class="card-body">
-							<p class="lead">... where I got the ideas from</p>
-							<div class="d-grid gap-2">
-								<a
-									href="https://github.com/DIY-Machines/DigitalClockSmartShelving"
-									target="_blank"
-									class="btn btn-light text-start"
-									role="button"
-									>DIY-Machines</a
-								>
-								<a
-									href="https://github.com/MacGyverr/ShelfClock"
-									target="_blank"
-									class="btn btn-light text-start"
-									role="button"
-									>MacGyverr</a
-								>
-								<a href="https://randomnerdtutorials.com" target="_blank" class="btn btn-light text-start" role="button"
-									>Random Nerd Tutorials</a
-								>
+							<div class="row">
+								<div class="col-6">
+									<div class="d-grid gap-2">
+										<input class="btn btn-secondary" type="button" onclick="scoreLup()" value="+" id="scoHUp" />
+										<input class="form-control text-center" type="text" value="0" id="scoreL" readonly />
+										<input class="btn btn-secondary" type="button" onclick="scoreLdown()" value="-" id="scoHDown" />
+										<p class="text-center mb-0"><small>links</small></p>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="d-grid gap-2">
+										<input class="btn btn-secondary" type="button" onclick="scoreRup()" value="+" id="scoAUp" />
+										<input class="form-control text-center" type="text" value="0" id="scoreR" readonly />
+										<input class="btn btn-secondary" type="button" onclick="scoreRdown()" value="-" id="scoADown" />
+										<p class="text-center mb-0"><small>rechts</small></p>
+									</div>
+								</div>
+							</div>
+							<div class="d-grid gap-2 mt-2">
+								<input
+									class="btn btn-secondary text-start"
+									type="button"
+									onclick="scoreShow()"
+									value="Anzeigen"
+									id="scoShow"
+								/>
+								<input
+									class="btn btn-outline-secondary text-start"
+									type="button"
+									onclick="scoreReset()"
+									value="Zurücksetzen"
+									id="scoReset"
+								/>
 							</div>
 						</div>
 					</div>

@@ -31,7 +31,7 @@
 	</head>
 	
   <body>
-    <!-- NAVIGATION -->
+    <!-- navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand mb-0 h1" href="index.html">
@@ -62,24 +62,35 @@
         </div>
       </div>
     </nav>
-    <!-- MAIN -->
+
+    <!-- main container -->
     <main class="container" style="padding-top: 56px; padding-bottom: 58px;">
       <h1 class="my-4">WiFi</h1>
       <p class="lead">Die Einstellungen im Bereich WiFi-Client müssen zwingend ausgefüllt werden. Andernfalls funktioniert weder die Zeitabfrage über NTP, noch ist die Anbindung an ein KNX-System (openHAB) möglich.</p>
       <div class="row">
-        <!-- ACCESS POINT -->
+
+        <!-- container for access point settings -->
         <div class="col-12 col-lg-6">
           <h2 class="mt-1 mb-3">Access Point</h2>
-          <!-- AP CONFIGURATION -->
+
+          <!-- toggle to de-/activate access point settings -->
           <div class="form-check form-switch mb-3">
             <input class="form-check-input" type="checkbox" role="switch" id="apConfig">
             <label class="form-check-label" for="apConfig">Manuelle Einstellungen aktivieren</label>
           </div>
+
           <!-- SSID -->
-          <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="apSSID" placeholder="Traffic Trailer" disabled>
+          <div class="form-floating mb-3 needs-validation" novalidate>
+            <input type="text" class="form-control" id="apSSID" placeholder="Shelf Edge Clock" disabled>
             <label for="apSSID">Netzwerkname</label>
+            <div class="invalid-tooltip">
+              Muss folgende Bedinungen erfüllen:<br>
+              <ul class="my-1">
+                <li>maximal 32 Zeichen</li>
+              </ul>
+            </div>
           </div>
+
           <!-- PASSWORD -->
           <div class="form-floating input-group mb-3 needs-validation" novalidate>
             <input type="password" class="form-control" id="apPass" placeholder="Enter a password" disabled>
@@ -95,6 +106,7 @@
             </div>
             <button class="input-group-text" type="button" id="apPassView">@</span>
           </div>
+
           <!-- HIDDEN -->
           <div class="form-floating mb-3">
             <select class="form-select" id="apHide" aria-label="Netzwerk sichtbar?" disabled>
@@ -103,6 +115,7 @@
             </select>
             <label for="apHide">Netzwerk sichtbar?</label>
           </div>
+
           <!-- IP ADDRESS -->
           <div class="d-flex justify-content-between">
             <p class="mb-0">IP-Adresse</p>
@@ -147,6 +160,7 @@
               </div>
             </div>
           </form>
+
           <!-- GATEWAY -->
           <p class="mb-0">Gateway</p>
           <hr class="border border-secondary mt-1 mb-2">
@@ -176,6 +190,7 @@
               </div>
             </div>
           </div>
+
           <!-- SUBNET -->
           <p class="mb-0">Subnetzmaske</p>
           <hr class="border border-secondary mt-1 mb-2">
@@ -200,35 +215,42 @@
             </div>
             <div class="col-3">
               <div class="form-floating">
-                <input type="number" class="form-control" id="apSN4" min="0" max="240" placeholder="0" disabled>
+                <input type="text" class="form-control" id="apSN4" min="0" max="240" placeholder="0" readonly disabled>
                 <label for="apSN4">4. Block</label>
               </div>
             </div>
           </div>
+
           <!-- RESTART AP -->
           <div class="d-grid mb-3">
-            <button type="button" class="btn btn-outline-secondary" id="apButton" disabled>Neustarten...</button>
+            <button type="button" class="btn btn-outline-secondary" id="apRestart" disabled>Access Point neustarten...</button>
           </div>
         </div>
-        <!-- WIFI CLIENT -->
+
+        <!-- container for wifi client settings -->
         <div class="col-12 col-lg-6">
-          <h2 class="mt-1 mb-3">Wifi Client</h3>
+          <h2 class="mt-1 mb-3">WiFi-Client</h3>
+
+          <!-- toggle to de-/activate wifi client settings -->
           <div class="form-check form-switch mb-3">
             <input class="form-check-input" type="checkbox" role="switch" id="wifiConfig">
             <label class="form-check-label" for="wifiConfig">Mit bekanntem Netzwerk verbinden?</label>
           </div>
-          <!-- SSID -->
+
+          <!-- input field: SSID -->
           <div class="form-floating mb-3">
             <input type="text" class="form-control" id="wifiSSID" placeholder="Name des Netzwerks eingeben" disabled>
             <label for="wifiSSID">Netzwerkname</label>
           </div>
-          <!-- PASSWORD -->
+
+          <!-- input field: PASSWORD -->
           <div class="form-floating input-group mb-3">
             <input type="password" class="form-control" id="wifiPass" placeholder="Passwort des Netzwerks eingeben" disabled>
             <label for="apPass">Passwort</label>
             <button class="input-group-text" type="button" id="wifiPassView">@</span>
           </div>
-          <!-- DHCP -->
+
+          <!-- dropdown field: DHCP -->
           <div class="form-floating mb-3">
             <select class="form-select" id="wifiDHCP" aria-label="IP-Vergabe" disabled>
               <option value="0">automatisch (DHCP)</option>
@@ -236,6 +258,7 @@
             </select>
             <label for="wifiDHCP">IP-Vergabe</label>
           </div>
+
           <!-- IP ADDRESS -->
           <p class="mb-0">IP-Adresse</p>
           <hr class="border border-secondary mt-1 mb-2">
@@ -265,13 +288,14 @@
               </div>
             </div>
           </form>
+
           <!-- GATEWAY -->
           <p class="mb-0">Gateway</p>
           <hr class="border border-secondary mt-1 mb-2">
           <div class="row mb-3">
             <div class="col-3">
               <div class="form-floating">
-                <input type="text" class="form-control" id="wifiGW1" placeholder="192" readonly disabled>
+                <input type="text" class="form-control" id="wifiGW1" placeholder="192"  disabled>
                 <label for="wifiGW1">1. Block</label>
               </div>
             </div>
@@ -294,6 +318,7 @@
               </div>
             </div>
           </div>
+
           <!-- SUBNET -->
           <p class="mb-0">Subnetzmaske</p>
           <hr class="border border-secondary mt-1 mb-2">
@@ -318,19 +343,21 @@
             </div>
             <div class="col-3">
               <div class="form-floating">
-                <input type="number" class="form-control" id="wifiSN4" placeholder="0" disabled>
+                <input type="text" class="form-control" id="wifiSN4" placeholder="0" readonly disabled>
                 <label for="wifiSN4">4. Block</label>
               </div>
             </div>
           </div>
+
           <!-- RESTART WIFI -->
           <div class="d-grid mb-3">
-            <button type="button" class="btn btn-outline-secondary" id="wifiButton" disabled>Neustarten...</button>
+            <button type="button" class="btn btn-outline-secondary" id="wifiRestart" disabled>Wifi-Client neustarten...</button>
           </div>
         </div>
       </div>
     </main>
-    <!-- FOOTER -->
+
+    <!-- footer -->
     <footer class="footer fixed-bottom mt-auto py-3 bg-dark">
       <div class="container d-flex justify-content-between">
         <div class="text-muted flex-grow-1">Created with the lovely support of my family!</div>

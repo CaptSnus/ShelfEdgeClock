@@ -38,7 +38,7 @@
 	</head>
 
 	<body>
-		<!-- NAVIGATION -->
+		<!-- navigation -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 			<div class="container">
 				<a class="navbar-brand" href="index.html">
@@ -98,11 +98,12 @@
 				</div>
 			</div>
 		</nav>
-		<!-- MAIN -->
+
+		<!-- main container -->
 		<main class="container" style="padding-top: 56px; padding-bottom: 58px">
 			<h1 data-i18n="settings.title" class="my-4">Einstellungen</h1>
 			<div class="accordion accordion-flush my-4" id="settings">
-				<!-- GLOBAL -->
+				<!-- global settings -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsGlobal">
 						<button
@@ -126,7 +127,7 @@
 						<div class="accordion-body">
 							<p data-i18n="settings.ai0.description">Text</p>
 							<div class="form-floating mb-3">
-								<select class="form-select" name="gloBrightness" id="gloBrightness" aria-label="Front - Helligkeit">
+								<select class="form-select" name="edgeBrightness" id="edgeBrightness" aria-label="Front - Helligkeit">
 									<option data-i18n="settings.ai0.$0.0" value="0">Automatik</option>
 									<option data-i18n="settings.ai0.$0.1" value="25">10%</option>
 									<option data-i18n="settings.ai0.$0.2" value="50">20%</option>
@@ -140,8 +141,8 @@
 									<option data-i18n="settings.ai0.$0.10" value="250">100%</option>
 									<option data-i18n="settings.ai0.$0.11" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai0.$0.label" for="gloBrightness" class="form-label"
-									>Front - Helligkeit</label
+								<label data-i18n="settings.ai0.$0.label" for="edgeBrightness" class="form-label"
+									>Edge - Helligkeit</label
 								>
 							</div>
 							<div class="row g-3 mb-3">
@@ -152,13 +153,13 @@
 											data-i18n-attr="value"
 											type="number"
 											class="form-control"
-											id="briClockMin"
+											id="edgeBrightnessMin"
 											min="0"
 											max="255"
 											value="0"
 										/>
-										<label data-i18n="settings.ai0.$1.label" for="briClockMin" class="form-label"
-											>Front - min. Helligkeit</label
+										<label data-i18n="settings.ai0.$1.label" for="edgeBrightnessMin" class="form-label"
+											>Edge - min. Helligkeit</label
 										>
 									</div>
 								</div>
@@ -169,41 +170,48 @@
 											data-i18n-attr="value"
 											type="number"
 											class="form-control"
-											id="briClockMax"
+											id="edgeBrightnessMax"
 											min="0"
 											max="255"
 											value="255"
 										/>
-										<label data-i18n="settings.ai0.$2.label" for="briClockMax" class="form-label"
-											>Front - max. Helligkeit</label
+										<label data-i18n="settings.ai0.$2.label" for="edgeBrightnessMax" class="form-label"
+											>Edge - max. Helligkeit</label
 										>
 									</div>
 								</div>
 							</div>
 							<div class="form-floating mb-5">
-								<select class="form-select" name="gloColorFreq" id="gloColorFreq" aria-label="Front - Farbwechsel">
+								<select class="form-select" name="edgeFrequency" id="edgeFrequency" aria-label="Edge - Farbwechsel">
 									<option data-i18n="settings.ai0.$3.0" value="0">jede Sekunde</option>
 									<option data-i18n="settings.ai0.$3.1" value="1">jede Minute</option>
 									<option data-i18n="settings.ai0.$3.2" value="2">jede Stunde</option>
 									<option data-i18n="settings.ai0.$3.3" value="3">jeden Tag</option>
 									<option data-i18n="settings.ai0.$3.4" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai0.$3.label" for="gloColorFreq" class="form-label"
-									>Front - Farbwechsel</label
+								<label data-i18n="settings.ai0.$3.label" for="edgeFrequency" class="form-label"
+									>Edge - Farbwechsel</label
 								>
-							</div>
-							<div class="form-floating mb-3">
-								<select class="form-select" name="dowUsage" id="dowUsage" aria-label="Downlights - Schalter">
-									<option data-i18n="settings.ai0.$4.0" value="0">ausgeschaltet</option>
-									<option data-i18n="settings.ai0.$4.1" value="1">eingeschaltet</option>
-								</select>
-								<label data-i18n="settings.ai0.$4.label" for="dowUsage" class="form-label">Downlights - Schalter</label>
 							</div>
 							<div class="form-floating mb-3">
 								<select
 									class="form-select"
-									name="dowBrightness"
-									id="dowBrightness"
+									name="downlightUsage"
+									id="downlightUsage"
+									aria-label="Downlights - Schalter"
+								>
+									<option data-i18n="settings.ai0.$4.0" value="0">ausgeschaltet</option>
+									<option data-i18n="settings.ai0.$4.1" value="1">eingeschaltet</option>
+								</select>
+								<label data-i18n="settings.ai0.$4.label" for="downlightUsage" class="form-label"
+									>Downlights - Schalter</label
+								>
+							</div>
+							<div class="form-floating mb-3">
+								<select
+									class="form-select"
+									name="downlightBrightness"
+									id="downlightBrightness"
 									aria-label="Downlights - Helligkeit"
 								>
 									<option data-i18n="settings.ai0.$5.0" value="0">Automatik</option>
@@ -219,7 +227,7 @@
 									<option data-i18n="settings.ai0.$5.10" value="250">100%</option>
 									<option data-i18n="settings.ai0.$5.11" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai0.$5.label" for="dowBrightness" class="form-label"
+								<label data-i18n="settings.ai0.$5.label" for="downlightBrightness" class="form-label"
 									>Downlights - Helligkeit</label
 								>
 							</div>
@@ -231,12 +239,12 @@
 											data-i18n-attr="value"
 											type="number"
 											class="form-control"
-											id="briDownMin"
+											id="downlightBrightnessMin"
 											min="0"
 											max="255"
 											value="0"
 										/>
-										<label data-i18n="settings.ai0.$5.label" for="briDownMin" class="form-label"
+										<label data-i18n="settings.ai0.$5.label" for="downlightBrightnessMin" class="form-label"
 											>Downlights - min. Helligkeit</label
 										>
 									</div>
@@ -248,32 +256,38 @@
 											data-i18n-attr="value"
 											type="number"
 											class="form-control"
-											id="briDownMax"
+											id="downlightBrightnessMax"
 											min="0"
 											max="255"
 											value="255"
 										/>
-										<label data-i18n="settings.ai0.$6.label" for="briDownMax" class="form-label"
+										<label data-i18n="settings.ai0.$6.label" for="downlightBrightnessMax" class="form-label"
 											>Downlights - max. Helligkeit</label
 										>
 									</div>
 								</div>
 							</div>
 							<div class="form-floating mb-3">
-								<select class="form-select" name="dowColorFreq" id="dowColorFreq" aria-label="Downlights - Farbwechsel">
+								<select
+									class="form-select"
+									name="downlightFrequency"
+									id="downlightFrequency"
+									aria-label="Downlights - Farbwechsel"
+								>
 									<option data-i18n="settings.ai0.$7.0" value="0">jede Sekunde</option>
 									<option data-i18n="settings.ai0.$7.1" value="1">jede Minute</option>
 									<option data-i18n="settings.ai0.$7.2" value="2">jede Stunde</option>
 									<option data-i18n="settings.ai0.$7.3" value="3">jeden Tag</option>
 									<option data-i18n="settings.ai0.$7.4" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai0.$7.label" for="dowColorFreq" class="form-label"
+								<label data-i18n="settings.ai0.$7.label" for="downlightFrequency" class="form-label"
 									>Downlights - Farbwechsel</label
 								>
 							</div>
 						</div>
 					</div>
 				</div>
+				
 				<!-- KNX -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsKNX">
@@ -303,10 +317,10 @@
 									data-i18n-attr="value"
 									type="text"
 									class="form-control"
-									id="knxAddr"
+									id="knxAddress"
 									value="192.168.xxx.yyy"
 								/>
-								<label data-i18n="settings.ai1.$0.label" for="knxAddr" class="form-label">KNX - Adresse</label>
+								<label data-i18n="settings.ai1.$0.label" for="knxAddress" class="form-label">KNX - Adresse</label>
 							</div>
 							<div class="form-floating mb-5">
 								<input
@@ -325,10 +339,10 @@
 									data-i18n-attr="value"
 									type="text"
 									class="form-control"
-									id="briKNXPath"
+									id="knxBrightnessPath"
 									value="/rest/items/{itemname}/state"
 								/>
-								<label data-i18n="settings.ai1.$2.label" for="briKNXPath" class="form-label"
+								<label data-i18n="settings.ai1.$2.label" for="knxBrightnessPath" class="form-label"
 									>KNX - Item: Helligkeit</label
 								>
 							</div>
@@ -340,11 +354,11 @@
 											data-i18n-attr="value"
 											type="number"
 											class="form-control"
-											id="briKNXmin"
+											id="knxBrightnessMin"
 											min="0"
 											value="0"
 										/>
-										<label data-i18n="settings.ai1.$3.label" for="briKNXmin" class="form-label"
+										<label data-i18n="settings.ai1.$3.label" for="knxBrightnessMin" class="form-label"
 											>Helligkeit: Min-Wert</label
 										>
 									</div>
@@ -356,11 +370,11 @@
 											data-i18n-attr="value"
 											type="number"
 											class="form-control"
-											id="briKNXmax"
+											id="knxBrightnessMax"
 											min="0"
 											value="150000"
 										/>
-										<label data-i18n="settings.ai1.$4.label" for="briKNXmax" class="form-label"
+										<label data-i18n="settings.ai1.$4.label" for="knxBrightnessMax" class="form-label"
 											>Helligkeit: Max-Wert</label
 										>
 									</div>
@@ -372,10 +386,10 @@
 									data-i18n-attr="value"
 									type="text"
 									class="form-control"
-									id="temKNXPath"
+									id="knxTemperaturePath"
 									value="/rest/items/{itemname}/state"
 								/>
-								<label data-i18n="settings.ai1.$5.label" for="temKNXPath" class="form-label"
+								<label data-i18n="settings.ai1.$5.label" for="knxTemperaturePath" class="form-label"
 									>KNX - Item: Temperatur</label
 								>
 							</div>
@@ -385,16 +399,17 @@
 									data-i18n-attr="value"
 									type="text"
 									class="form-control"
-									id="humKNXPath"
+									id="knxHumidityPath"
 									value="/rest/items/{itemname}/state"
 								/>
-								<label data-i18n="settings.ai1.$6.label" for="humKNXPath" class="form-label"
+								<label data-i18n="settings.ai1.$6.label" for="knxHumidityPath" class="form-label"
 									>KNX - Item: Luftfeuchtigkeit</label
 								>
 							</div>
 						</div>
 					</div>
 				</div>
+
 				<!-- CLOCK -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsClock">
@@ -417,28 +432,31 @@
 						data-bs-parent="#settings"
 					>
 						<div class="accordion-body">
+							<!-- NTP address -->
 							<div class="form-floating mb-3">
 								<input
 									data-i18n="settings.ai3.$0.value"
 									data-i18n-attr="value"
 									type="text"
 									class="form-control"
-									id="clkAddr"
+									id="clkAddress"
 									value="ch.pool.ntp.org"
 								/>
-								<label data-i18n="settings.ai3.$0.label" for="clkAddr" class="form-label">NTP - Adresse</label>
+								<label data-i18n="settings.ai3.$0.label" for="clkAddress" class="form-label">NTP - Adresse</label>
 							</div>
+							<!-- NTP timezone -->
 							<div class="form-floating mb-5">
 								<input
 									data-i18n="settings.ai3.$1.value"
 									data-i18n-attr="value"
 									type="text"
 									class="form-control"
-									id="clkZone"
+									id="clkTimeZone"
 									value="CET-1CEST,M3.5.0,M10.5.0/3"
 								/>
-								<label data-i18n="settings.ai3.$1.label" for="clkZone" class="form-label">NTP - Zeitzone</label>
+								<label data-i18n="settings.ai3.$1.label" for="clkTimeZone" class="form-label">NTP - Zeitzone</label>
 							</div>
+							<!-- Clock format -->
 							<div class="form-floating mb-3">
 								<select class="form-select" name="clkFormat" id="clkFormat" aria-label="Brightness">
 									<option data-i18n="settings.ai3.$2.0" value="0">12 Stunden (AM/PM)</option>
@@ -447,21 +465,22 @@
 								</select>
 								<label data-i18n="settings.ai3.$2.label" for="clkFormat" class="form-label">Format</label>
 							</div>
+							<!-- Clock color -->
 							<div class="form-floating mb-3">
-								<select class="form-select" name="clkColorSet" id="clkColorSet" aria-label="Brightness">
+								<select class="form-select" name="clkColor" id="clkColor" aria-label="Brightness">
 									<option data-i18n="settings.ai3.$3.0" value="0">benutzerdefinierte Farben</option>
 									<option data-i18n="settings.ai3.$3.1" value="1">zufällige Farben</option>
 									<option data-i18n="settings.ai3.$3.2" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai3.$3.label" for="clkColorSet" class="form-label">Farbmodus</label>
+								<label data-i18n="settings.ai3.$3.label" for="clkColor" class="form-label">Farbmodus</label>
 							</div>
-
-							<div id="clkFields" class="row g-3 mb-3">
+							<!-- Clock color input -->
+							<div id="clkColorInput" class="row g-3 mb-3">
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="clkHColor" placeholder="Username" />
-											<label data-i18n="settings.ai3.$4.0" for="clkHColor">Farbe - Stunden</label>
+											<input type="text" class="form-control" id="clkColorH" placeholder="Username" />
+											<label data-i18n="settings.ai3.$4.0" for="clkColorH">Farbe - Stunden</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -469,8 +488,8 @@
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="clkMColor" placeholder="Username" />
-											<label data-i18n="settings.ai3.$4.1" for="clkMColor">Farbe - Minuten</label>
+											<input type="text" class="form-control" id="clkColorM" placeholder="Username" />
+											<label data-i18n="settings.ai3.$4.1" for="clkColorM">Farbe - Minuten</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -479,6 +498,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- DATE -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsDate">
@@ -501,6 +521,7 @@
 						data-bs-parent="#settings"
 					>
 						<div class="accordion-body">
+							<!-- Date format -->
 							<div class="form-floating mb-3">
 								<select class="form-select" name="datFormat" id="datFormat" aria-label="Brightness">
 									<option data-i18n="settings.ai4.$0.0" value="0">0329 -> 29. März</option>
@@ -509,21 +530,22 @@
 								</select>
 								<label data-i18n="settings.ai4.$0.label" for="datFormat" class="form-label">Format</label>
 							</div>
+							<!-- Date color -->
 							<div class="form-floating mb-3">
-								<select class="form-select" name="datColorSet" id="datColorSet" aria-label="Brightness">
+								<select class="form-select" name="datColor" id="datColor" aria-label="Brightness">
 									<option data-i18n="settings.ai4.$1.0" value="0">benutzerdefinierte Farben</option>
 									<option data-i18n="settings.ai4.$1.1" value="1">zufällige Farben</option>
 									<option data-i18n="settings.ai4.$1.2" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai4.$1.label" for="datColorSet" class="form-label">Farbmodus</label>
+								<label data-i18n="settings.ai4.$1.label" for="datColor" class="form-label">Farbmodus</label>
 							</div>
-
-							<div id="datFields" class="row g-3 mb-3">
+							<!-- Date color input-->
+							<div id="datColorInput" class="row g-3 mb-3">
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="datDColor" placeholder="Username" />
-											<label data-i18n="settings.ai4.$2.0" for="datDColor">Farbe - Tag</label>
+											<input type="text" class="form-control" id="datColorD" placeholder="Username" />
+											<label data-i18n="settings.ai4.$2.0" for="datColorD">Farbe - Tag</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -531,8 +553,8 @@
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="datMColor" placeholder="Username" />
-											<label data-i18n="settings.ai4.$2.1" for="datMColor">Farbe - Monat</label>
+											<input type="text" class="form-control" id="datColorM" placeholder="Username" />
+											<label data-i18n="settings.ai4.$2.1" for="datColorM">Farbe - Monat</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -541,6 +563,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- TEMPERATURE -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsTemperature">
@@ -563,6 +586,7 @@
 						data-bs-parent="#settings"
 					>
 						<div class="accordion-body">
+							<!-- Temperature symbol -->
 							<div class="form-floating mb-3">
 								<select class="form-select" name="temSymbol" id="temSymbol" aria-label="Brightness">
 									<option data-i18n="settings.ai5.$0.0" value="0">Fahrenheit</option>
@@ -574,6 +598,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- HUMIDITY -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsHumidity">
@@ -596,21 +621,22 @@
 						data-bs-parent="#settings"
 					>
 						<div class="accordion-body">
+							<!-- Humidity color -->
 							<div class="form-floating mb-3">
-								<select class="form-select" name="humColorSet" id="humColorSet" aria-label="Brightness">
+								<select class="form-select" name="humColor" id="humColor" aria-label="Brightness">
 									<option data-i18n="settings.ai5.$1.0" value="0">benutzerdefinierte Farben</option>
 									<option data-i18n="settings.ai5.$1.1" value="1">zufällige Farben</option>
 									<option data-i18n="settings.ai5.$1.2" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai5.$1.label" for="humColorSet" class="form-label">Farbmodus</label>
+								<label data-i18n="settings.ai5.$1.label" for="humColor" class="form-label">Farbmodus</label>
 							</div>
-
-							<div id="humFields" class="row g-3 mb-3">
+							<!-- Humidity color input -->
+							<div id="humColorInput" class="row g-3 mb-3">
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="humAColor" placeholder="Username" />
-											<label data-i18n="settings.ai6.$1.0" for="humAColor">Farbe - Prozent</label>
+											<input type="text" class="form-control" id="humColorA" placeholder="Username" />
+											<label data-i18n="settings.ai6.$1.0" for="humColorA">Farbe - Prozent</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -618,8 +644,8 @@
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="humBColor" placeholder="Username" />
-											<label data-i18n="settings.ai6.$1.1" for="humBColor">Farbe - Kommastelle</label>
+											<input type="text" class="form-control" id="humColorB" placeholder="Username" />
+											<label data-i18n="settings.ai6.$1.1" for="humColorB">Farbe - Kommastelle</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -627,8 +653,8 @@
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="humCColor" placeholder="Username" />
-											<label data-i18n="settings.ai6.$1.2" for="humCColor">Farbe - Symbol</label>
+											<input type="text" class="form-control" id="humColorC" placeholder="Username" />
+											<label data-i18n="settings.ai6.$1.2" for="humColorC">Farbe - Symbol</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -637,6 +663,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- SCOREBOARD -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsScoreboard">
@@ -663,8 +690,8 @@
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="scoHColor" placeholder="Username" />
-											<label data-i18n="settings.ai7.$0.0" for="scoHColor">Farbe - linke Seite</label>
+											<input type="text" class="form-control" id="scoColorL" placeholder="Username" />
+											<label data-i18n="settings.ai7.$0.0" for="scoColorL">Farbe - linke Seite</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -672,8 +699,8 @@
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="scoAColor" placeholder="Username" />
-											<label data-i18n="settings.ai7.$0.1" for="scoAColor">Farbe - rechte Seite</label>
+											<input type="text" class="form-control" id="scoColorR" placeholder="Username" />
+											<label data-i18n="settings.ai7.$0.1" for="scoColorR">Farbe - rechte Seite</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -682,6 +709,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- COUNTDOWN -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsTimer">
@@ -708,8 +736,8 @@
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="couHColor" placeholder="Username" />
-											<label data-i18n="settings.ai8.$0.0" for="couHColor">Farbe - Stunden</label>
+											<input type="text" class="form-control" id="couColorH" placeholder="Username" />
+											<label data-i18n="settings.ai8.$0.0" for="couColorH">Farbe - Stunden</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -717,8 +745,8 @@
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="couMColor" placeholder="Username" />
-											<label data-i18n="settings.ai8.$0.1" for="couMColor">Farbe - Minuten</label>
+											<input type="text" class="form-control" id="couColorM" placeholder="Username" />
+											<label data-i18n="settings.ai8.$0.1" for="couColorM">Farbe - Minuten</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -726,8 +754,8 @@
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="couSColor" placeholder="Username" />
-											<label data-i18n="settings.ai8.$0.2" for="couSColor">Farbe - Sekunden</label>
+											<input type="text" class="form-control" id="couColorS" placeholder="Username" />
+											<label data-i18n="settings.ai8.$0.2" for="couColorS">Farbe - Sekunden</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -735,8 +763,8 @@
 								<div class="col-md">
 									<div class="input-group">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="couAColor" placeholder="Username" />
-											<label data-i18n="settings.ai8.$0.3" for="couAColor">Farbe - Alarm</label>
+											<input type="text" class="form-control" id="couColorA" placeholder="Username" />
+											<label data-i18n="settings.ai8.$0.3" for="couColorA">Farbe - Alarm</label>
 										</div>
 										<span class="input-group-text col-1"></span>
 									</div>
@@ -745,6 +773,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- SCROLL -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsScroll">
@@ -775,6 +804,7 @@
 						</div>
 					</div>
 				</div>
+
 				<!-- DOWNLIGHTS -->
 				<div class="accordion-item">
 					<h2 class="accordion-header" id="settingsDownlight">
@@ -797,156 +827,146 @@
 						data-bs-parent="#settings"
 					>
 						<div class="accordion-body">
+							<!-- Downlight color-->
 							<div class="form-floating mb-3">
-								<select class="form-select" name="humColorSet" id="dowColorSet" aria-label="Brightness">
-									<option data-i18n="settings.ai9.$0.0" value="0">1 benutzerdefinierte Farbe</option>
-									<option data-i18n="settings.ai9.$0.1" value="1">14 benutzerdefinierte Farben</option>
-									<option data-i18n="settings.ai9.$0.2" value="2">1 zufällige Farbe</option>
-									<option data-i18n="settings.ai9.$0.3" value="3">14 zufällige Farben</option>
-									<option data-i18n="settings.ai9.$0.4" selected>Wähle eine Option...</option>
+								<select class="form-select" name="dowColor" id="dowColor" aria-label="Brightness">
+									<option data-i18n="settings.ai9.$0.0" value="0">benutzerdefinierte Farben</option>
+									<option data-i18n="settings.ai9.$0.1" value="1">1 zufällige Farbe</option>
+									<option data-i18n="settings.ai9.$0.2" value="2">14 zufällige Farben</option>
+									<option data-i18n="settings.ai9.$0.3" selected>Wähle eine Option...</option>
 								</select>
-								<label data-i18n="settings.ai9.$0.label" for="dowColorSet" class="form-label">Farbmodus</label>
+								<label data-i18n="settings.ai9.$0.label" for="dowColor" class="form-label">Farbmodus</label>
 							</div>
-
-							<div id="dowFields0" class="row g-3 mb-3">
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor" placeholder="Username" />
-											<label data-i18n="settings.ai9.$1.0" for="dowColor">Farbe - Downlights</label>
+							<!-- Downlight color input-->
+							<div id="dowColorInput">
+								<div class="row g-3 mb-3">
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor6" placeholder="dowColor6" />
+												<label data-i18n="settings.ai9.$2.0" for="dowColor6">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
 										</div>
-										<span class="input-group-text col-1"></span>
+									</div>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor5" placeholder="dowColor5" />
+												<label data-i18n="settings.ai9.$2.1" for="dowColor5">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
+										</div>
+									</div>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor4" placeholder="dowColor4" />
+												<label data-i18n="settings.ai9.$2.2" for="dowColor4">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
+										</div>
+									</div>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor3" placeholder="dowColor3" />
+												<label data-i18n="settings.ai9.$2.3" for="dowColor3">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
+										</div>
+									</div>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor2" placeholder="dowColor2" />
+												<label data-i18n="settings.ai9.$2.4" for="dowColor2">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
+										</div>
+									</div>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor1" placeholder="dowColor1" />
+												<label data-i18n="settings.ai9.$2.5" for="dowColor1">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
+										</div>
+									</div>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor0" placeholder="dowColor0" />
+												<label data-i18n="settings.ai9.$2.6" for="dowColor0">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
+										</div>
 									</div>
 								</div>
-							</div>
-
-							<div id="dowFields1upper" class="row g-3 mb-3">
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor6" placeholder="dowColor6" />
-											<label data-i18n="settings.ai9.$2.0" for="dowColor6">Farbe</label>
+								<div class="row g-3 mb-3">
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor7" placeholder="dowColor7" />
+												<label data-i18n="settings.ai9.$2.7" for="dowColor7">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
 										</div>
-										<span class="input-group-text col-1"></span>
 									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor5" placeholder="dowColor5" />
-											<label data-i18n="settings.ai9.$2.1" for="dowColor5">Farbe</label>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor8" placeholder="dowColor8" />
+												<label data-i18n="settings.ai9.$2.8" for="dowColor8">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
 										</div>
-										<span class="input-group-text col-1"></span>
 									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor4" placeholder="dowColor4" />
-											<label data-i18n="settings.ai9.$2.2" for="dowColor4">Farbe</label>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor9" placeholder="dowColor9" />
+												<label data-i18n="settings.ai9.$2.9" for="dowColor9">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
 										</div>
-										<span class="input-group-text col-1"></span>
 									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor3" placeholder="dowColor3" />
-											<label data-i18n="settings.ai9.$2.3" for="dowColor3">Farbe</label>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor10" placeholder="dowColor10" />
+												<label data-i18n="settings.ai9.$2.10" for="dowColor10">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
 										</div>
-										<span class="input-group-text col-1"></span>
 									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor2" placeholder="dowColor2" />
-											<label data-i18n="settings.ai9.$2.4" for="dowColor2">Farbe</label>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor11" placeholder="dowColor11" />
+												<label data-i18n="settings.ai9.$2.11" for="dowColor111">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
 										</div>
-										<span class="input-group-text col-1"></span>
 									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor1" placeholder="dowColor1" />
-											<label data-i18n="settings.ai9.$2.5" for="dowColor1">Farbe</label>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor12" placeholder="dowColor12" />
+												<label data-i18n="settings.ai9.$2.12" for="dowColor12">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
 										</div>
-										<span class="input-group-text col-1"></span>
 									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor0" placeholder="dowColor0" />
-											<label data-i18n="settings.ai9.$2.6" for="dowColor0">Farbe</label>
+									<div class="col-lg">
+										<div class="input-group">
+											<div class="form-floating">
+												<input type="text" class="form-control" id="dowColor13" placeholder="dowColor13" />
+												<label data-i18n="settings.ai9.$2.13" for="dowColor13">Farbe</label>
+											</div>
+											<span class="input-group-text col-1"></span>
 										</div>
-										<span class="input-group-text col-1"></span>
-									</div>
-								</div>
-							</div>
-							<div id="dowFields1lower" class="row g-3 mb-3">
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor7" placeholder="dowColor7" />
-											<label data-i18n="settings.ai9.$2.7" for="dowColor7">Farbe</label>
-										</div>
-										<span class="input-group-text col-1"></span>
-									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor8" placeholder="dowColor8" />
-											<label data-i18n="settings.ai9.$2.8" for="dowColor8">Farbe</label>
-										</div>
-										<span class="input-group-text col-1"></span>
-									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor9" placeholder="dowColor9" />
-											<label data-i18n="settings.ai9.$2.9" for="dowColor9">Farbe</label>
-										</div>
-										<span class="input-group-text col-1"></span>
-									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor10" placeholder="dowColor10" />
-											<label data-i18n="settings.ai9.$2.10" for="dowColor10">Farbe</label>
-										</div>
-										<span class="input-group-text col-1"></span>
-									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor11" placeholder="dowColor11" />
-											<label data-i18n="settings.ai9.$2.11" for="dowColor111">Farbe</label>
-										</div>
-										<span class="input-group-text col-1"></span>
-									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor12" placeholder="dowColor12" />
-											<label data-i18n="settings.ai9.$2.12" for="dowColor12">Farbe</label>
-										</div>
-										<span class="input-group-text col-1"></span>
-									</div>
-								</div>
-								<div class="col-md">
-									<div class="input-group">
-										<div class="form-floating">
-											<input type="text" class="form-control" id="dowColor13" placeholder="dowColor13" />
-											<label data-i18n="settings.ai9.$2.13" for="dowColor13">Farbe</label>
-										</div>
-										<span class="input-group-text col-1"></span>
 									</div>
 								</div>
 							</div>

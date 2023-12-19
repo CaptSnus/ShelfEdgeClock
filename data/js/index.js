@@ -1,156 +1,118 @@
-//  INDEX.HTML
+//  ****************************************************************************************************
+//  FUNCTIONS - update
+//  ****************************************************************************************************
 
 //  Mode
-function goClk() {
-	$.post("/goModeClk");
-	console.log("clock");
+function updateDisplayMode(mode, data1 = 0, data2 = 0) {
+	const displayMode = { mode: mode, data1: data1, data2: data2 };
+	$.post("/updateDisplayMode", displayMode);
+	console.log(displayMode);
 }
-function goDat() {
-	$.post("/goModeDat");
-	console.log("date");
-}
-function goTem() {
-	$.post("/goModeTem");
-	console.log("temperature");
-}
-function goHum() {
-	$.post("/goModeHum");
-	console.log("humidity");
-}
-function goScr() {
-	$.post("/goModeScr");
-	console.log("scroll");
-}
-
 
 //  Scoreboard
-function startup() {
-	const scoHValue = document.querySelector("#scoHome");
-	scoHValue.addEventListener("input", scoShow, false);
-	const scoAValue = document.querySelector("#scoAway");
-	scoAValue.addEventListener("input", scoShow, false);
-}
-
-function scoHUp() {
-	const scoHome = $("#scoHome").val();
-	if (scoHome < 99 && !isNaN(scoHome)) {
-		const newval = parseInt(scoHome) + 1;
-		$("#scoHome").val(newval);
-		scoShow();
+function scoreLup() {
+	const scoreL = $("#scoreL").val();
+	if (scoreL < 99 && !isNaN(scoreL)) {
+		const newval = parseInt(scoreL) + 1;
+		$("#scoreL").val(newval);
+		scoreShow();
 	}
 }
-
-function scoAUp() {
-	const scoAway = $("#scoAway").val();
-	if (scoAway < 99 && !isNaN(scoAway)) {
-		const newval = parseInt(scoAway) + 1;
-		$("#scoAway").val(newval);
-		scoShow();
+function scoreLdown() {
+	const scoreL = $("#scoreL").val();
+	if (scoreL > 0 && !isNaN(scoreL)) {
+		const newval = parseInt(scoreL) - 1;
+		$("#scoreL").val(newval);
+		scoreShow();
 	}
 }
-
-function scoHDown() {
-	const scoHome = $("#scoHome").val();
-	if (scoHome > 0 && !isNaN(scoHome)) {
-		const newval = parseInt(scoHome) - 1;
-		$("#scoHome").val(newval);
-		scoShow();
+function scoreRup() {
+	const scoreR = $("#scoreR").val();
+	if (scoreR < 99 && !isNaN(scoreR)) {
+		const newval = parseInt(scoreR) + 1;
+		$("#scoreR").val(newval);
+		scoreShow();
 	}
 }
-
-function scoADown() {
-	const scoAway = $("#scoAway").val();
-	if (scoAway > 0 && !isNaN(scoAway)) {
-		const newval = parseInt(scoAway) - 1;
-		$("#scoAway").val(newval);
-		scoShow();
+function scoreRdown() {
+	const scoreR = $("#scoreR").val();
+	if (scoreR > 0 && !isNaN(scoreR)) {
+		const newval = parseInt(scoreR) - 1;
+		$("#scoreR").val(newval);
+		scoreShow();
 	}
 }
-
-function scoShow() {
-	const scoH = $("#scoHome").val();
-	const scoA = $("#scoAway").val();
-	const scoreboard = { scoHome: scoH, scoAway: scoA };
-	$.post("/goModeSco", scoreboard);
-	console.log(scoreboard);
+function scoreShow() {
+	const scoreL = parseInt($("#scoreL").val());
+	const scoreR = parseInt($("#scoreR").val());
+	updateDisplayMode(4, scoreL, scoreR);
 }
-
-function scoReset() {
-	$("#scoHome").val(0);
-	$("#scoAway").val(0);
-	scoShow();
+function scoreReset() {
+	$("#scoreL").val(0);
+	$("#scoreR").val(0);
+	scoreShow();
 }
-
 
 //  Countdown
-function couHUp() {
-	const couH = $("#couH").val();
-	if (couH < 99 && !isNaN(couH)) {
-		const newval = parseInt(couH) + 1;
-		$("#couH").val(newval);
+function countHup() {
+	const countH = $("#countH").val();
+	if (countH < 23 && !isNaN(countH)) {
+		const newval = parseInt(countH) + 1;
+		$("#countH").val(newval);
 	}
 }
-
-function couMUp() {
-	const couM = $("#couM").val();
-	if (couM < 60 && !isNaN(couM)) {
-		const newval = parseInt(couM) + 1;
-		$("#couM").val(newval);
+function countMup() {
+	const countM = $("#countM").val();
+	if (countM < 60 && !isNaN(countM)) {
+		const newval = parseInt(countM) + 1;
+		$("#countM").val(newval);
 	}
 }
-
-function couSUp() {
-	const couS = $("#couS").val();
-	if (couS < 60 && !isNaN(couS)) {
-		const newval = parseInt(couS) + 1;
-		$("#couS").val(newval);
+function countSup() {
+	const countS = $("#countS").val();
+	if (countS < 60 && !isNaN(countS)) {
+		const newval = parseInt(countS) + 1;
+		$("#countS").val(newval);
 	}
 }
-
-function couHDown() {
-	const couH = $("#couH").val();
-	if (couH > 0 && !isNaN(couH)) {
-		const newval = parseInt(couH) - 1;
-		$("#couH").val(newval);
+function countHdown() {
+	const countH = $("#countH").val();
+	if (countH > 0 && !isNaN(countH)) {
+		const newval = parseInt(countH) - 1;
+		$("#countH").val(newval);
 	}
 }
-
-function couMDown() {
-	const couM = $("#couM").val();
-	if (couM > 0 && !isNaN(couM)) {
-		const newval = parseInt(couM) - 1;
-		$("#couM").val(newval);
+function countMdown() {
+	const countM = $("#countM").val();
+	if (countM > 0 && !isNaN(countM)) {
+		const newval = parseInt(countM) - 1;
+		$("#countM").val(newval);
 	}
 }
-
-function couSDown() {
-	const couS = $("#couS").val();
-	if (couS > 0 && !isNaN(couS)) {
-		const newval = parseInt(couS) - 1;
-		$("#couS").val(newval);
+function countSdown() {
+	const countS = $("#countS").val();
+	if (countS > 0 && !isNaN(countS)) {
+		const newval = parseInt(countS) - 1;
+		$("#countS").val(newval);
 	}
 }
-
-function couStart() {
-	const h = $("#couH").val();
-	const m = $("#couM").val();
-	const s = $("#couS").val();
+function countStart() {
+	const h = $("#countH").val();
+	const m = $("#countM").val();
+	const s = $("#countS").val();
 	const ms = h * 60 * 60 * 1000 + m * 60 * 1000 + s * 1000;
-	const countdown = { millis: ms };
-	$.post("/goModeCou", countdown);
+	updateDisplayMode(5, ms);
 }
-
-function couReset() {
-	$("#couH").val(0);
-	$("#couM").val(0);
-	$("#couS").val(0);
-	couStart();
+function countReset() {
+	$("#countH").val(0);
+	$("#countM").val(0);
+	$("#countS").val(0);
+	countStart();
 }
-
 
 //  Downlights
-function goDow(dowU, dowCS) {
-	const downlight = { dowUsage: dowU, dowColorSet: dowCS };
-	$.post("/goDow", downlight);
+function updateDownlight(downlightUsage, downlightColor) {
+	const downlight = { downlightUsage: downlightUsage, downlightColor: downlightColor };
+	$.post("/updateDownlight", downlight);
 	console.log(downlight);
 }

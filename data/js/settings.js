@@ -1,33 +1,6 @@
 //  ****************************************************************************************************
-//  Translator
-//  ****************************************************************************************************
-/*
-import Translator from './translator.js'
-const translator = new Translator({
-  defaultLanguage: 'de',
-  detectLanguage: true,
-  selector: '[data-i18n]',
-  debug: true,
-  registerGlobally: '__',
-  persist: true,
-  persistKey: 'preferred_language',
-  filesLocation: './i18n'
-})
-
-// By using `fetch`, you load the translation sources asynchronously
-// from a directory in your project's folder. The resources must
-// be in JSON. After they are fetched, you can use the API to
-// translate the page.
-translator.fetch(['de', 'en']).then(() => {
-  // -> Translations are ready...
-  translator.translatePageTo('de')
-})
-*/
-
-//  ****************************************************************************************************
 //  Color preview
 //  ****************************************************************************************************
-
 const closest = (to, selector) => {
 	let currentElement = document.querySelector(to);
 	let returnElement;
@@ -43,209 +16,200 @@ const closest = (to, selector) => {
 //  ****************************************************************************************************
 //  FUNCTIONS - get
 //  ****************************************************************************************************
-//  Global
-function getGloBrightness() {
+//  Globale Einstellungen
+function getEdgeBrightness() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
-				document.getElementById("gloBrightness").selectedIndex = "0";
+				document.getElementById("edgeBrightness").selectedIndex = "0";
 			}
 			if (this.responseText === "25") {
-				document.getElementById("gloBrightness").selectedIndex = "1";
+				document.getElementById("edgeBrightness").selectedIndex = "1";
 			}
 			if (this.responseText === "50") {
-				document.getElementById("gloBrightness").selectedIndex = "2";
+				document.getElementById("edgeBrightness").selectedIndex = "2";
 			}
 			if (this.responseText === "75") {
-				document.getElementById("gloBrightness").selectedIndex = "3";
+				document.getElementById("edgeBrightness").selectedIndex = "3";
 			}
 			if (this.responseText === "100") {
-				document.getElementById("gloBrightness").selectedIndex = "4";
+				document.getElementById("edgeBrightness").selectedIndex = "4";
 			}
 			if (this.responseText === "125") {
-				document.getElementById("gloBrightness").selectedIndex = "5";
+				document.getElementById("edgeBrightness").selectedIndex = "5";
 			}
 			if (this.responseText === "150") {
-				document.getElementById("gloBrightness").selectedIndex = "6";
+				document.getElementById("edgeBrightness").selectedIndex = "6";
 			}
 			if (this.responseText === "175") {
-				document.getElementById("gloBrightness").selectedIndex = "7";
+				document.getElementById("edgeBrightness").selectedIndex = "7";
 			}
 			if (this.responseText === "200") {
-				document.getElementById("gloBrightness").selectedIndex = "8";
+				document.getElementById("edgeBrightness").selectedIndex = "8";
 			}
 			if (this.responseText === "225") {
-				document.getElementById("gloBrightness").selectedIndex = "9";
+				document.getElementById("edgeBrightness").selectedIndex = "9";
 			}
 			if (this.responseText === "250") {
-				document.getElementById("gloBrightness").selectedIndex = "10";
+				document.getElementById("edgeBrightness").selectedIndex = "10";
 			}
 		}
 	};
-	xhttp.open("GET", "getGloBrightness", true);
+	xhttp.open("GET", "getEdgeBrightness", true);
 	xhttp.send();
 }
-
-function getBriClockMin() {
+function getEdgeBrightnessMin() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("briClockMin").value = this.responseText;
+			document.getElementById("edgeBrightnessMin").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getBriClockMin", true);
+	xhttp.open("GET", "getEdgeBrightnessMin", true);
 	xhttp.send();
 }
-
-function getBriClockMax() {
+function getEdgeBrightnessMax() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("briClockMax").value = this.responseText;
+			document.getElementById("edgeBrightnessMax").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getBriClockMax", true);
+	xhttp.open("GET", "getEdgeBrightnessMax", true);
 	xhttp.send();
 }
-
-function getGloColorFreq() {
+function getEdgeFrequency() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
-				document.getElementById("gloColorFreq").selectedIndex = "0";
+				document.getElementById("edgeFrequency").selectedIndex = "0";
 			}
 			if (this.responseText === "1") {
-				document.getElementById("gloColorFreq").selectedIndex = "1";
+				document.getElementById("edgeFrequency").selectedIndex = "1";
 			}
 			if (this.responseText === "2") {
-				document.getElementById("gloColorFreq").selectedIndex = "2";
+				document.getElementById("edgeFrequency").selectedIndex = "2";
 			}
 			if (this.responseText === "3") {
-				document.getElementById("gloColorFreq").selectedIndex = "3";
+				document.getElementById("edgeFrequency").selectedIndex = "3";
 			}
 		}
 	};
-	xhttp.open("GET", "getGloColorFreq", true);
+	xhttp.open("GET", "getEdgeFrequency", true);
 	xhttp.send();
 }
-
-function getDowUsage() {
+function getDownlightUsage() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
-				document.getElementById("dowUsage").selectedIndex = "0";
+				document.getElementById("downlightUsage").selectedIndex = "0";
 			}
 			if (this.responseText === "1") {
-				document.getElementById("dowUsage").selectedIndex = "1";
+				document.getElementById("downlightUsage").selectedIndex = "1";
 			}
 		}
 	};
-	xhttp.open("GET", "getDowUsage", true);
+	xhttp.open("GET", "getDownlightUsage", true);
 	xhttp.send();
 }
-
-function getDowBrightness() {
+function getDownlightBrightness() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
-				document.getElementById("dowBrightness").selectedIndex = "0";
+				document.getElementById("downlightBrightness").selectedIndex = "0";
 			}
 			if (this.responseText === "25") {
-				document.getElementById("dowBrightness").selectedIndex = "1";
+				document.getElementById("downlightBrightness").selectedIndex = "1";
 			}
 			if (this.responseText === "50") {
-				document.getElementById("dowBrightness").selectedIndex = "2";
+				document.getElementById("downlightBrightness").selectedIndex = "2";
 			}
 			if (this.responseText === "75") {
-				document.getElementById("dowBrightness").selectedIndex = "3";
+				document.getElementById("downlightBrightness").selectedIndex = "3";
 			}
 			if (this.responseText === "100") {
-				document.getElementById("dowBrightness").selectedIndex = "4";
+				document.getElementById("downlightBrightness").selectedIndex = "4";
 			}
 			if (this.responseText === "125") {
-				document.getElementById("dowBrightness").selectedIndex = "5";
+				document.getElementById("downlightBrightness").selectedIndex = "5";
 			}
 			if (this.responseText === "150") {
-				document.getElementById("dowBrightness").selectedIndex = "6";
+				document.getElementById("downlightBrightness").selectedIndex = "6";
 			}
 			if (this.responseText === "175") {
-				document.getElementById("dowBrightness").selectedIndex = "7";
+				document.getElementById("downlightBrightness").selectedIndex = "7";
 			}
 			if (this.responseText === "200") {
-				document.getElementById("dowBrightness").selectedIndex = "8";
+				document.getElementById("downlightBrightness").selectedIndex = "8";
 			}
 			if (this.responseText === "225") {
-				document.getElementById("dowBrightness").selectedIndex = "9";
+				document.getElementById("downlightBrightness").selectedIndex = "9";
 			}
 			if (this.responseText === "250") {
-				document.getElementById("dowBrightness").selectedIndex = "10";
+				document.getElementById("downlightBrightness").selectedIndex = "10";
 			}
 		}
 	};
-	xhttp.open("GET", "getDowBrightness", true);
+	xhttp.open("GET", "getDownlightBrightness", true);
 	xhttp.send();
 }
-
-function getBriDownMin() {
+function getDownlightBrightnessMin() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("briDownMin").value = this.responseText;
+			document.getElementById("downlightBrightnessMin").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getBriDownMin", true);
+	xhttp.open("GET", "getDownlightBrightnessMin", true);
 	xhttp.send();
 }
-
-function getBriDownMax() {
+function getDownlightBrightnessMax() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("briDownMax").value = this.responseText;
+			document.getElementById("downlightBrightnessMax").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getBriDownMax", true);
+	xhttp.open("GET", "getDownlightBrightnessMax", true);
 	xhttp.send();
 }
-
-function getDowColorFreq() {
+function getDownlightFrequency() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
-				document.getElementById("dowColorFreq").selectedIndex = "0";
+				document.getElementById("downlightFrequency").selectedIndex = "0";
 			}
 			if (this.responseText === "1") {
-				document.getElementById("dowColorFreq").selectedIndex = "1";
+				document.getElementById("downlightFrequency").selectedIndex = "1";
 			}
 			if (this.responseText === "2") {
-				document.getElementById("dowColorFreq").selectedIndex = "2";
+				document.getElementById("downlightFrequency").selectedIndex = "2";
 			}
 			if (this.responseText === "3") {
-				document.getElementById("dowColorFreq").selectedIndex = "3";
+				document.getElementById("downlightFrequency").selectedIndex = "3";
 			}
 		}
 	};
-	xhttp.open("GET", "getDowColorFreq", true);
+	xhttp.open("GET", "getDownlightFrequency", true);
 	xhttp.send();
 }
 
 //  KNX
-function getKNXAddr() {
+function getKNXAddress() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("knxAddr").value = this.responseText;
+			document.getElementById("knxAddress").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getKNXAddr", true);
+	xhttp.open("GET", "getKNXAddress", true);
 	xhttp.send();
 }
-
 function getKNXPort() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -256,85 +220,78 @@ function getKNXPort() {
 	xhttp.open("GET", "getKNXPort", true);
 	xhttp.send();
 }
-
-function getBriKNXPath() {
+function getKNXBrightnessPath() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("briKNXPath").value = this.responseText;
+			document.getElementById("knxBrightnessPath").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getBriKNXPath", true);
+	xhttp.open("GET", "getKNXBrightnessPath", true);
 	xhttp.send();
 }
-
-function getBriKNXmin() {
+function getKNXBrightnessMin() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("briKNXmin").value = this.responseText;
+			document.getElementById("knxBrightnessMin").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getBriKNXmin", true);
+	xhttp.open("GET", "getKNXBrightnessMin", true);
 	xhttp.send();
 }
-
-function getBriKNXmax() {
+function getKNXBrightnessMax() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("briKNXmax").value = this.responseText;
+			document.getElementById("knxBrightnessMax").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getBriKNXmax", true);
+	xhttp.open("GET", "getKNXBrightnessMax", true);
 	xhttp.send();
 }
-
-function getTemKNXPath() {
+function getKNXTemperaturePath() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("temKNXPath").value = this.responseText;
+			document.getElementById("knxTemperaturePath").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getTemKNXPath", true);
+	xhttp.open("GET", "getKNXTemperaturePath", true);
 	xhttp.send();
 }
-
-function getHumKNXPath() {
+function getKNXHumidityPath() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("humKNXPath").value = this.responseText;
+			document.getElementById("knxHumidityPath").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getHumKNXPath", true);
+	xhttp.open("GET", "getKNXHumidityPath", true);
 	xhttp.send();
 }
 
 //  Clock
-function getClkAddr() {
+function getClkAddress() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("clkAddr").value = this.responseText;
+			document.getElementById("clkAddress").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getClkAddr", true);
+	xhttp.open("GET", "getClkAddress", true);
 	xhttp.send();
 }
-
-function getClkZone() {
+function getClkTimeZone() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("clkZone").value = this.responseText;
+			document.getElementById("clkTimeZone").value = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getClkZone", true);
+	xhttp.open("GET", "getClkTimeZone", true);
 	xhttp.send();
 }
-
 function getClkFormat() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -350,46 +307,43 @@ function getClkFormat() {
 	xhttp.open("GET", "getClkFormat", true);
 	xhttp.send();
 }
-
-function getClkColorSet() {
+function getClkColor() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
-				document.getElementById("clkColorSet").selectedIndex = 0;
-				document.getElementById("clkFields").hidden = false;
+				document.getElementById("clkColor").selectedIndex = 0;
+				document.getElementById("clkColorInput").hidden = false;
 			}
 			if (this.responseText === "1") {
-				document.getElementById("clkColorSet").selectedIndex = 1;
-				document.getElementById("clkFields").hidden = true;
+				document.getElementById("clkColor").selectedIndex = 1;
+				document.getElementById("clkColorInput").hidden = true;
 			}
 		}
 	};
-	xhttp.open("GET", "getClkColorSet", true);
+	xhttp.open("GET", "getClkColor", true);
 	xhttp.send();
 }
-
-function getClkHColor() {
+function getClkColorH() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("clkHColor").value = this.responseText;
-			closest("#clkHColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("clkColorH").value = this.responseText;
+			closest("#clkColorH", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getClkHColor", true);
+	xhttp.open("GET", "getClkColorH", true);
 	xhttp.send();
 }
-
-function getClkMColor() {
+function getClkColorM() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("clkMColor").value = this.responseText;
-			closest("#clkMColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("clkColorM").value = this.responseText;
+			closest("#clkColorM", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getClkMColor", true);
+	xhttp.open("GET", "getClkColorM", true);
 	xhttp.send();
 }
 
@@ -409,46 +363,43 @@ function getDatFormat() {
 	xhttp.open("GET", "getDatFormat", true);
 	xhttp.send();
 }
-
-function getDatColorSet() {
+function getDatColor() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
-				document.getElementById("datColorSet").selectedIndex = 0;
-				document.getElementById("datFields").hidden = false;
+				document.getElementById("datColor").selectedIndex = 0;
+				document.getElementById("datColorInput").hidden = false;
 			}
 			if (this.responseText === "1") {
-				document.getElementById("datColorSet").selectedIndex = 1;
-				document.getElementById("datFields").hidden = true;
+				document.getElementById("datColor").selectedIndex = 1;
+				document.getElementById("datColorInput").hidden = true;
 			}
 		}
 	};
-	xhttp.open("GET", "getDatColorSet", true);
+	xhttp.open("GET", "getDatColor", true);
 	xhttp.send();
 }
-
-function getDatDColor() {
+function getDatColorD() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("datDColor").value = this.responseText;
-			closest("#datDColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("datColorD").value = this.responseText;
+			closest("#datColorD", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getDatDColor", true);
+	xhttp.open("GET", "getDatColorD", true);
 	xhttp.send();
 }
-
-function getDatMColor() {
+function getDatColorM() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("datMColor").value = this.responseText;
-			closest("#datMColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("datColorM").value = this.responseText;
+			closest("#datColorM", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getDatMColor", true);
+	xhttp.open("GET", "getDatColorM", true);
 	xhttp.send();
 }
 
@@ -470,131 +421,124 @@ function getTemSymbol() {
 }
 
 //  Humidity
-function getHumColorSet() {
+function getHumColor() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			if (this.responseText === "0") {
-				document.getElementById("humColorSet").selectedIndex = 0;
-				document.getElementById("humFields").hidden = false;
+				document.getElementById("humColor").selectedIndex = 0;
+				document.getElementById("humColorInput").hidden = false;
 			}
 			if (this.responseText === "1") {
-				document.getElementById("humColorSet").selectedIndex = 1;
-				document.getElementById("humFields").hidden = true;
+				document.getElementById("humColor").selectedIndex = 1;
+				document.getElementById("humColorInput").hidden = true;
 			}
 		}
 	};
-	xhttp.open("GET", "getHumColorSet", true);
+	xhttp.open("GET", "getHumColor", true);
 	xhttp.send();
 }
-
-function getHumAColor() {
+function getHumColorA() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("humAColor").value = this.responseText;
-			closest("#humAColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("humColorA").value = this.responseText;
+			closest("#humColorA", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getHumAColor", true);
+	xhttp.open("GET", "getHumColorA", true);
 	xhttp.send();
 }
-
-function getHumBColor() {
+function getHumColorB() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("humBColor").value = this.responseText;
-			closest("#humBColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("humColorB").value = this.responseText;
+			closest("#humColorB", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getHumBColor", true);
+	xhttp.open("GET", "getHumColorB", true);
 	xhttp.send();
 }
-
-function getHumCColor() {
+function getHumColorC() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("humCColor").value = this.responseText;
-			closest("#humCColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("humColorC").value = this.responseText;
+			closest("#humColorC", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getHumCColor", true);
+	xhttp.open("GET", "getHumColorC", true);
 	xhttp.send();
 }
 
 //  Scoreboard
-function getScoHColor() {
+function getScoColorL() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("scoHColor").value = this.responseText;
-			closest("#scoHColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("scoColorL").value = this.responseText;
+			closest("#scoColorL", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getScoHColor", true);
+	xhttp.open("GET", "getScoColorL", true);
 	xhttp.send();
 }
-
-function getScoAColor() {
+function getScoColorR() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("scoAColor").value = this.responseText;
-			closest("#scoAColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("scoColorR").value = this.responseText;
+			closest("#scoColorR", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getScoAColor", true);
+	xhttp.open("GET", "getScoColorR", true);
 	xhttp.send();
 }
 
 //  Countdown
-function getCouHColor() {
+function getCouColorH() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("couHColor").value = this.responseText;
-			closest("#couHColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("couColorH").value = this.responseText;
+			closest("#couColorH", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getCouHColor", true);
+	xhttp.open("GET", "getCouColorH", true);
 	xhttp.send();
 }
-
-function getCouMColor() {
+function getCouColorM() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("couMColor").value = this.responseText;
-			closest("#couMColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("couColorM").value = this.responseText;
+			closest("#couColorM", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getCouMColor", true);
+	xhttp.open("GET", "getCouColorM", true);
 	xhttp.send();
 }
-
-function getCouSColor() {
+function getCouColorS() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("couSColor").value = this.responseText;
-			closest("#couSColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("couColorS").value = this.responseText;
+			closest("#couColorS", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getCouSColor", true);
+	xhttp.open("GET", "getCouColorS", true);
 	xhttp.send();
 }
-
-function getCouAColor() {
+function getCouColorA() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("couAColor").value = this.responseText;
-			closest("#couAColor", ".input-group-text").style.backgroundColor = this.responseText;
+			document.getElementById("couColorA").value = this.responseText;
+			closest("#couColorA", ".input-group-text").style.backgroundColor = this.responseText;
 		}
 	};
-	xhttp.open("GET", "getCouAColor", true);
+	xhttp.open("GET", "getCouColorA", true);
 	xhttp.send();
 }
 
@@ -611,52 +555,27 @@ function getScrTime() {
 }
 
 //  Downlights
-function getDowColorSet() {
-	const xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function () {
-		if (this.readyState === 4 && this.status === 200) {
-			if (this.responseText === "0") {
-				document.getElementById("dowColorSet").selectedIndex = 0;
-				document.getElementById("dowFields0").hidden = false;
-				document.getElementById("dowFields1upper").hidden = true;
-				document.getElementById("dowFields1lower").hidden = true;
-			}
-			if (this.responseText === "1") {
-				document.getElementById("dowColorSet").selectedIndex = 1;
-				document.getElementById("dowFields0").hidden = true;
-				document.getElementById("dowFields1upper").hidden = false;
-				document.getElementById("dowFields1lower").hidden = false;
-			}
-			if (this.responseText === "2") {
-				document.getElementById("dowColorSet").selectedIndex = 2;
-				document.getElementById("dowFields0").hidden = true;
-				document.getElementById("dowFields1upper").hidden = true;
-				document.getElementById("dowFields1lower").hidden = true;
-			}
-			if (this.responseText === "3") {
-				document.getElementById("dowColorSet").selectedIndex = 3;
-				document.getElementById("dowFields0").hidden = true;
-				document.getElementById("dowFields1upper").hidden = true;
-				document.getElementById("dowFields1lower").hidden = true;
-			}
-		}
-	};
-	xhttp.open("GET", "getDowColorSet", true);
-	xhttp.send();
-}
-
 function getDowColor() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			document.getElementById("dowColor").value = this.responseText;
-			closest("#dowColor", ".input-group-text").style.backgroundColor = this.responseText;
+			if (this.responseText === "0") {
+				document.getElementById("dowColor").selectedIndex = 0;
+				document.getElementById("dowColorInput").hidden = false;
+			}
+			if (this.responseText === "1") {
+				document.getElementById("dowColor").selectedIndex = 1;
+				document.getElementById("dowColorInput").hidden = true;
+			}
+			if (this.responseText === "2") {
+				document.getElementById("dowColor").selectedIndex = 2;
+				document.getElementById("dowColorInput").hidden = true;
+			}
 		}
 	};
 	xhttp.open("GET", "getDowColor", true);
 	xhttp.send();
 }
-
 function getDowColor0() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -668,7 +587,6 @@ function getDowColor0() {
 	xhttp.open("GET", "getDowColor0", true);
 	xhttp.send();
 }
-
 function getDowColor1() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -680,7 +598,6 @@ function getDowColor1() {
 	xhttp.open("GET", "getDowColor1", true);
 	xhttp.send();
 }
-
 function getDowColor2() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -692,7 +609,6 @@ function getDowColor2() {
 	xhttp.open("GET", "getDowColor2", true);
 	xhttp.send();
 }
-
 function getDowColor3() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -704,7 +620,6 @@ function getDowColor3() {
 	xhttp.open("GET", "getDowColor3", true);
 	xhttp.send();
 }
-
 function getDowColor4() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -716,7 +631,6 @@ function getDowColor4() {
 	xhttp.open("GET", "getDowColor4", true);
 	xhttp.send();
 }
-
 function getDowColor5() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -728,7 +642,6 @@ function getDowColor5() {
 	xhttp.open("GET", "getDowColor5", true);
 	xhttp.send();
 }
-
 function getDowColor6() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -740,7 +653,6 @@ function getDowColor6() {
 	xhttp.open("GET", "getDowColor6", true);
 	xhttp.send();
 }
-
 function getDowColor7() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -752,7 +664,6 @@ function getDowColor7() {
 	xhttp.open("GET", "getDowColor7", true);
 	xhttp.send();
 }
-
 function getDowColor8() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -764,7 +675,6 @@ function getDowColor8() {
 	xhttp.open("GET", "getDowColor8", true);
 	xhttp.send();
 }
-
 function getDowColor9() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -776,7 +686,6 @@ function getDowColor9() {
 	xhttp.open("GET", "getDowColor9", true);
 	xhttp.send();
 }
-
 function getDowColor10() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -788,7 +697,6 @@ function getDowColor10() {
 	xhttp.open("GET", "getDowColor10", true);
 	xhttp.send();
 }
-
 function getDowColor11() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -800,7 +708,6 @@ function getDowColor11() {
 	xhttp.open("GET", "getDowColor11", true);
 	xhttp.send();
 }
-
 function getDowColor12() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -812,7 +719,6 @@ function getDowColor12() {
 	xhttp.open("GET", "getDowColor12", true);
 	xhttp.send();
 }
-
 function getDowColor13() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -829,55 +735,65 @@ function getDowColor13() {
 //  EVENT LISTENER - get
 //  ****************************************************************************************************
 function init() {
-	//  Global
-	getGloBrightness();
-	getBriClockMin();
-	getBriClockMax();
-	getGloColorFreq();
-	getDowUsage();
-	getDowBrightness();
-	getBriDownMin();
-	getBriDownMax();
-	getDowColorFreq();
+	//  Globale Einstellungen
+	//  |- Edge
+	getEdgeBrightness();
+	getEdgeBrightnessMin();
+	getEdgeBrightnessMax();
+	getEdgeFrequency();
+	//  |- Downlights
+	getDownlightUsage();
+	getDownlightBrightness();
+	getDownlightBrightnessMin();
+	getDownlightBrightnessMax();
+	getDownlightFrequency();
+
 	//  KNX
-	getKNXAddr();
+	getKNXAddress();
 	getKNXPort();
-	getBriKNXPath();
-	getBriKNXmin();
-	getBriKNXmax();
-	getTemKNXPath();
-	getHumKNXPath();
+	getKNXBrightnessPath();
+	getKNXBrightnessMin();
+	getKNXBrightnessMax();
+	getKNXTemperaturePath();
+	getKNXHumidityPath();
+
 	//  Clock
-	getClkAddr();
-	getClkZone();
+	getClkAddress();
+	getClkTimeZone();
 	getClkFormat();
-	getClkColorSet();
-	getClkHColor();
-	getClkMColor();
+	getClkColor();
+	getClkColorH();
+	getClkColorM();
+
 	//  Date
 	getDatFormat();
-	getDatColorSet();
-	getDatDColor();
-	getDatMColor();
+	getDatColor();
+	getDatColorD();
+	getDatColorM();
+
 	//  Temperature
 	getTemSymbol();
+
 	//  Humidity
-	getHumColorSet();
-	getHumAColor();
-	getHumBColor();
-	getHumCColor();
+	getHumColor();
+	getHumColorA();
+	getHumColorB();
+	getHumColorC();
+
 	//  Scoreboard
-	getScoHColor();
-	getScoAColor();
+	getScoColorL();
+	getScoColorR();
+
 	//  Countdown
-	getCouHColor();
-	getCouMColor();
-	getCouSColor();
-	getCouAColor();
+	getCouColorH();
+	getCouColorM();
+	getCouColorS();
+	getCouColorA();
+
 	//	Scroll
 	getScrTime();
+
 	//  Downlights
-	getDowColorSet();
 	getDowColor();
 	getDowColor0();
 	getDowColor1();
@@ -899,157 +815,166 @@ function init() {
 //  EVENT LISTENER - update
 //  ****************************************************************************************************
 function startup() {
-	// GLOBAL
-	const gloBrightness = document.querySelector("#gloBrightness");
-	gloBrightness.addEventListener("input", updGloBrightness, false);
-	const briClockMin = document.querySelector("#briClockMin");
-	briClockMin.addEventListener("input", updBriClockMin, false);
-	const briClockMax = document.querySelector("#briClockMax");
-	briClockMax.addEventListener("input", updBriClockMax, false);
-	const gloColorFreq = document.querySelector("#gloColorFreq");
-	gloColorFreq.addEventListener("input", updGloColorFreq, false);
-	const dowUsage = document.querySelector("#dowUsage");
-	dowUsage.addEventListener("input", updDowUsage, false);
-	const dowBrightness = document.querySelector("#dowBrightness");
-	dowBrightness.addEventListener("input", updDowBrightness, false);
-	const briDownMin = document.querySelector("#briDownMin");
-	briDownMin.addEventListener("input", updBriDownMin, false);
-	const briDownMax = document.querySelector("#briDownMax");
-	briDownMax.addEventListener("input", updBriDownMax, false);
-	const dowColorFreq = document.querySelector("#dowColorFreq");
-	dowColorFreq.addEventListener("input", updDowColorFreq, false);
+	//  Globale Einstellungen
+	//  |- Edge
+	const edgeBrightness = document.querySelector("#edgeBrightness");
+	edgeBrightness.addEventListener("input", updateEdgeBrightness, false);
+	const edgeBrightnessMin = document.querySelector("#edgeBrightnessMin");
+	edgeBrightnessMin.addEventListener("input", updateEdgeBrightnessMin, false);
+	const edgeBrightnessMax = document.querySelector("#edgeBrightnessMax");
+	edgeBrightnessMax.addEventListener("input", updateEdgeBrightnessMax, false);
+	const edgeFrequency = document.querySelector("#edgeFrequency");
+	edgeFrequency.addEventListener("input", updateEdgeFrequency, false);
+	//  |- Downlights
+	const downlightUsage = document.querySelector("#downlightUsage");
+	downlightUsage.addEventListener("input", updateDownlightUsage, false);
+	const downlightBrightness = document.querySelector("#downlightBrightness");
+	downlightBrightness.addEventListener("input", updateDownlightBrightness, false);
+	const downlightBrightnessMin = document.querySelector("#downlightBrightnessMin");
+	downlightBrightnessMin.addEventListener("input", updateDownlightBrightnessMin, false);
+	const downlightBrightnessMax = document.querySelector("#downlightBrightnessMax");
+	downlightBrightnessMax.addEventListener("input", updateDownlightBrightnessMax, false);
+	const downlightFrequency = document.querySelector("#downlightFrequency");
+	downlightFrequency.addEventListener("input", updateDownlightFrequency, false);
+
 	// KNX
-	const knxAddr = document.querySelector("#knxAddr");
-	knxAddr.addEventListener("input", updKNXAddr, false);
+	const knxAddress = document.querySelector("#knxAddress");
+	knxAddress.addEventListener("input", updateKNXAddress, false);
 	const knxPort = document.querySelector("#knxPort");
-	knxPort.addEventListener("input", updKNXPort, false);
-	const briKNXPath = document.querySelector("#briKNXPath");
-	briKNXPath.addEventListener("input", updBriKNXPath, false);
-	const briKNXmin = document.querySelector("#briKNXmin");
-	briKNXmin.addEventListener("input", updBriKNXmin, false);
-	const briKNXmax = document.querySelector("#briKNXmax");
-	briKNXmax.addEventListener("input", updBriKNXmax, false);
-	const temKNXPath = document.querySelector("#temKNXPath");
-	temKNXPath.addEventListener("input", updTemKNXPath, false);
-	const humKNXPath = document.querySelector("#humKNXPath");
-	humKNXPath.addEventListener("input", updHumKNXPath, false);
-	//  CLOCK
-	const clkAddr = document.querySelector("#clkAddr");
-	clkAddr.addEventListener("input", updClkAddr, false);
-	const clkZone = document.querySelector("#clkZone");
-	clkZone.addEventListener("input", updClkZone, false);
+	knxPort.addEventListener("input", updateKNXPort, false);
+	const knxBrightnessPath = document.querySelector("#knxBrightnessPath");
+	knxBrightnessPath.addEventListener("input", updateKNXBrightnessPath, false);
+	const knxBrightnessMin = document.querySelector("#knxBrightnessMin");
+	knxBrightnessMin.addEventListener("input", updateKNXBrightnessMin, false);
+	const knxBrightnessMax = document.querySelector("#knxBrightnessMax");
+	knxBrightnessMax.addEventListener("input", updateKNXBrightnessMax, false);
+	const knxTemperaturePath = document.querySelector("#knxTemperaturePath");
+	knxTemperaturePath.addEventListener("input", updateKNXTemperaturePath, false);
+	const knxHumidityPath = document.querySelector("#knxHumidityPath");
+	knxHumidityPath.addEventListener("input", updateKNXHumidityPath, false);
+
+	//  Clock
+	const clkAddress = document.querySelector("#clkAddress");
+	clkAddress.addEventListener("input", updateClkAddress, false);
+	const clkTimeZone = document.querySelector("#clkTimeZone");
+	clkTimeZone.addEventListener("input", updateClkTimeZone, false);
 	const clkFormat = document.querySelector("#clkFormat");
-	clkFormat.addEventListener("input", updClkFormat, false);
-	const clkColorSet = document.querySelector("#clkColorSet");
-	clkColorSet.addEventListener("input", updClkColorSet, false);
-	const clkHColor = document.querySelector("#clkHColor");
-	clkHColor.addEventListener("input", updClkHColor, false);
-	clkHColor.addEventListener("change", updClkHColor, false);
-	const clkMColor = document.querySelector("#clkMColor");
-	clkMColor.addEventListener("input", updClkMColor, false);
-	clkMColor.addEventListener("change", updClkMColor, false);
+	clkFormat.addEventListener("input", updateClkFormat, false);
+	const clkColor = document.querySelector("#clkColor");
+	clkColor.addEventListener("input", updateClkColor, false);
+	const clkColorH = document.querySelector("#clkColorH");
+	clkColorH.addEventListener("input", updateClkColorH, false);
+	clkColorH.addEventListener("change", updateClkColorH, false);
+	const clkColorM = document.querySelector("#clkColorM");
+	clkColorM.addEventListener("input", updateClkColorM, false);
+	clkColorM.addEventListener("change", updateClkColorM, false);
+
 	//  Date
 	const datFormat = document.querySelector("#datFormat");
-	datFormat.addEventListener("input", updDatFormat, false);
-	const datColorSet = document.querySelector("#datColorSet");
-	datColorSet.addEventListener("input", updDatColorSet, false);
-	const datDColor = document.querySelector("#datDColor");
-	datDColor.addEventListener("input", updDatDColor, false);
-	datDColor.addEventListener("change", updDatDColor, false);
-	const datMColor = document.querySelector("#datMColor");
-	datMColor.addEventListener("input", updDatMColor, false);
-	datMColor.addEventListener("change", updDatMColor, false);
+	datFormat.addEventListener("input", updateDatFormat, false);
+	const datColor = document.querySelector("#datColor");
+	datColor.addEventListener("input", updateDatColor, false);
+	const datColorD = document.querySelector("#datColorD");
+	datColorD.addEventListener("input", updateDatColorD, false);
+	datColorD.addEventListener("change", updateDatColorD, false);
+	const datColorM = document.querySelector("#datColorM");
+	datColorM.addEventListener("input", updateDatColorM, false);
+	datColorM.addEventListener("change", updateDatColorM, false);
+
 	//  Temperature
 	const temSymbol = document.querySelector("#temSymbol");
-	temSymbol.addEventListener("input", updTemSymbol, false);
+	temSymbol.addEventListener("input", updateTemSymbol, false);
+
 	//  Humidity
-	const humColorSet = document.querySelector("#humColorSet");
-	humColorSet.addEventListener("input", updHumColorSet, false);
-	const humAColor = document.querySelector("#humAColor");
-	humAColor.addEventListener("input", updHumAColor, false);
-	humAColor.addEventListener("change", updHumAColor, false);
-	const humBColor = document.querySelector("#humBColor");
-	humBColor.addEventListener("input", updHumBColor, false);
-	humBColor.addEventListener("change", updHumBColor, false);
-	const humCColor = document.querySelector("#humCColor");
-	humCColor.addEventListener("input", updHumCColor, false);
-	humCColor.addEventListener("change", updHumCColor, false);
+	const humColor = document.querySelector("#humColor");
+	humColor.addEventListener("input", updateHumColor, false);
+	const humColorA = document.querySelector("#humColorA");
+	humColorA.addEventListener("input", updateHumColorA, false);
+	humColorA.addEventListener("change", updateHumColorA, false);
+	const humColorB = document.querySelector("#humColorB");
+	humColorB.addEventListener("input", updateHumColorB, false);
+	humColorB.addEventListener("change", updateHumColorB, false);
+	const humColorC = document.querySelector("#humColorC");
+	humColorC.addEventListener("input", updateHumColorC, false);
+	humColorC.addEventListener("change", updateHumColorC, false);
+
 	//  Scoreboard
-	const scoHColor = document.querySelector("#scoHColor");
-	scoHColor.addEventListener("input", updScoHColor, false);
-	scoHColor.addEventListener("change", updScoHColor, false);
-	const scoAColor = document.querySelector("#scoAColor");
-	scoAColor.addEventListener("input", updScoAColor, false);
-	scoAColor.addEventListener("change", updScoAColor, false);
+	const scoColorL = document.querySelector("#scoColorL");
+	scoColorL.addEventListener("input", updateScoColorL, false);
+	scoColorL.addEventListener("change", updateScoColorL, false);
+	const scoColorR = document.querySelector("#scoColorR");
+	scoColorR.addEventListener("input", updateScoColorR, false);
+	scoColorR.addEventListener("change", updateScoColorR, false);
+
 	//  Countdown
-	const couHColor = document.querySelector("#couHColor");
-	couHColor.addEventListener("input", updCouHColor, false);
-	couHColor.addEventListener("change", updCouHColor, false);
-	const couMColor = document.querySelector("#couMColor");
-	couMColor.addEventListener("input", updCouMColor, false);
-	couMColor.addEventListener("change", updCouMColor, false);
-	const couSColor = document.querySelector("#couSColor");
-	couSColor.addEventListener("input", updCouSColor, false);
-	couSColor.addEventListener("change", updCouSColor, false);
-	const couAColor = document.querySelector("#couAColor");
-	couAColor.addEventListener("input", updCouAColor, false);
-	couAColor.addEventListener("change", updCouAColor, false);
+	const couColorH = document.querySelector("#couColorH");
+	couColorH.addEventListener("input", updateCouColorH, false);
+	couColorH.addEventListener("change", updateCouColorH, false);
+	const couColorM = document.querySelector("#couColorM");
+	couColorM.addEventListener("input", updateCouColorM, false);
+	couColorM.addEventListener("change", updateCouColorM, false);
+	const couColorS = document.querySelector("#couColorS");
+	couColorS.addEventListener("input", updateCouColorS, false);
+	couColorS.addEventListener("change", updateCouColorS, false);
+	const couColorA = document.querySelector("#couColorA");
+	couColorA.addEventListener("input", updateCouColorA, false);
+	couColorA.addEventListener("change", updateCouColorA, false);
+
 	//	Scroll
 	const scrTime = document.querySelector("#scrTime");
-	scrTime.addEventListener("input", updScrTime, false);
+	scrTime.addEventListener("input", updateScrTime, false);
+
 	//  Downlights
-	const dowColorSet = document.querySelector("#dowColorSet");
-	dowColorSet.addEventListener("input", updDowColorSet, false);
 	const dowColor = document.querySelector("#dowColor");
-	dowColor.addEventListener("input", updDowColor, false);
-	dowColor.addEventListener("change", updDowColor, false);
+	dowColor.addEventListener("input", updateDowColor, false);
 	const dowColor0 = document.querySelector("#dowColor0");
-	dowColor0.addEventListener("input", updDowColor0, false);
-	dowColor0.addEventListener("change", updDowColor0, false);
+	dowColor0.addEventListener("input", updateDowColor0, false);
+	dowColor0.addEventListener("change", updateDowColor0, false);
 	const dowColor1 = document.querySelector("#dowColor1");
-	dowColor1.addEventListener("input", updDowColor1, false);
-	dowColor1.addEventListener("change", updDowColor1, false);
+	dowColor1.addEventListener("input", updateDowColor1, false);
+	dowColor1.addEventListener("change", updateDowColor1, false);
 	const dowColor2 = document.querySelector("#dowColor2");
-	dowColor2.addEventListener("input", updDowColor2, false);
-	dowColor2.addEventListener("change", updDowColor2, false);
+	dowColor2.addEventListener("input", updateDowColor2, false);
+	dowColor2.addEventListener("change", updateDowColor2, false);
 	const dowColor3 = document.querySelector("#dowColor3");
-	dowColor3.addEventListener("input", updDowColor3, false);
-	dowColor3.addEventListener("change", updDowColor3, false);
+	dowColor3.addEventListener("input", updateDowColor3, false);
+	dowColor3.addEventListener("change", updateDowColor3, false);
 	const dowColor4 = document.querySelector("#dowColor4");
-	dowColor4.addEventListener("input", updDowColor4, false);
-	dowColor4.addEventListener("change", updDowColor4, false);
+	dowColor4.addEventListener("input", updateDowColor4, false);
+	dowColor4.addEventListener("change", updateDowColor4, false);
 	const dowColor5 = document.querySelector("#dowColor5");
-	dowColor5.addEventListener("input", updDowColor5, false);
-	dowColor5.addEventListener("change", updDowColor5, false);
+	dowColor5.addEventListener("input", updateDowColor5, false);
+	dowColor5.addEventListener("change", updateDowColor5, false);
 	const dowColor6 = document.querySelector("#dowColor6");
-	dowColor6.addEventListener("input", updDowColor6, false);
-	dowColor6.addEventListener("change", updDowColor6, false);
+	dowColor6.addEventListener("input", updateDowColor6, false);
+	dowColor6.addEventListener("change", updateDowColor6, false);
 	const dowColor7 = document.querySelector("#dowColor7");
-	dowColor7.addEventListener("input", updDowColor7, false);
-	dowColor7.addEventListener("change", updDowColor7, false);
+	dowColor7.addEventListener("input", updateDowColor7, false);
+	dowColor7.addEventListener("change", updateDowColor7, false);
 	const dowColor8 = document.querySelector("#dowColor8");
-	dowColor8.addEventListener("input", updDowColor8, false);
-	dowColor8.addEventListener("change", updDowColor8, false);
+	dowColor8.addEventListener("input", updateDowColor8, false);
+	dowColor8.addEventListener("change", updateDowColor8, false);
 	const dowColor9 = document.querySelector("#dowColor9");
-	dowColor9.addEventListener("input", updDowColor9, false);
-	dowColor9.addEventListener("change", updDowColor9, false);
+	dowColor9.addEventListener("input", updateDowColor9, false);
+	dowColor9.addEventListener("change", updateDowColor9, false);
 	const dowColor10 = document.querySelector("#dowColor10");
-	dowColor10.addEventListener("input", updDowColor10, false);
-	dowColor10.addEventListener("change", updDowColor10, false);
+	dowColor10.addEventListener("input", updateDowColor10, false);
+	dowColor10.addEventListener("change", updateDowColor10, false);
 	const dowColor11 = document.querySelector("#dowColor11");
-	dowColor11.addEventListener("input", updDowColor11, false);
-	dowColor11.addEventListener("change", updDowColor11, false);
+	dowColor11.addEventListener("input", updateDowColor11, false);
+	dowColor11.addEventListener("change", updateDowColor11, false);
 	const dowColor12 = document.querySelector("#dowColor12");
-	dowColor12.addEventListener("input", updDowColor12, false);
-	dowColor12.addEventListener("change", updDowColor12, false);
+	dowColor12.addEventListener("input", updateDowColor12, false);
+	dowColor12.addEventListener("change", updateDowColor12, false);
 	const dowColor13 = document.querySelector("#dowColor13");
-	dowColor13.addEventListener("input", updDowColor13, false);
-	dowColor13.addEventListener("change", updDowColor13, false);
+	dowColor13.addEventListener("input", updateDowColor13, false);
+	dowColor13.addEventListener("change", updateDowColor13, false);
 }
 
 //  ****************************************************************************************************
-//  FUNCTIONS - upd
+//  FUNCTIONS - update
 //  ****************************************************************************************************
+//	Convert HEX color value to RGB color value
 function hexToRgb(hex) {
 	const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
 	hex = hex.replace(shorthandRegex, function (m, r, g, b) {
@@ -1065,403 +990,344 @@ function hexToRgb(hex) {
 		: null;
 }
 
-//  Global
-function updGloBrightness(event) {
+//  Globale Einstellungen
+//  |- Edge
+function updateEdgeBrightness(event) {
 	const value = event.target.value;
-	$.post("/updGloBrightness", { gloBrightness: value });
+	$.post("/updateEdgeBrightness", { edgeBrightness: value });
 	console.log(value);
 }
-
-function updBriClockMin(event) {
+function updateEdgeBrightnessMin(event) {
 	const value = event.target.value;
-	$.post("/updBriClockMin", { briClockMin: value });
+	$.post("/updateEdgeBrightnessMin", { edgeBrightnessMin: value });
 	console.log(value);
 }
-
-function updBriClockMax(event) {
+function updateEdgeBrightnessMax(event) {
 	const value = event.target.value;
-	$.post("/updBriClockMax", { briClockMax: value });
+	$.post("/updateEdgeBrightnessMax", { edgeBrightnessMax: value });
 	console.log(value);
 }
-
-function updGloColorFreq(event) {
+function updateEdgeFrequency(event) {
 	const value = event.target.value;
-	$.post("/updGloColorFreq", { gloColorFreq: value });
+	$.post("/updateEdgeFrequency", { edgeFrequency: value });
 	console.log(value);
 }
-
-function updDowUsage(event) {
+//  |- Downlights
+function updateDownlightUsage(event) {
 	const value = event.target.value;
-	$.post("/updDowUsage", { dowUsage: value });
+	$.post("/updateDownlightUsage", { downUsage: value });
 	console.log(value);
 }
-
-function updDowBrightness(event) {
+function updateDownlightBrightness(event) {
 	const value = event.target.value;
-	$.post("/updDowBrightness", { dowBrightness: value });
+	$.post("/updateDownlightBrightness", { downBrightness: value });
 	console.log(value);
 }
-
-function updBriDownMin(event) {
+function updateDownlightBrightnessMin(event) {
 	const value = event.target.value;
-	$.post("/updBriDownMin", { briDownMin: value });
+	$.post("/updateDownlightBrightnessMin", { downBrightnessMin: value });
 	console.log(value);
 }
-
-function updBriDownMax(event) {
+function updateDownlightBrightnessMax(event) {
 	const value = event.target.value;
-	$.post("/updBriDownMax", { briDownMax: value });
+	$.post("/updateDownlightBrightnessMax", { downBrightnessMax: value });
 	console.log(value);
 }
-
-function updDowColorFreq(event) {
+function updateDownlightFrequency(event) {
 	const value = event.target.value;
-	$.post("/updDowColorFreq", { dowColorFreq: value });
+	$.post("/updateDownlightFrequency", { downFrequency: value });
 	console.log(value);
 }
 
 //  KNX
-function updKNXAddr(event) {
+function updateKNXAddress(event) {
 	const value = event.target.value;
-	$.post("/updKNXAddr", { knxAddr: value });
+	$.post("/updateKNXAddress", { knxAddress: value });
 	console.log(value);
 }
-
-function updKNXPort(event) {
+function updateKNXPort(event) {
 	const value = event.target.value;
-	$.post("/updKNXPort", { knxPort: value });
+	$.post("/updateKNXPort", { knxPort: value });
 	console.log(value);
 }
-
-function updBriKNXPath(event) {
+function updateKNXBrightnessPath(event) {
 	const value = event.target.value;
-	$.post("/updBriKNXPath", { briKNXPath: value });
+	$.post("/updateKNXBrightnessPath", { knxBrightnessPath: value });
 	console.log(value);
 }
-
-function updBriKNXmin(event) {
+function updateKNXBrightnessMin(event) {
 	const value = event.target.value;
-	$.post("/updBriKNXmin", { briKNXmin: value });
+	$.post("/updateKNXBrightnessMin", { knxBrightnessMin: value });
 	console.log(value);
 }
-
-function updBriKNXmax(event) {
+function updateKNXBrightnessMax(event) {
 	const value = event.target.value;
-	$.post("/updBriKNXmax", { briKNXmax: value });
+	$.post("/updateKNXBrightnessMax", { knxBrightnessMax: value });
 	console.log(value);
 }
-
-function updTemKNXPath(event) {
+function updateKNXTemperaturePath(event) {
 	const value = event.target.value;
-	$.post("/updTemKNXPath", { temKNXPath: value });
+	$.post("/updateKNXTemperaturePath", { knxTemperaturePath: value });
 	console.log(value);
 }
-
-function updHumKNXPath(event) {
+function updateKNXHumidityPath(event) {
 	const value = event.target.value;
-	$.post("/updHumKNXPath", { humKNXPath: value });
+	$.post("/updateKNXHumidityPath", { knxHumidityPath: value });
 	console.log(value);
 }
 
 //  Clock
-function updClkAddr(event) {
+function updateClkAddress(event) {
 	const value = event.target.value;
-	$.post("/updClkAddr", { clkAddr: value });
+	$.post("/updateClkAddress", { clkAddress: value });
 	console.log(value);
 }
-
-function updClkZone(event) {
+function updateClkTimeZone(event) {
 	const value = event.target.value;
-	$.post("/updClkZone", { clkZone: value });
+	$.post("/updateClkTimeZone", { clkTimeZone: value });
 	console.log(value);
 }
-
-function updClkFormat(event) {
+function updateClkFormat(event) {
 	const value = event.target.value;
-	$.post("/updClkFormat", { clkFormat: value });
+	$.post("/updateClkFormat", { clkFormat: value });
 	console.log(value);
 }
-
-function updClkColorSet(event) {
+function updateClkColor(event) {
 	const value = event.target.value;
 	if (value === "0") {
-		document.getElementById("clkFields").hidden = false;
+		document.getElementById("clkColorInput").hidden = false;
 	}
 	if (value === "1") {
-		document.getElementById("clkFields").hidden = true;
+		document.getElementById("clkColorInput").hidden = true;
 	}
-	$.post("/updClkColorSet", { clkColorSet: value });
+	$.post("/updateClkColor", { clkColor: value });
 	console.log(value);
 }
-
-function updClkHColor(event) {
+function updateClkColorH(event) {
 	const value = event.target.value;
-	$.post("/updClkHColor", hexToRgb(value));
-	closest("#clkHColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateClkColorH", hexToRgb(value));
+	closest("#clkColorH", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updClkMColor(event) {
+function updateClkColorM(event) {
 	const value = event.target.value;
-	$.post("/updClkMColor", hexToRgb(value));
-	closest("#clkMColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateClkColorM", hexToRgb(value));
+	closest("#clkColorM", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
 
 //  Date
-function updDatFormat(event) {
+function updateDatFormat(event) {
 	const value = event.target.value;
-	$.post("/updDatFormat", { datFormat: value });
+	$.post("/updateDatFormat", { datFormat: value });
 	console.log(value);
 }
-
-function updDatColorSet(event) {
+function updateDatColor(event) {
 	const value = event.target.value;
 	if (value === "0") {
-		document.getElementById("datFields").hidden = false;
+		document.getElementById("datColorInput").hidden = false;
 	}
 	if (value === "1") {
-		document.getElementById("datFields").hidden = true;
+		document.getElementById("datColorInput").hidden = true;
 	}
 
-	$.post("/updDatColorSet", { datColorSet: value });
+	$.post("/updateDatColor", { datColor: value });
 	console.log(value);
 }
-
-function updDatDColor(event) {
+function updateDatColorD(event) {
 	const value = event.target.value;
-	$.post("/updDatDColor", hexToRgb(value));
-	closest("#datDColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateDatColorD", hexToRgb(value));
+	closest("#datColorD", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDatMColor(event) {
+function updateDatColorM(event) {
 	const value = event.target.value;
-	$.post("/updDatMColor", hexToRgb(value));
-	closest("#datMColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateDatColorM", hexToRgb(value));
+	closest("#datColorM", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
 
 //  Temperature
-function updTemSymbol(event) {
+function updateTemSymbol(event) {
 	const value = event.target.value;
-	$.post("/updTemSymbol", { temSymbol: value });
+	$.post("/updateTemSymbol", { temSymbol: value });
 	console.log(value);
 }
 
 //  Humidity
-function updHumColorSet(event) {
+function updateHumColor(event) {
 	const value = event.target.value;
 	if (value === "0") {
-		document.getElementById("humFields").hidden = false;
+		document.getElementById("humColorInput").hidden = false;
 	}
 	if (value === "1") {
-		document.getElementById("humFields").hidden = true;
+		document.getElementById("humColorInput").hidden = true;
 	}
-	$.post("/updHumColorSet", { humColorSet: value });
+	$.post("/updateHumColor", { humColor: value });
 	console.log(value);
 }
-
-function updHumAColor(event) {
+function updateHumColorA(event) {
 	const value = event.target.value;
-	$.post("/updHumAColor", hexToRgb(value));
-	closest("#humAColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateHumColorA", hexToRgb(value));
+	closest("#humColorA", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updHumBColor(event) {
+function updateHumColorB(event) {
 	const value = event.target.value;
-	$.post("/updHumBColor", hexToRgb(value));
-	closest("#humBColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateHumColorB", hexToRgb(value));
+	closest("#humColorB", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updHumCColor(event) {
+function updateHumColorC(event) {
 	const value = event.target.value;
-	$.post("/updHumCColor", hexToRgb(value));
-	closest("#humCColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateHumColorC", hexToRgb(value));
+	closest("#humColorC", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
 
 //  Scoreboard
-function updScoHColor(event) {
+function updateScoColorL(event) {
 	const value = event.target.value;
-	$.post("/updScoHColor", hexToRgb(value));
-	closest("#scoHColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateScoColorL", hexToRgb(value));
+	closest("#scoColorL", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updScoAColor(event) {
+function updateScoColorR(event) {
 	const value = event.target.value;
-	$.post("/updScoAColor", hexToRgb(value));
-	closest("#scoAColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateScoColorR", hexToRgb(value));
+	closest("#scoColorR", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
 
 //  Countdown
-function updCouHColor(event) {
+function updateCouColorH(event) {
 	const value = event.target.value;
-	$.post("/updCouHColor", hexToRgb(value));
-	closest("#couHColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateCouColorH", hexToRgb(value));
+	closest("#couColorH", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updCouMColor(event) {
+function updateCouColorM(event) {
 	const value = event.target.value;
-	$.post("/updCouMColor", hexToRgb(value));
-	closest("#couMColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateCouColorM", hexToRgb(value));
+	closest("#couColorM", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updCouSColor(event) {
+function updateCouColorS(event) {
 	const value = event.target.value;
-	$.post("/updCouSColor", hexToRgb(value));
-	closest("#couSColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateCouColorS", hexToRgb(value));
+	closest("#couColorS", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updCouAColor(event) {
+function updateCouColorA(event) {
 	const value = event.target.value;
-	$.post("/updCouAColor", hexToRgb(value));
-	closest("#couAColor", ".input-group-text").style.backgroundColor = value;
+	$.post("/updateCouColorH", hexToRgb(value));
+	closest("#couColorA", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
 
 // 	Scroll
-function updScrTime(event) {
+function updateScrTime(event) {
 	const value = event.target.value;
-	$.post("/updScrTime", { scrTime: value });
+	$.post("/updateScrTime", { scrTime: value });
 	console.log(value);
 }
 
 //  Downlights
-function updDowColorSet(event) {
+function updateDowColor(event) {
 	const value = event.target.value;
 	if (value === "0") {
-		document.getElementById("dowFields0").hidden = false;
-		document.getElementById("dowFields1upper").hidden = true;
-		document.getElementById("dowFields1lower").hidden = true;
+		document.getElementById("dowColorInput").hidden = false;
 	}
 	if (value === "1") {
-		document.getElementById("dowFields0").hidden = true;
-		document.getElementById("dowFields1upper").hidden = false;
-		document.getElementById("dowFields1lower").hidden = false;
+		document.getElementById("dowColorInput").hidden = true;
 	}
 	if (value === "2") {
-		document.getElementById("dowFields0").hidden = true;
-		document.getElementById("dowFields1upper").hidden = true;
-		document.getElementById("dowFields1lower").hidden = true;
+		document.getElementById("dowColorInput").hidden = true;
 	}
-	if (value === "3") {
-		document.getElementById("dowFields0").hidden = true;
-		document.getElementById("dowFields1upper").hidden = true;
-		document.getElementById("dowFields1lower").hidden = true;
-	}
-	$.post("/updDowColorSet", { dowColorSet: value });
+	$.post("/updateDowColor", { dowColor: value });
 	console.log(value);
 }
-
-function updDowColor(event) {
+function updateDowColor0(event) {
 	const value = event.target.value;
-	$.post("/updDowColor", hexToRgb(value));
-	closest("#dowColor", ".input-group-text").style.backgroundColor = value;
-	console.log(hexToRgb(value));
-}
-
-function updDowColor0(event) {
-	const value = event.target.value;
-	$.post("/updDowColor0", hexToRgb(value));
+	$.post("/updateDowColor0", hexToRgb(value));
 	closest("#dowColor0", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor1(event) {
+function updateDowColor1(event) {
 	const value = event.target.value;
-	$.post("/updDowColor1", hexToRgb(value));
+	$.post("/updateDowColor1", hexToRgb(value));
 	closest("#dowColor1", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor2(event) {
+function updateDowColor2(event) {
 	const value = event.target.value;
-	$.post("/updDowColor2", hexToRgb(value));
+	$.post("/updateDowColor2", hexToRgb(value));
 	closest("#dowColor2", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor3(event) {
+function updateDowColor3(event) {
 	const value = event.target.value;
-	$.post("/updDowColor3", hexToRgb(value));
+	$.post("/updateDowColor3", hexToRgb(value));
 	closest("#dowColor3", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor4(event) {
+function updateDowColor4(event) {
 	const value = event.target.value;
-	$.post("/updDowColor4", hexToRgb(value));
+	$.post("/updateDowColor4", hexToRgb(value));
 	closest("#dowColor4", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor5(event) {
+function updateDowColor5(event) {
 	const value = event.target.value;
-	$.post("/updDowColor5", hexToRgb(value));
+	$.post("/updateDowColor5", hexToRgb(value));
 	closest("#dowColor5", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor6(event) {
+function updateDowColor6(event) {
 	const value = event.target.value;
-	$.post("/updDowColor6", hexToRgb(value));
+	$.post("/updateDowColor6", hexToRgb(value));
 	closest("#dowColor6", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor7(event) {
+function updateDowColor7(event) {
 	const value = event.target.value;
-	$.post("/updDowColor7", hexToRgb(value));
+	$.post("/updateDowColor7", hexToRgb(value));
 	closest("#dowColor7", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor8(event) {
+function updateDowColor8(event) {
 	const value = event.target.value;
-	$.post("/updDowColor8", hexToRgb(value));
+	$.post("/updateDowColor8", hexToRgb(value));
 	closest("#dowColor8", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor9(event) {
+function updateDowColor9(event) {
 	const value = event.target.value;
-	$.post("/updDowColor9", hexToRgb(value));
+	$.post("/updateDowColor9", hexToRgb(value));
 	closest("#dowColor9", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor10(event) {
+function updateDowColor10(event) {
 	const value = event.target.value;
-	$.post("/updDowColor10", hexToRgb(value));
+	$.post("/updateDowColor10", hexToRgb(value));
 	closest("#dowColor10", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor11(event) {
+function updateDowColor11(event) {
 	const value = event.target.value;
-	$.post("/updDowColor11", hexToRgb(value));
+	$.post("/updateDowColor11", hexToRgb(value));
 	closest("#dowColor11", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor12(event) {
+function updateDowColor12(event) {
 	const value = event.target.value;
-	$.post("/updDowColor12", hexToRgb(value));
+	$.post("/updateDowColor12", hexToRgb(value));
 	closest("#dowColor12", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }
-
-function updDowColor13(event) {
+function updateDowColor13(event) {
 	const value = event.target.value;
-	$.post("/updDowColor13", hexToRgb(value));
+	$.post("/updateDowColor13", hexToRgb(value));
 	closest("#dowColor13", ".input-group-text").style.backgroundColor = value;
 	console.log(hexToRgb(value));
 }

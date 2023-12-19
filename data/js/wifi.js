@@ -1,9 +1,10 @@
-// Variables
-
-//  NETZWERK
-//  |-  ACCESS POINT
+//  ****************************************************************************************************
+//  VARIABLES
+//  ****************************************************************************************************
+//  access point
 let apConfigValue;
 let apSSIDValue;
+let apSSIDError;
 let apPassValue;
 let apPassError;
 let apHideValue;
@@ -23,7 +24,7 @@ let apSN1Value;
 let apSN2Value;
 let apSN3Value;
 let apSN4Value;
-//  |-  WIFI CLIENT
+//  wifi client
 let wifiConfigValue;
 let wifiSSIDValue;
 let wifiPassValue;
@@ -44,8 +45,7 @@ let wifiSN4Value;
 //  ****************************************************************************************************
 //  FUNCTIONS - get
 //  ****************************************************************************************************
-//  NETWORK
-//  |-  ACCESS POINT
+//  access point
 function getAPConfig() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -53,12 +53,12 @@ function getAPConfig() {
 			if (this.responseText === "0") {
 				document.getElementById("apConfig").checked = false;
 				apConfigValue = false;
-				unLockAPFields();
+				unlockAPfields();
 			}
 			if (this.responseText === "1") {
 				document.getElementById("apConfig").checked = true;
 				apConfigValue = true;
-				unLockAPFields();
+				unlockAPfields();
 			}
 		}
 	};
@@ -81,7 +81,7 @@ function getAPPass() {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("apPass").value = this.responseText;
 			apPassValue = apPass.value;
-			validatePass();
+			validateAPpassword();
 		}
 	};
 	xhttp.open("GET", "getAPPass", true);
@@ -103,7 +103,7 @@ function getAPIP1() {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("apIP1").value = this.responseText;
 			apIP1Value = apIP1.valueAsNumber;
-			validateIP();
+			validateAPip();
 		}
 	};
 	xhttp.open("GET", "getAPIP1", true);
@@ -115,7 +115,7 @@ function getAPIP2() {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("apIP2").value = this.responseText;
 			apIP2Value = apIP2.valueAsNumber;
-			validateIP();
+			validateAPip();
 		}
 	};
 	xhttp.open("GET", "getAPIP2", true);
@@ -127,7 +127,7 @@ function getAPIP3() {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("apIP3").value = this.responseText;
 			apIP3Value = apIP3.valueAsNumber;
-			validateIP();
+			validateAPip();
 		}
 	};
 	xhttp.open("GET", "getAPIP3", true);
@@ -139,7 +139,7 @@ function getAPIP4() {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("apIP4").value = this.responseText;
 			apIP4Value = apIP4.valueAsNumber;
-			validateIP();
+			validateAPip();
 		}
 	};
 	xhttp.open("GET", "getAPIP4", true);
@@ -233,7 +233,7 @@ function getAPSN4() {
 	xhttp.open("GET", "getAPSN4", true);
 	xhttp.send();
 }
-//  |-  WIFI CLIENT
+//  wifi client
 function getWifiConfig() {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
@@ -241,12 +241,12 @@ function getWifiConfig() {
 			if (this.responseText === "0") {
 				document.getElementById("wifiConfig").checked = false;
 				wifiConfigValue = false;
-				unLockWifiFields();
+				unlockWIFIinput();
 			}
 			if (this.responseText === "1") {
 				document.getElementById("wifiConfig").checked = true;
 				wifiConfigValue = true;
-				unLockWifiFields();
+				unlockWIFIinput();
 			}
 		}
 	};
@@ -279,7 +279,7 @@ function getWifiDHCP() {
 		if (this.readyState === 4 && this.status === 200) {
 			document.getElementById("wifiDHCP").value = this.responseText;
 			wifiDHCPValue = this.responseText;
-			unlockDHCPFields();
+			unlockDHCPinput();
 		}
 	};
 	xhttp.open("GET", "getWifiDHCP", true);
@@ -419,11 +419,10 @@ function getWifiSN4() {
 }
 
 //  ****************************************************************************************************
-//  EVENT LISTENER - get
+//  LOAD VALUES - get
 //  ****************************************************************************************************
 function init() {
-	//  NETZWERK
-	//  |-  ACCESS POINT
+	//  access point
 	getAPConfig();
 	getAPSSID();
 	getAPPass();
@@ -440,7 +439,7 @@ function init() {
 	getAPSN2();
 	getAPSN3();
 	getAPSN4();
-	//  |-  WIFI CLIENT
+	//  wifi client
 	getWifiConfig();
 	getWifiSSID();
 	getWifiPass();
@@ -460,331 +459,287 @@ function init() {
 }
 
 //  ****************************************************************************************************
-//  EVENT LISTENER - upd
+//  EVENT LISTENER - update
 //  ****************************************************************************************************
 function startup() {
-	//  NETZWERK
-	//  |-  ACCESS POINT
+	//  access point
 	const apConfig = document.querySelector("#apConfig");
-	apConfig.addEventListener("input", updAPConfig, false);
+	apConfig.addEventListener("input", updateAPConfig, false);
 	const apSSID = document.querySelector("#apSSID");
-	apSSID.addEventListener("input", updAPSSID, false);
+	apSSID.addEventListener("input", updateAPSSID, false);
 	const apPass = document.querySelector("#apPass");
-	apPass.addEventListener("input", updAPPass, false);
+	apPass.addEventListener("input", updateAPPass, false);
 	const apHide = document.querySelector("#apHide");
-	apHide.addEventListener("input", updAPHide, false);
+	apHide.addEventListener("input", updateAPHide, false);
 	const apIP1 = document.querySelector("#apIP1");
-	apIP1.addEventListener("input", updAPIP1, false);
+	apIP1.addEventListener("input", updateAPIP1, false);
 	const apIP2 = document.querySelector("#apIP2");
-	apIP2.addEventListener("input", updAPIP2, false);
+	apIP2.addEventListener("input", updateAPIP2, false);
 	const apIP3 = document.querySelector("#apIP3");
-	apIP3.addEventListener("input", updAPIP3, false);
+	apIP3.addEventListener("input", updateAPIP3, false);
 	const apIP4 = document.querySelector("#apIP4");
-	apIP4.addEventListener("input", updAPIP4, false);
+	apIP4.addEventListener("input", updateAPIP4, false);
 	const apGW1 = document.querySelector("#apGW1");
-	apGW1.addEventListener("input", updAPGW1, false);
+	apGW1.addEventListener("input", updateAPGW1, false);
 	const apGW2 = document.querySelector("#apGW2");
-	apGW2.addEventListener("input", updAPGW2, false);
+	apGW2.addEventListener("input", updateAPGW2, false);
 	const apGW3 = document.querySelector("#apGW3");
-	apGW3.addEventListener("input", updAPGW3, false);
+	apGW3.addEventListener("input", updateAPGW3, false);
 	const apGW4 = document.querySelector("#apGW4");
-	apGW4.addEventListener("input", updAPGW4, false);
-	const apSN1 = document.querySelector("#apSN1");
-	apSN1.addEventListener("input", updAPSN1, false);
-	const apSN2 = document.querySelector("#apSN2");
-	apSN2.addEventListener("input", updAPSN2, false);
-	const apSN3 = document.querySelector("#apSN3");
-	apSN3.addEventListener("input", updAPSN3, false);
-	const apSN4 = document.querySelector("#apSN4");
-	apSN4.addEventListener("input", updAPSN4, false);
-	const apButton = document.querySelector("#apButton");
-	apButton.addEventListener("click", apRestart, false);
-	//  |-  WIFI CLIENT
+	apGW4.addEventListener("input", updateAPGW4, false);
+	const apRestart = document.querySelector("#apRestart");
+	apRestart.addEventListener("click", updateAPrestart, false);
+	//  wifi client
 	const wifiConfig = document.querySelector("#wifiConfig");
-	wifiConfig.addEventListener("input", updWifiConfig, false);
+	wifiConfig.addEventListener("input", updateWifiConfig, false);
 	const wifiSSID = document.querySelector("#wifiSSID");
-	wifiSSID.addEventListener("input", updWifiSSID, false);
+	wifiSSID.addEventListener("input", updateWifiSSID, false);
 	const wifiPass = document.querySelector("#wifiPass");
-	wifiPass.addEventListener("input", updWifiPass, false);
+	wifiPass.addEventListener("input", updateWifiPass, false);
 	const wifiDHCP = document.querySelector("#wifiDHCP");
-	wifiDHCP.addEventListener("input", updWifiDHCP, false);
+	wifiDHCP.addEventListener("input", updateWifiDHCP, false);
 	const wifiIP1 = document.querySelector("#wifiIP1");
-	wifiIP1.addEventListener("input", updWifiIP1, false);
+	wifiIP1.addEventListener("input", updateWifiIP1, false);
 	const wifiIP2 = document.querySelector("#wifiIP2");
-	wifiIP2.addEventListener("input", updWifiIP2, false);
+	wifiIP2.addEventListener("input", updateWifiIP2, false);
 	const wifiIP3 = document.querySelector("#wifiIP3");
-	wifiIP3.addEventListener("input", updWifiIP3, false);
+	wifiIP3.addEventListener("input", updateWifiIP3, false);
 	const wifiIP4 = document.querySelector("#wifiIP4");
-	wifiIP4.addEventListener("input", updWifiIP4, false);
+	wifiIP4.addEventListener("input", updateWifiIP4, false);
 	const wifiGW1 = document.querySelector("#wifiGW1");
-	wifiGW1.addEventListener("input", updWifiGW1, false);
+	wifiGW1.addEventListener("input", updateWifiGW1, false);
 	const wifiGW2 = document.querySelector("#wifiGW2");
-	wifiGW2.addEventListener("input", updWifiGW2, false);
+	wifiGW2.addEventListener("input", updateWifiGW2, false);
 	const wifiGW3 = document.querySelector("#wifiGW3");
-	wifiGW3.addEventListener("input", updWifiGW3, false);
+	wifiGW3.addEventListener("input", updateWifiGW3, false);
 	const wifiGW4 = document.querySelector("#wifiGW4");
-	wifiGW4.addEventListener("input", updWifiGW4, false);
-	const wifiSN1 = document.querySelector("#wifiSN1");
-	wifiSN1.addEventListener("input", updWifiSN1, false);
-	const wifiSN2 = document.querySelector("#wifiSN2");
-	wifiSN2.addEventListener("input", updWifiSN2, false);
-	const wifiSN3 = document.querySelector("#wifiSN3");
-	wifiSN3.addEventListener("input", updWifiSN3, false);
-	const wifiSN4 = document.querySelector("#wifiSN4");
-	wifiSN4.addEventListener("input", updWifiSN4, false);
-	const wifiButton = document.querySelector("#wifiButton");
-	wifiButton.addEventListener("click", wifiRestart, false);
+	wifiGW4.addEventListener("input", updateWifiGW4, false);
+	const wifiRestart = document.querySelector("#wifiRestart");
+	wifiRestart.addEventListener("click", updateWifiRestart, false);
 }
 
 //  ****************************************************************************************************
-//  FUNCTIONS - upd
+//  FUNCTIONS - update
 //  ****************************************************************************************************
-//  NETZWERK
-//  |-  ACCESS POINT
-function updAPConfig(event) {
+//  access point
+function updateAPConfig(event) {
 	apConfigValue = event.target.checked;
-	$.post("/updAPConfig", {
+	$.post("/updateAPConfig", {
 		apConfig: apConfigValue,
 	});
-	unLockAPFields();
-	validatePass();
-	validateIP();
-	unlockAPButton();
+	console.log(apConfigValue);
+	unlockAPfields();
+	validateAPpassword();
+	validateAPip();
+	unlockAPrestart();
 }
-function updAPSSID(event) {
+function updateAPSSID(event) {
 	apSSIDValue = event.target.value;
-	$.post("/updAPSSID", {
+	$.post("/updateAPSSID", {
 		apSSID: apSSIDValue,
 	});
-	unlockAPButton();
-	unlockAPButton();
+	console.log(apSSIDValue);
+	validateAPssid();
+	unlockAPrestart();
 }
-function updAPPass(event) {
+function updateAPPass(event) {
 	apPassValue = event.target.value;
-	$.post("/updAPPass", {
+	$.post("/updateAPPass", {
 		apPass: apPassValue,
 	});
-	validatePass();
-	unlockAPButton();
+	console.log(apPassValue);
+	validateAPpassword();
+	unlockAPrestart();
 }
-function updAPHide(event) {
+function updateAPHide(event) {
 	apHideValue = event.target.value;
-	$.post("/updAPHide", {
+	$.post("/updateAPHide", {
 		apHide: apHideValue,
 	});
-	unlockAPButton();
+	console.log(apHideValue);
+	unlockAPrestart();
 }
-function updAPIP1(event) {
+function updateAPIP1(event) {
 	apIP1Value = event.target.valueAsNumber;
-	$.post("/updAPIP1", {
+	$.post("/updateAPIP1", {
 		apIP1: apIP1Value,
 	});
 	apGW1.value = apIP1Value;
 	apGW1Value = apIP1Value;
-	validateIP();
-	unlockAPButton();
+	console.log(apIP1Value);
+	validateAPip();
+	unlockAPrestart();
 }
-function updAPIP2(event) {
+function updateAPIP2(event) {
 	apIP2Value = event.target.valueAsNumber;
-	$.post("/updAPIP2", {
+	$.post("/updateAPIP2", {
 		apIP2: apIP2Value,
 	});
 	apGW2.value = apIP2Value;
 	apGW2Value = apIP2Value;
-	validateIP();
-	unlockAPButton();
+	console.log(apIP2Value);
+	validateAPip();
+	unlockAPrestart();
 }
-function updAPIP3(event) {
+function updateAPIP3(event) {
 	apIP3Value = event.target.valueAsNumber;
-	$.post("/updAPIP3", {
+	$.post("/updateAPIP3", {
 		apIP3: apIP3Value,
 	});
 	apGW3.value = apIP3Value;
 	apGW3Value = apIP3Value;
-	validateIP();
-	unlockAPButton();
+	console.log(apIP3Value);
+	validateAPip();
+	unlockAPrestart();
 }
-function updAPIP4(event) {
+function updateAPIP4(event) {
 	apIP4Value = event.target.valueAsNumber;
-	$.post("/updAPIP4", {
+	$.post("/updateAPIP4", {
 		apIP4: apIP4Value,
 	});
-	validateIP();
-	unlockAPButton();
+	console.log(apIP4Value);
+	validateAPip();
+	unlockAPrestart();
 }
-function updAPGW1(event) {
+function updateAPGW1(event) {
 	apGW1Value = event.target.valueAsNumber;
-	$.post("/updAPGW1", {
+	$.post("/updateAPGW1", {
 		apGW1: apGW1Value,
 	});
-	unlockAPButton();
+	console.log(apGW1Value);
+	unlockAPrestart();
 }
-function updAPGW2(event) {
+function updateAPGW2(event) {
 	apGW2Value = event.target.valueAsNumber;
-	$.post("/updAPGW2", {
+	$.post("/updateAPGW2", {
 		apGW2: apGW2Value,
 	});
-	unlockAPButton();
+	console.log(apGW2Value);
+	unlockAPrestart();
 }
-function updAPGW3(event) {
+function updateAPGW3(event) {
 	apGW3Value = event.target.valueAsNumber;
-	$.post("/updAPGW3", {
+	$.post("/updateAPGW3", {
 		apGW3: apGW3Value,
 	});
-	unlockAPButton();
+	console.log(apGW3Value);
+	unlockAPrestart();
 }
-function updAPGW4(event) {
+function updateAPGW4(event) {
 	apGW4Value = event.target.valueAsNumber;
-	$.post("/updAPGW4", {
+	$.post("/updateAPGW4", {
 		apGW4: apGW4Value,
 	});
-	unlockAPButton();
+	console.log(apGW4Value);
+	unlockAPrestart();
 }
-function updAPSN1(event) {
-	apSN1Value = event.target.valueAsNumber;
-	$.post("/updAPSN1", {
-		apSN1: apSN1Value,
-	});
-	unlockAPButton();
-}
-function updAPSN2(event) {
-	apSN2Value = event.target.valueAsNumber;
-	$.post("/updAPSN2", {
-		apSN2: apSN2Value,
-	});
-	unlockAPButton();
-}
-function updAPSN3(event) {
-	apSN3Value = event.target.valueAsNumber;
-	$.post("/updAPSN3", {
-		apSN3: apSN3Value,
-	});
-	unlockAPButton();
-}
-function updAPSN4(event) {
-	apSN4Value = event.target.valueAsNumber;
-	$.post("/updAPSN4", {
-		apSN4: apSN4Value,
-	});
-	unlockAPButton();
-}
-//  |-  WIFI CLIENT
-function updWifiConfig(event) {
+//  wifi client
+function updateWifiConfig(event) {
 	wifiConfigValue = event.target.checked;
-	$.post("/updWifiConfig", {
-		wifiConfig: wifiConfigValue,
-	});
-	unLockWifiFields();
-	unlockWifiButton();
+	$.post("/updateWifiConfig", { wifiConfig: wifiConfigValue });
+	console.log(wifiConfigValue);
+	unlockWIFIinput();
+	unlockWifiRestart();
 }
-function updWifiSSID(event) {
+function updateWifiSSID(event) {
 	wifiSSIDValue = event.target.value;
-	$.post("/updWifiSSID", {
-		wifiSSID: wifiSSIDValue,
-	});
-	unlockWifiButton();
+	$.post("/updateWifiSSID", { wifiSSID: wifiSSIDValue });
+	console.log(wifiSSIDValue);
+	unlockWifiRestart();
 }
-function updWifiPass(event) {
+function updateWifiPass(event) {
 	wifiPassValue = event.target.value;
-	$.post("/updWifiPass", {
+	$.post("/updateWifiPass", {
 		wifiPass: wifiPassValue,
 	});
-	unlockWifiButton();
+	console.log(wifiPassValue);
+	unlockWifiRestart();
 }
-function updWifiDHCP(event) {
+function updateWifiDHCP(event) {
 	wifiDHCPValue = event.target.value;
-	$.post("/updWifiDHCP", {
+	$.post("/updateWifiDHCP", {
 		wifiDHCP: wifiDHCPValue,
 	});
-	unlockDHCPFields();
-	unlockWifiButton();
+	console.log(wifiDHCPValue);
+	unlockDHCPinput();
+	unlockWifiRestart();
 }
-function updWifiIP1(event) {
+function updateWifiIP1(event) {
 	wifiIP1Value = event.target.valueAsNumber;
-	$.post("/updWifiIP1", {
+	$.post("/updateWifiIP1", {
 		wifiIP1: wifiIP1Value,
 	});
-	unlockWifiButton();
+	wifiGW1.value = wifiIP1Value;
+	wifiGW1Value = wifiIP1Value;
+	console.log(wifiIP1Value);
+	unlockWifiRestart();
 }
-function updWifiIP2(event) {
+function updateWifiIP2(event) {
 	wifiIP2Value = event.target.valueAsNumber;
-	$.post("/updWifiIP2", {
+	$.post("/updateWifiIP2", {
 		wifiIP2: wifiIP2Value,
 	});
-	unlockWifiButton();
+	wifiGW2.value = wifiIP2Value;
+	wifiGW2Value = wifiIP2Value;
+	console.log(wifiIP2Value);
+	unlockWifiRestart();
 }
-function updWifiIP3(event) {
+function updateWifiIP3(event) {
 	wifiIP3Value = event.target.valueAsNumber;
-	$.post("/updWifiIP3", {
+	$.post("/updateWifiIP3", {
 		wifiIP3: wifiIP3Value,
 	});
-	unlockWifiButton();
+	wifiGW3.value = wifiIP3Value;
+	wifiGW3Value = wifiIP3Value;
+	console.log(wifiIP3Value);
+	unlockWifiRestart();
 }
-function updWifiIP4(event) {
+function updateWifiIP4(event) {
 	wifiIP4Value = event.target.valueAsNumber;
-	$.post("/updWifiIP4", {
+	$.post("/updateWifiIP4", {
 		wifiIP4: wifiIP4Value,
 	});
-	unlockWifiButton();
+	console.log(wifiIP4Value);
+	unlockWifiRestart();
 }
-function updWifiGW1(event) {
+function updateWifiGW1(event) {
 	wifiGW1Value = event.target.valueAsNumber;
-	$.post("/updWifiGW1", {
+	$.post("/updateWifiGW1", {
 		wifiGW1: wifiGW1Value,
 	});
-	unlockWifiButton();
+	console.log(wifiGW1Value);
+	unlockWifiRestart();
 }
-function updWifiGW2(event) {
+function updateWifiGW2(event) {
 	wifiGW2Value = event.target.valueAsNumber;
-	$.post("/updWifiGW2", {
+	$.post("/updateWifiGW2", {
 		wifiGW2: wifiGW2Value,
 	});
-	unlockWifiButton();
+	console.log(wifiGW2Value);
+	unlockWifiRestart();
 }
-function updWifiGW3(event) {
+function updateWifiGW3(event) {
 	wifiGW3Value = event.target.valueAsNumber;
-	$.post("/updWifiGW3", {
+	$.post("/updateWifiGW3", {
 		wifiGW3: wifiGW3Value,
 	});
-	unlockWifiButton();
+	console.log(wifiGW3Value);
+	unlockWifiRestart();
 }
-function updWifiGW4(event) {
+function updateWifiGW4(event) {
 	wifiGW4Value = event.target.valueAsNumber;
-	$.post("/updWifiGW4", {
+	$.post("/updateWifiGW4", {
 		wifiGW4: wifiGW4Value,
 	});
-	unlockWifiButton();
+	console.log(wifiGW4Value);
+	unlockWifiRestart();
 }
-function updWifiSN1(event) {
-	wifiSN1Value = event.target.valueAsNumber;
-	$.post("/updWifiSN1", {
-		wifiSN1: wifiSN1Value,
-	});
-	unlockWifiButton();
-}
-function updWifiSN2(event) {
-	wifiSN2Value = event.target.valueAsNumber;
-	$.post("/updWifiSN2", {
-		wifiSN2: wifiSN2Value,
-	});
-	unlockWifiButton();
-}
-function updWifiSN3(event) {
-	wifiSN3Value = event.target.valueAsNumber;
-	$.post("/updWifiSN3", {
-		wifiSN3: wifiSN3Value,
-	});
-	unlockWifiButton();
-}
-function updWifiSN4(event) {
-	wifiSN4Value = event.target.valueAsNumber;
-	$.post("/updWifiSN4", {
-		wifiSN4: wifiSN4Value,
-	});
-	unlockWifiButton();
-}
-//  |-  LOCK/UNLOCK FIELDS
-function unLockAPFields() {
+
+//  ****************************************************************************************************
+//  FUNCTIONS - support
+//  ****************************************************************************************************
+//  lock/unlock fields
+function unlockAPfields() {
 	if (apConfigValue === true) {
 		apSSID.disabled = false;
 		apPass.disabled = false;
@@ -820,7 +775,7 @@ function unLockAPFields() {
 		apSN4.disabled = true;
 	}
 }
-function unLockWifiFields() {
+function unlockWIFIinput() {
 	if (wifiConfigValue === true) {
 		wifiSSID.disabled = false;
 		wifiPass.disabled = false;
@@ -860,7 +815,7 @@ function unLockWifiFields() {
 		wifiSN4.disabled = true;
 	}
 }
-function unlockDHCPFields() {
+function unlockDHCPinput() {
 	if (wifiDHCPValue === "0") {
 		wifiIP1.disabled = true;
 		wifiIP2.disabled = true;
@@ -890,8 +845,22 @@ function unlockDHCPFields() {
 		wifiSN4.disabled = false;
 	}
 }
-//  |-  VALIDATE FIELDS
-function validatePass() {
+//  validate fields
+function validateAPssid() {
+	if (apConfigValue === true) {
+		if (apSSIDValue.length <= 32) {
+			apSSID.classList.remove("is-invalid");
+			apSSIDError = 0;
+		} else {
+			apSSID.classList.add("is.invalid");
+			apSSIDError = 1;
+		}
+	} else {
+		apSSID.classList.remove("is-invalid");
+		apSSIDError = 0;
+	}
+}
+function validateAPpassword() {
 	if (apConfigValue === true) {
 		if (
 			apPassValue.length >= 8 &&
@@ -912,7 +881,7 @@ function validatePass() {
 		apPassError = 0;
 	}
 }
-function validateIP() {
+function validateAPip() {
 	if (apConfigValue === true) {
 		if (apIP1Value !== "" && (apIP1Value === 10 || apIP1Value === 172 || apIP1Value === 192)) {
 			apIP1.classList.remove("is-invalid");
@@ -958,36 +927,47 @@ function validateIP() {
 		apIP4Error = 0;
 	}
 }
-//  |-  BUTTONS
-function unlockAPButton() {
-	apButton.classList.remove("btn-outline-secondary");
-	apButton.classList.add("btn-outline-danger");
-	if (apPassError === 0 && apIP1Error === 0 && apIP2Error === 0 && apIP3Error === 0 && apIP4Error === 0) {
-		apButton.classList.remove("btn-outline-danger");
-		apButton.classList.add("btn-danger");
-		apButton.disabled = false;
+//  control buttons
+function unlockAPrestart() {
+	apRestart.classList.remove("btn-outline-secondary");
+	apRestart.classList.add("btn-outline-danger");
+	if (
+		apSSIDError === 0 &&
+		apPassError === 0 &&
+		apIP1Error === 0 &&
+		apIP2Error === 0 &&
+		apIP3Error === 0 &&
+		apIP4Error === 0
+	) {
+		apRestart.classList.remove("btn-outline-danger");
+		apRestart.classList.add("btn-danger");
+		apRestart.disabled = false;
 	} else {
-		apButton.classList.remove("btn-danger");
-		apButton.classList.add("btn-outline-danger");
-		apButton.disabled = true;
+		apRestart.classList.remove("btn-danger");
+		apRestart.classList.add("btn-outline-danger");
+		apRestart.disabled = true;
 	}
 }
-function apRestart() {
-	if (apPassError === 0 && apIP1Error === 0 && apIP2Error === 0 && apIP3Error === 0 && apIP4Error === 0) {
-		$.post("/apRestart");
+function updateAPrestart() {
+	if (
+		apSSIDError === 0 &&
+		apPassError === 0 &&
+		apIP1Error === 0 &&
+		apIP2Error === 0 &&
+		apIP3Error === 0 &&
+		apIP4Error === 0
+	) {
+		$.post("/updateAPrestart");
 	}
 }
-function unlockWifiButton() {
-	wifiButton.classList.remove("btn-outline-secondary");
-	wifiButton.classList.add("btn-danger");
-	wifiButton.disabled = false;
+function unlockWifiRestart() {
+	wifiRestart.classList.remove("btn-outline-secondary");
+	wifiRestart.classList.add("btn-danger");
+	wifiRestart.disabled = false;
 }
-function wifiRestart() {
-	$.post("/wifiRestart");
-	resetWifiButton();
-}
-function resetWifiButton() {
-	wifiButton.classList.remove("btn-danger");
-	wifiButton.classList.add("btn-outline-secondary");
-	wifiButton.disabled = true;
+function updateWifiRestart() {
+	$.post("/updateWifiRestart");
+	wifiRestart.classList.remove("btn-danger");
+	wifiRestart.classList.add("btn-outline-secondary");
+	wifiRestart.disabled = true;
 }
