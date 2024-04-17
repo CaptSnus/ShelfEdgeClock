@@ -16,7 +16,4 @@ jobs:
         with:
           submodules: "recursive"
       - name: esp-idf build
-        uses: espressif/esp-idf-ci-action@v1
-        with:
-          esp_idf_version: v5.3.0
-          target: esp32
+        uses: espressif/esp-idf-ci-action@latest
