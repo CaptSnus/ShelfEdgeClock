@@ -4,6 +4,7 @@
 		<!-- META -->
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta name="author" content="CaptSnus" />
 		<!-- TITLE -->
 		<title>Shelf Edge Clock</title>
 		<!-- HEADER STUFF -->
@@ -19,259 +20,321 @@
 		<meta name="msapplication-config" content="/img/browserconfig.xml" />
 		<meta name="theme-color" content="#ffffff" />
 		<!-- CSS -->
-		<link href="./css/bootstrap.min.css" rel="stylesheet" />
+		<link href="./css/bootstrap.css" rel="stylesheet" />
 		<!-- JAVASCRIPT -->
-		<script src="./js/bootstrap.bundle.min.js"></script>
-		<script src="./js/jquery-3.6.3.min.js"></script>
-		<script type="text/javascript" src="./js/index.js"></script>
+		<script src="./js/bootstrap.js"></script>
+		<script src="./js/jquery.js"></script>
+		<script type="text/javascript" src="./js/sec_index.js"></script>
 	</head>
 
 	<body>
-		<!-- navigation -->
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-			<div class="container">
-				<a class="navbar-brand" href="index.html">
-					<img
-						src="img/shelfclock.png"
-						alt="Shelf Clock"
-						width="30"
-						height="24"
-						class="d-inline-block align-text-top"
-					/>
-					<span data-i18n="navigation.title">Shelf Edge Clock</span>
-				</a>
-				<button
-					class="navbar-toggler"
-					type="button"
-					data-bs-toggle="collapse"
-					data-bs-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent"
-					aria-expanded="false"
-					aria-label="Toggle navigation"
-				>
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<a data-i18n="navigation.links.1.0" class="nav-link active" href="index.html">Startseite</a>
-						</li>
-						<li class="nav-item dropdown">
-							<a
-								data-i18n="navigation.links.2.0"
-								class="nav-link dropdown-toggle"
-								href="#"
-								role="button"
-								data-bs-toggle="dropdown"
-								aria-expanded="false"
-							>
-								Einstellungen
-							</a>
-							<ul class="dropdown-menu">
-								<li><a data-i18n="navigation.links.2.1" class="dropdown-item" href="settings.html">Uhr</a></li>
-								<li><a data-i18n="navigation.links.2.2" class="dropdown-item" href="wifi.html">WiFi</a></li>
-								<li><a data-i18n="navigation.links.2.3" class="dropdown-item" href="help.html">Hilfe</a></li>
-								<li><hr class="dropdown-divider" /></li>
-								<li><a data-i18n="navigation.links.2.4" class="dropdown-item" href="update">Aktualisieren</a></li>
-							</ul>
-						</li>
-					</ul>
+		<div class="container">
+			<!-- navigation -->
+			<nav class="navbar fixed-top bg-body-tertiary navbar-expand-lg">
+				<div class="container">
+					<a class="navbar-brand" href="/">
+						<img
+							src="img/shelfclock.png"
+							alt="Shelf Edge Clock"
+							width="30"
+							height="24"
+							class="d-inline-block align-text-top"
+						/>
+						Shelf Edge Clock
+					</a>
+					<button
+						class="navbar-toggler"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#mainNavigation"
+						aria-controls="mainNavigation"
+						aria-expanded="false"
+						aria-label="Menu ein-/ausblenden"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="mainNavigation">
+						<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+							<li class="nav-item">
+								<a class="nav-link" href="/settings">Einstellungen</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/wifi">Netzwerk</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="/update">Aktualisierung</a>
+							</li>
+						</ul>
+					</div>
 				</div>
-			</div>
-		</nav>
+			</nav>
 
-		<!-- main container -->
-		<main class="container" style="padding-top: 58px; padding-bottom: 58px">
-			<h1 class="my-3">Dashboard</h1>
-			<div class="row">
-				<!-- DISPLAY MODE -->
-				<div class="col-md-6 my-3">
-					<div class="card border-dark h-100">
-						<div class="card-header bg-dark text-light">Anzeige</div>
-						<div class="card-body">
-							<div class="d-grid gap-2">
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									onclick="updateDisplayMode( 0 )"
-									value="Uhrzeit"
-									id="showClock"
-								/>
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									onclick="updateDisplayMode( 1 )"
-									value="Datum"
-									id="showDate"
-								/>
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									onclick="updateDisplayMode( 2 )"
-									value="Temperatur"
-									id="showTemperature"
-								/>
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									onclick="updateDisplayMode( 3 )"
-									value="Luftfeuchtigkeit"
-									id="showHumidity"
-								/>
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									onclick="updateDisplayMode( 6 )"
-									value="Wechselanzeige"
-									id="showScroll"
-								/>
+			<!-- main container -->
+			<main style="padding-top: 58px; padding-bottom: 58px">
+				<h1 class="my-4">Dashboard</h1>
+				<div class="row">
+					<!-- DISPLAY MODE -->
+					<div class="col-md-6 my-3">
+						<div class="card h-100">
+							<div class="card-header">Anzeige</div>
+							<div class="card-body">
+								<div class="d-grid gap-2">
+									<input
+										class="btn btn-light text-start"
+										type="button"
+										onclick="updDisplayMode( 0 )"
+										value="Uhrzeit"
+										id="showClock"
+									/>
+									<input
+										class="btn btn-light text-start"
+										type="button"
+										onclick="updDisplayMode( 1 )"
+										value="Datum"
+										id="showDate"
+									/>
+									<input
+										class="btn btn-light text-start"
+										type="button"
+										onclick="updDisplayMode( 2 )"
+										value="Temperatur"
+										id="showTemperature"
+									/>
+									<input
+										class="btn btn-light text-start"
+										type="button"
+										onclick="updDisplayMode( 3 )"
+										value="Luftfeuchtigkeit"
+										id="showHumidity"
+									/>
+									<input
+										class="btn btn-light text-start"
+										type="button"
+										onclick="updDisplayMode( 6 )"
+										value="Wechselanzeige"
+										id="showScroll"
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- DOWNLIGHTS -->
+					<div class="col-md-6 my-3">
+						<div class="card h-100">
+							<div class="card-header">Downlights</div>
+							<div class="card-body">
+								<div class="d-grid gap-2">
+									<input
+										class="btn btn-light text-start"
+										type="button"
+										value="1 definierte Farbe"
+										id="downlightMode1"
+										onclick="updDownlight( 1, 0 )"
+									/>
+									<input
+										class="btn btn-light text-start"
+										type="button"
+										value="14 definierte Farben"
+										id="downlightMode2"
+										onclick="updDownlight( 1, 1 )"
+									/>
+									<input
+										class="btn btn-light text-start"
+										type="button"
+										value="1 zufällige Farbe"
+										id="downlightMode3"
+										onclick="updDownlight( 1, 2 )"
+									/>
+									<input
+										class="btn btn-light text-start"
+										type="button"
+										value="14 zufällige Farben"
+										id="downlightMode4"
+										onclick="updDownlight( 1, 3 )"
+									/>
+									<input
+										class="btn btn-outline-danger text-start"
+										type="button"
+										value="Ausschalten"
+										id="downlightOff"
+										onclick="updDownlight( 0, 0 )"
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- COUNTDOWN -->
+					<div class="col-md-6 my-3">
+						<div class="card h-100">
+							<div class="card-header">Countdown</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-4">
+										<div class="d-grid gap-2">
+											<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+												<button class="btn btn-outline-secondary btn-sm" type="button" onclick="countHup()" id="couHUp">
+													+
+												</button>
+												<input class="btn btn-outline-secondary btn-lg" type="text" value="0" id="countH" readonly />
+												<button
+													class="btn btn-outline-secondary btn-sm"
+													type="button"
+													onclick="countHdown()"
+													id="couHdown"
+												>
+													-
+												</button>
+											</div>
+											<p class="text-center mb-0"><small>Stunden</small></p>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="d-grid gap-2">
+											<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+												<button
+													class="btn btn-outline-secondary btn-sm"
+													type="button"
+													onclick="countMup()"
+													id="countMup"
+												>
+													+
+												</button>
+												<input class="btn btn-outline-secondary btn-lg" type="text" value="0" id="countM" readonly />
+												<button
+													class="btn btn-outline-secondary btn-sm"
+													type="button"
+													onclick="countMdown()"
+													id="countMdown"
+												>
+													-
+												</button>
+											</div>
+											<p class="text-center mb-0"><small>Minuten</small></p>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="d-grid gap-2">
+											<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+												<button
+													class="btn btn-outline-secondary btn-sm"
+													type="button"
+													onclick="countSup()"
+													id="countSup"
+												>
+													+
+												</button>
+												<input class="btn btn-outline-secondary btn-lg" type="text" value="0" id="countS" readonly />
+												<button
+													class="btn btn-outline-secondary btn-sm"
+													type="button"
+													onclick="countSdown()"
+													id="countSdown"
+												>
+													-
+												</button>
+											</div>
+											<p class="text-center mb-0"><small>Sekunden</small></p>
+										</div>
+									</div>
+								</div>
+								<div class="d-grid gap-2 mt-2">
+									<input
+										class="btn btn-outline-success text-start"
+										type="button"
+										value="Countdown starten"
+										id="scoreboard"
+										onclick="countStart()"
+									/>
+									<input
+										class="btn btn-outline-danger text-start"
+										type="button"
+										value="Zurücksetzen"
+										id="scoreboard"
+										onclick="countReset()"
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- SCOREBOARD -->
+					<div class="col-md-6 my-3">
+						<div class="card h-100">
+							<div class="card-header">Scoreboard</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-6">
+										<div class="d-grid gap-2">
+											<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+												<button class="btn btn-outline-secondary btn-sm" type="button" onclick="scoreLup()" id="scoHUp">
+													+
+												</button>
+												<input class="btn btn-outline-secondary btn-lg" type="text" value="0" id="scoreL" readonly />
+												<button
+													class="btn btn-outline-secondary btn-sm"
+													type="button"
+													onclick="scoreLdown()"
+													id="scoHDown"
+												>
+													-
+												</button>
+											</div>
+											<p class="text-center mb-0"><small>links</small></p>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="d-grid gap-2">
+											<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+												<button class="btn btn-outline-secondary btn-sm" type="button" onclick="scoreRup()" id="scoAUp">
+													+
+												</button>
+												<input class="btn btn-outline-secondary btn-lg" type="text" value="0" id="scoreR" readonly />
+												<button
+													class="btn btn-outline-secondary btn-sm"
+													type="button"
+													onclick="scoreRdown()"
+													id="scoADown"
+												>
+													-
+												</button>
+											</div>
+											<p class="text-center mb-0"><small>rechts</small></p>
+										</div>
+									</div>
+								</div>
+								<div class="d-grid gap-2 mt-2">
+									<input
+										class="btn btn-outline-success text-start"
+										type="button"
+										onclick="scoreShow()"
+										value="Anzeigen"
+										id="scoShow"
+									/>
+									<input
+										class="btn btn-outline-danger text-start"
+										type="button"
+										onclick="scoreReset()"
+										value="Zurücksetzen"
+										id="scoReset"
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</main>
 
-				<!-- DOWNLIGHTS -->
-				<div class="col-md-6 my-3">
-					<div class="card border-dark h-100">
-						<div class="card-header bg-dark text-light">Downlights</div>
-						<div class="card-body">
-							<div class="d-grid gap-2">
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									value="definierte Farben"
-									id="downlightMode1"
-									onclick="updateDownlight( 1, 0 )"
-								/>
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									value="zufällige Farbe"
-									id="downlightMode2"
-									onclick="updateDownlight( 1, 1 )"
-								/>
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									value="zufällige Farben überall"
-									id="downlightMode3"
-									onclick="updateDownlight( 1, 2 )"
-								/>
-								<input
-									class="btn btn-outline-secondary text-start"
-									type="button"
-									value="Ausschalten"
-									id="downlightOff"
-									onclick="updateDownlight( 0, 0 )"
-								/>
-							</div>
-						</div>
-					</div>
+			<!-- footer	 -->
+			<footer class="footer fixed-bottom mt-auto py-3 bg-secondary">
+				<div class="container d-flex justify-content-between">
+					<div class="text-white flex-grow-1">Created with the lovely support of my family!</div>
+					<a href="https://github.com/CaptSnus/ShelfEdgeClock" target="_blank">
+						<img src="./img/github.png" style="height: 24px" />
+					</a>
 				</div>
-
-				<!-- COUNTDOWN -->
-				<div class="col-md-6 my-3">
-					<div class="card border-dark h-100">
-						<div class="card-header bg-dark text-light">Countdown</div>
-						<div class="card-body">
-							<div class="row">
-								<div class="col-4">
-									<div class="d-grid gap-2">
-										<input class="btn btn-secondary" type="button" onclick="countHup()" value="+" id="couHUp" />
-										<input class="form-control text-center" type="text" value="0" id="countH" readonly />
-										<input class="btn btn-secondary" type="button" onclick="countHdown()" value="-" id="couHdown" />
-										<p class="text-center mb-0"><small>Stunden</small></p>
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="d-grid gap-2">
-										<input class="btn btn-secondary" type="button" onclick="countMup()" value="+" id="countMup" />
-										<input class="form-control text-center" type="text" value="0" id="countM" readonly />
-										<input class="btn btn-secondary" type="button" onclick="countMdown()" value="-" id="countMdown" />
-										<p class="text-center mb-0"><small>Minuten</small></p>
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="d-grid gap-2">
-										<input class="btn btn-secondary" type="button" onclick="countSup()" value="+" id="countSup" />
-										<input class="form-control text-center" type="text" value="0" id="countS" readonly />
-										<input class="btn btn-secondary" type="button" onclick="countSdown()" value="-" id="countSdown" />
-										<p class="text-center mb-0"><small>Sekunden</small></p>
-									</div>
-								</div>
-							</div>
-							<div class="d-grid gap-2 mt-2">
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									value="Countdown starten"
-									id="scoreboard"
-									onclick="countStart()"
-								/>
-								<input
-									class="btn btn-outline-secondary text-start"
-									type="button"
-									value="Zurücksetzen"
-									id="scoreboard"
-									onclick="countReset()"
-								/>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- SCOREBOARD -->
-				<div class="col-md-6 my-3">
-					<div class="card border-dark h-100">
-						<div class="card-header bg-dark text-light">Scoreboard</div>
-						<div class="card-body">
-							<div class="row">
-								<div class="col-6">
-									<div class="d-grid gap-2">
-										<input class="btn btn-secondary" type="button" onclick="scoreLup()" value="+" id="scoHUp" />
-										<input class="form-control text-center" type="text" value="0" id="scoreL" readonly />
-										<input class="btn btn-secondary" type="button" onclick="scoreLdown()" value="-" id="scoHDown" />
-										<p class="text-center mb-0"><small>links</small></p>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="d-grid gap-2">
-										<input class="btn btn-secondary" type="button" onclick="scoreRup()" value="+" id="scoAUp" />
-										<input class="form-control text-center" type="text" value="0" id="scoreR" readonly />
-										<input class="btn btn-secondary" type="button" onclick="scoreRdown()" value="-" id="scoADown" />
-										<p class="text-center mb-0"><small>rechts</small></p>
-									</div>
-								</div>
-							</div>
-							<div class="d-grid gap-2 mt-2">
-								<input
-									class="btn btn-secondary text-start"
-									type="button"
-									onclick="scoreShow()"
-									value="Anzeigen"
-									id="scoShow"
-								/>
-								<input
-									class="btn btn-outline-secondary text-start"
-									type="button"
-									onclick="scoreReset()"
-									value="Zurücksetzen"
-									id="scoReset"
-								/>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</main>
-		<!-- FOOTER -->
-		<footer class="footer fixed-bottom mt-auto py-3 bg-dark">
-			<div class="container d-flex justify-content-between">
-				<div class="text-muted flex-grow-1">Created with the lovely support of my family!</div>
-				<a class="text-muted" href="https://github.com/CaptSnus/ShelfEdgeClock" target="_blank">
-					<img src="./img/github.png" style="height: 24px" />
-				</a>
-			</div>
-		</footer>
+			</footer>
+		</div>
 	</body>
 </html>
