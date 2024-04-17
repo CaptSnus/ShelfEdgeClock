@@ -8,14 +8,10 @@ The Shelf Edge Clock is heavily inspired by a post on social media showing the a
 
 * [General Information](#general-information)
 * [Features](#features)
-* [Screenshots](#screenshots)
 * [Setup](#setup)
   * [Hardware build](#hardware-build)
   * [Software installation](#software-installation)
   * [Configuration](#configuration)
-    * [First time connection](#first-time-connection)
-    * [Configure WiFi connection](#configure-wifi-connection)
-    * [Future connection](#future-connection)
 * [Usage](#usage)
   * [Mode - Clock](#mode---clock)
   * [Mode - Date](#mode---date)
@@ -38,24 +34,24 @@ The Shelf Edge Clock is heavily inspired by a post on social media showing the a
 
 ## General Information
 
-The Shelf Edge Clock is powered by an ESP32 devkit and more than 250 neopixels. The clock itself is mostly 3D printed, some wood for a proper frame and minimal additional parts.
+The Shelf Edge Clock is powered by an ESP32 and more than 250 neopixels. The clock itself is mostly 3D printed, some wood for a proper frame and only a minimum of additional parts.
 
 * folder `data` contains the files stored on the ESP32
+* folder `docs` contains the images for this guide and other helpful information
 
 ## Features
 
-* Powered by an ESP32 devkit out of the box.
-* More than 250 neopixels across two strands.
+* Powered by an ESP32 devkit or a QT PY ESP32 out of the box.
+* 266 neopixels across two strands.
+  * 252 leds for the digits
+  * 14 leds for the downlights
 * Webserver providing a GUI to control the clock.
-* Webclient making requests to your home automation system (e.g. openHAB)
-
-## Screenshots
-
-![Preview of the shelf edge clock](./docs/images/shelf.jpeg)
+* Webclient making requests to your home automation system (e.g. openHAB).
+* Comes with ElegantOTA for future over the air updates.
 
 ## Setup
 
-Setup instructions will be completed after all stuff is completed.
+Setup instructions will be completed after each development step.
 
 ### Hardware build
 
@@ -66,46 +62,45 @@ Setup instructions will be completed after all stuff is completed.
 
 ### Software installation
 
-1. Load the software to your ESP32
-2. Get your self a drink and do nothing in the afternoon
+1. Load the software into your ESP32 via USB cable.
+2. Conigure atleast the network connection and time parameters.
+3. Get your self a drink and do nothing in the afternoon.
 
 ### Configuration
 
-#### First time connection
+#### First connection
 
-The shelf edge clock has its own wifi access point upon first launch and your're required to connect to it. Otherwise you won't make any changes to the settings.
+The shelf edge clock has its own wifi access point upon first launch and your're required to connect to it. Otherwise you can't change the default values.
 
 * **SSID**: Shelf Edge Clock
-* **Pass**: shelfEdgeClock
+* **Pass**: sEC_v2.0.0
 
 After connecting to the shelf edge clock, please open a web browser and enter the **ip address 192.168.100.1**. If successful, you'll see the following page:
 
-<img src="./docs/images/home.jpeg" alt="Preview of the GUI - Settings" width="50%">
+![Screenshot of the main dashboard](/docs/images/home.png)
 
 #### Configure WiFi connection
 
-Navigate to Einstellungen -> WiFi (see screenshot below for guidance)
+Navigate to Netzwerk (see screenshot below for guidance) and change the WiFi client settings on this page. A working connection to your private network (getting data from your home automation system) and connection to the internet (setting the current time via NTP) is mandatory.
 
-<img src="./docs/images/navigate.jpeg" alt="Preview of the GUI - Settings" width="50%">
-
-Change the WiFi Client settings on this page. A working connection to your private network (getting data from your home automation system) and connection to the internet (setting the current time via NTP) is mandatory.
-
-<img src="./docs/images/wifi.jpeg" alt="Preview of the GUI - Settings" width="50%">
+![Screenshot of the network settings](/docs/images/network.png)
 
 #### Future connection
 
-As you've added the shelf edge clock to your home network, you can access the dashboard and settings by an internal ip address. You don't have to connect to the access point anymore.
+Once the shelf edge clock is connected to your home network, you can access the dashboard and settings via local ip address. You don't have to connect to the access point anymore.
 
 ## Usage
 
-The shelf edge clock must be connected to your wifi network, otherwise it won't work. All functions rely on data acquired from the internet (e.g. NTP) or your local network (e.g. home automation/sensors)
+The shelf edge clock must be connected to your wifi network, otherwise it won't work. All functions rely on data acquired from the internet (e.g. NTP) or your local network (e.g. home automation/sensors). Below mentioned settings may be changed in the settings page.
+
+![Screenshot of the other settings](/docs/images/settings.png)
 
 ### Mode - Clock
 
 Displays the current time whichs is updated and verified by calling an external NTP server.
 
 * preferred NTP server is configurable
-* timezone can be set in settings [(find the correct value here)](https://github.com/nayarsystems/posix_tz_db/blob/master/zones.csv)
+* timezone can be set in settings [(find the corresponding values here)](https://github.com/nayarsystems/posix_tz_db/blob/master/zones.csv)
 * two clock formats
   * 24 hours: 00:00 to 23:59 (default)
   * 12 hours: 12:00 to 11:59 AM/PM
@@ -127,15 +122,9 @@ Displays the current date which is updated and verified by calling the external 
 Displays the current outside temperature and regularly fetch the value from your home automation system or weather station.
 
 * requires a home automation system (e.g. openHAB or similar with a rest api)
-* settings provide a field to enter a string for the get call
-* display type is fixed to XXYS
-  * XX -> degree figure
-  * Y -> decimal figure
-  * S -> symbol
-    * C -> abbreviation for celsius
-    * F -> abbreviation for fahrenheit
-* two color options: defined colors or random colors
-* both color options use three colors: one for XX, one for Y and one for S
+* settings provide a field to enter a string for the REST call
+* display type is fixed
+* color option: predefined colors based on the current temperature
 
 ### Mode - Humidity
 
@@ -154,9 +143,9 @@ Display the current outside humidity and regularly fetch the value from your hom
 
 Display a scoreboard for table soccer or whatever game you're playing that requires a scoreboard. You can also show the latest score of your favorite team.
 
-* display type is fixed to HHAA: HH -> home team, AA -> away team
+* display type is fixed to LLRR: LL -> left side, RR -> right side
 * one color option: user defined colors
-* the color option uses two colors: one for HH and one for AA
+* the color option uses two colors: one for LL and one for RR
 
 ### Mode - Countdown
 
@@ -170,7 +159,7 @@ Display a countdown and flash the word "EndE" at the end.
 
 ### Mode - Scrolling
 
-Display certain values in a continuous loop and change every five seconds (customizable).
+Display certain values in a continuous loop and change every four seconds (customizable).
 
 1. Clock
 2. Date
@@ -188,7 +177,7 @@ The 14 boxes created by the design of the clock are an ideal storage for small t
 
 ### there is more
 
-* the brightness of the leds is either in auto mode, controlled by the brightness outside, or manual mode configured in the settings
+* the brightness of the leds is either in auto mode, controlled by the brightness provided by your home automation system or sensor, or manual mode configured in the settings
 * you may change the calculation/mapping of the led brightness yourself by setting the values for:
   * _home automation - min value_: value from outside that calls the lowest value for the leds
   * _home automation - max value_: value from outside that calls the highest value for the leds
@@ -202,16 +191,20 @@ The 14 boxes created by the design of the clock are an ideal storage for small t
 
 ## Project Status
 
-Project is: **_in progress_**! Every new release was  on our our prototype running 24/7 and all known issues will be remediated before completion.
-
-This README will receive continuous updates throughout the development. Please also check the [changelog](CHANGELOG.md) for more information.
+Project is: **_in progress_**! Every new release was  on our our prototype running 24/7 and all known issues will be remediated before completion. This README will receive continuous updates throughout the development.
 
 ## Room for Improvement
 
 Planned improvements:
 
-* add buzzer for the countdown (it's very quite at the moment)
-* make GUI translation ready
+* add buzzer for the countdown (it's very quiet at the moment)
+* upgrade WiFiClient to use SSL/TLS connection
+* upgrade Webserver to use SSL/TLS certificate
+
+Possible improvements and enhancements:
+
+* Add color picker instead of changing hex values
+* Color validator or bright and strong colors
 
 ## Technologies and Software
 
@@ -228,19 +221,17 @@ All hardware was bought from [Adafruit](https://www.adafruit.com) and all links 
 ### Software
 
 * Visual Studio Code (VSCode)
-* PlatformIO - version 6.1.7
-* Bootstrap - version 5.2.3
-* jQuery - version 3.6.3
+* PlatformIO - version 6.1.14
+* Bootstrap - version 5.3.3
+* jQuery - version 3.7.1
 
 ### Libraries
 
-* Adafruit_NeoPixel Library by adafruit - version 1.11.0
-* ArduinoHttpClient by Arduino - version 0.4.0
-* AsyncElegantOTA by ayushsharma82 - version 2.2.7
+* ArduinoHttpClient by Arduino - version 0.6.0
 * AsyncTCP by me-no-dev - version 1.1.1
+* ElegantOTA by ayushsharma82 - version 3.1.1
 * ESPAsyncWebServer by me-no-dev - version 1.2.3
-* ESPmDNS by Hristo Gochkov - version 2.0.0
-* NonBlockingRTTTL by Antoine Beauchamp - version 1.3.0
+* FastLED by FastLED - version 3.6.0
 * Preferences by Hristo Gochkov - version 2.0.0
 * SPIFFS by Hristo Gochkov - version 2.0.0
 * WiFi by Hristo Gochkov - version 2.0.0
