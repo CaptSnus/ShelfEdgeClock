@@ -2,7 +2,7 @@
 const char projectTitle[]   = "S H E L F   E D G E   C L O C K";
 
 const char projectAuthor[]  = "CaptSnus";
-const char projectVersion[] = "2.0.0";
+const char projectVersion[] = "2.0.1";
 const char projectLink[]    = "https://github.com/CaptSnus/ShelfEdgeClock";
 const char projectLicense[] = "MIT";
 //  ----------------------------------------------------------------------------
